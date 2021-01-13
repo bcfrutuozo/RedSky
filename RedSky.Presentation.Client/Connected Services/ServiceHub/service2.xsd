@@ -1,0 +1,1829 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="GetAllUsuarioByEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsuarioByEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllUsuarioByEmpresaResult" nillable="true" type="q1:ArrayOfUsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="usuario" nillable="true" type="q2:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddUsuarioResult" nillable="true" type="q3:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="usuario" nillable="true" type="q4:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateUsuarioResult" nillable="true" type="q5:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="usuario" nillable="true" type="q6:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteUsuarioResult" nillable="true" type="q7:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllIncidencia">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllIncidenciaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllIncidenciaResult" nillable="true" type="q8:ArrayOfIncidenciaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllItensServico">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllItensServicoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllItensServicoResult" nillable="true" type="q9:ArrayOfItensServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOperacao">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOperacaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllOperacaoResult" nillable="true" type="q10:ArrayOfOperacaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRegimeTributario">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRegimeTributarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllRegimeTributarioResult" nillable="true" type="q11:ArrayOfRegimeTributarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoRecolhimentoById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idTipoRecolhimento" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoRecolhimentoByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetTipoRecolhimentoByIdResult" nillable="true" type="q12:TipoRecolhimentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTipoRecolhimento">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTipoRecolhimentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllTipoRecolhimentoResult" nillable="true" type="q13:ArrayOfTipoRecolhimentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTributacao">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTributacaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllTributacaoResult" nillable="true" type="q14:ArrayOfTributacaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUtilizacao">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUtilizacaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllUtilizacaoResult" nillable="true" type="q15:ArrayOfUtilizacaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAtividade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="atividade" nillable="true" type="q16:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAtividadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddAtividadeResult" nillable="true" type="q17:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAtividadeById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idAtividade" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAtividadeByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAtividadeByIdResult" nillable="true" type="q18:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllAtividade">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllAtividadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllAtividadeResult" nillable="true" type="q19:ArrayOfAtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListAtividadeByIdEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListAtividadeByIdEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListAtividadeByIdEmpresaResult" nillable="true" type="q20:ArrayOfAtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAtividade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="atividade" nillable="true" type="q21:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAtividadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateAtividadeResult" nillable="true" type="q22:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteAtividade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="atividade" nillable="true" type="q23:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteAtividadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteAtividadeResult" nillable="true" type="q24:AtividadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCertificadoDigital">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="certificado" nillable="true" type="q25:CertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCertificadoDigitalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddCertificadoDigitalResult" nillable="true" type="q26:CertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRangeCertificadoDigital">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="listaCertificado" nillable="true" type="q27:ArrayOfCertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRangeCertificadoDigitalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddRangeCertificadoDigitalResult" nillable="true" type="q28:ArrayOfCertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListCertificadoDigitalByIdFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListCertificadoDigitalByIdFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListCertificadoDigitalByIdFilialResult" nillable="true" type="q29:ArrayOfCertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCertificadoDigital">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="certificado" nillable="true" type="q30:CertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCertificadoDigitalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteCertificadoDigitalResult" nillable="true" type="q31:CertificadoDigitalDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCidade">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCidadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllCidadeResult" nillable="true" type="q32:ArrayOfCidadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListCidadeByIdEstado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEstado" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListCidadeByIdEstadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListCidadeByIdEstadoResult" nillable="true" type="q33:ArrayOfCidadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListCidadeSameEstadoByIdCidade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idCidade" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListCidadeSameEstadoByIdCidadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListCidadeSameEstadoByIdCidadeResult" nillable="true" type="q34:ArrayOfCidadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCidadeById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idCidade" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCidadeByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetCidadeByIdResult" nillable="true" type="q35:CidadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="cliente" nillable="true" type="q36:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddClienteResult" nillable="true" type="q37:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClienteById_CREATEUPDATE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClienteById_CREATEUPDATEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetClienteById_CREATEUPDATEResult" nillable="true" type="q38:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListClienteByIdEmpresa_INDEX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListClienteByIdEmpresa_INDEXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListClienteByIdEmpresa_INDEXResult" nillable="true" type="q39:ArrayOfClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="cliente" nillable="true" type="q40:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateClienteResult" nillable="true" type="q41:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="cliente" nillable="true" type="q42:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="RemoveClienteResult" nillable="true" type="q43:ClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListClienteByIdEmpresa_COMBOBOX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListClienteByIdEmpresa_COMBOBOXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListClienteByIdEmpresa_COMBOBOXResult" nillable="true" type="q44:ArrayOfClienteDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddConexaoEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="conexao" nillable="true" type="q45:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddConexaoEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddConexaoEmpresaResult" nillable="true" type="q46:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListConexaoBancoByIdEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListConexaoBancoByIdEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListConexaoBancoByIdEmpresaResult" nillable="true" type="q47:ArrayOfConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConexaoBancoById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idConexaoBanco" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConexaoBancoByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetConexaoBancoByIdResult" nillable="true" type="q48:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateConexaoBanco">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="conexao" nillable="true" type="q49:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateConexaoBancoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateConexaoBancoResult" nillable="true" type="q50:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteConexaoBanco">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="conexao" nillable="true" type="q51:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteConexaoBancoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteConexaoBancoResult" nillable="true" type="q52:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConexaoBancoByIdEmpresa_Nome">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+        <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConexaoBancoByIdEmpresa_NomeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetConexaoBancoByIdEmpresa_NomeResult" nillable="true" type="q53:ConexaoBancoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDBProvider">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDBProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllDBProviderResult" nillable="true" type="q54:ArrayOfDBProviderDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDBProviderById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idDBProvider" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDBProviderByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetDBProviderByIdResult" nillable="true" type="q55:DBProviderDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDemonstrativo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="demonstrativo" nillable="true" type="q56:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDemonstrativoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddDemonstrativoResult" nillable="true" type="q57:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDemonstrativoById_CREATEEDIT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idDemonstrativo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDemonstrativoById_CREATEEDITResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetDemonstrativoById_CREATEEDITResult" nillable="true" type="q58:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListDemonstrativoWithServicoByIdEmpresa_INDEX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListDemonstrativoWithServicoByIdEmpresa_INDEXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListDemonstrativoWithServicoByIdEmpresa_INDEXResult" nillable="true" type="q59:ArrayOfDemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListDemonstrativoWithoutServicoByIdEmpresa_INDEX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListDemonstrativoWithoutServicoByIdEmpresa_INDEXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListDemonstrativoWithoutServicoByIdEmpresa_INDEXResult" nillable="true" type="q60:ArrayOfDemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDemonstrativosFaturaveisPorCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDemonstrativosFaturaveisPorClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetDemonstrativosFaturaveisPorClienteResult" nillable="true" type="q61:ArrayOfDemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDemonstrativo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="demonstrativo" nillable="true" type="q62:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDemonstrativoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateDemonstrativoResult" nillable="true" type="q63:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDemonstrativo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="demonstrativo" nillable="true" type="q64:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDemonstrativoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteDemonstrativoResult" nillable="true" type="q65:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyDemonstrativo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idDemonstrativo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyDemonstrativoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="CopyDemonstrativoResult" nillable="true" type="q66:DemonstrativoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="empresa" nillable="true" type="q67:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddEmpresaResult" nillable="true" type="q68:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetEmpresaByIdResult" nillable="true" type="q69:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllEmpresa">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllEmpresaResult" nillable="true" type="q70:ArrayOfEmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByIdentificacao">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="identificacao" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByIdentificacaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetEmpresaByIdentificacaoResult" nillable="true" type="q71:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByIdUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByIdUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetEmpresaByIdUsuarioResult" nillable="true" type="q72:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByLoginUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="loginUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmpresaByLoginUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetEmpresaByLoginUsuarioResult" nillable="true" type="q73:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListEmpresaForGenericData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListEmpresaForGenericDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListEmpresaForGenericDataResult" nillable="true" type="q74:ArrayOfEmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="empresa" nillable="true" type="q75:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateEmpresaResult" nillable="true" type="q76:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteEmpresa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="empresa" nillable="true" type="q77:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteEmpresaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteEmpresaResult" nillable="true" type="q78:EmpresaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendBillingEmail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendBillingEmailResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendInvoiceEmail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroNF" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendInvoiceEmailResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q79:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddFaturaResult" nillable="true" type="q80:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFaturaById_Update">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFaturaById_UpdateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetFaturaById_UpdateResult" nillable="true" type="q81:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllFaturaByEmpresa_Mes_Ano">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+        <xs:element minOccurs="0" name="month" type="xs:int" />
+        <xs:element minOccurs="0" name="year" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllFaturaByEmpresa_Mes_AnoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllFaturaByEmpresa_Mes_AnoResult" nillable="true" type="q82:ArrayOfFaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q83:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateFaturaResult" nillable="true" type="q84:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q85:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteFaturaResult" nillable="true" type="q86:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturaAndFaturamentos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q87:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturaAndFaturamentosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteFaturaAndFaturamentosResult" nillable="true" type="q88:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EmitirFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EmitirFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="EmitirFaturaResult" nillable="true" type="q89:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DuplicarCompetencia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+        <xs:element minOccurs="0" name="monthSource" type="xs:int" />
+        <xs:element minOccurs="0" name="yearSource" type="xs:int" />
+        <xs:element minOccurs="0" name="monthTarget" type="xs:int" />
+        <xs:element minOccurs="0" name="yearTarget" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DuplicarCompetenciaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DuplicarCompetenciaResult" nillable="true" type="q90:ArrayOfFaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idRPS" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="CancelarRPSResult" nillable="true" type="q91:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZerarFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZerarFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="ZerarFaturaResult" nillable="true" type="q92:FaturaDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFaturaNomeArquivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFaturaNomeArquivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetFaturaNomeArquivoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DownloadFaturaResult" nillable="true" type="xs:base64Binary" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFaturamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q93:FaturamentoDTO" />
+        <xs:element minOccurs="0" name="isUserEdit" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFaturamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddFaturamentoResult" nillable="true" type="q94:FaturamentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFaturamentos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="faturamentos" nillable="true" type="q95:ArrayOfFaturamentoDTO" />
+        <xs:element minOccurs="0" name="isUserEdit" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFaturamentosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddFaturamentosResult" nillable="true" type="q96:ArrayOfFaturamentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListFaturamentoByIdFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListFaturamentoByIdFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListFaturamentoByIdFaturaResult" nillable="true" type="q97:ArrayOfFaturamentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFaturamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q98:FaturamentoDTO" />
+        <xs:element minOccurs="0" name="isUserEdit" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFaturamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateFaturamentoResult" nillable="true" type="q99:FaturamentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="fatura" nillable="true" type="q100:FaturamentoDTO" />
+        <xs:element minOccurs="0" name="isUserEdit" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteFaturamentoResult" nillable="true" type="q101:FaturamentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturamentos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="faturamentos" nillable="true" type="q102:ArrayOfFaturamentoDTO" />
+        <xs:element minOccurs="0" name="isUserEdit" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFaturamentosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteFaturamentosResult" nillable="true" type="q103:ArrayOfFaturamentoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="filial" nillable="true" type="q104:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddFilialResult" nillable="true" type="q105:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllFilial">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllFilialResult" nillable="true" type="q106:ArrayOfFilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFilialById_CREATEEDIT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFilialById_CREATEEDITResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetFilialById_CREATEEDITResult" nillable="true" type="q107:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListFilialByIdEmpresa_INDEX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListFilialByIdEmpresa_INDEXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListFilialByIdEmpresa_INDEXResult" nillable="true" type="q108:ArrayOfFilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFilialByIdEmpresa_Nome">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+        <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFilialByIdEmpresa_NomeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetFilialByIdEmpresa_NomeResult" nillable="true" type="q109:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="filial" nillable="true" type="q110:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateFilialResult" nillable="true" type="q111:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="filial" nillable="true" type="q112:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteFilialResult" nillable="true" type="q113:FilialDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQuantidadeRpsPorLoteByIdFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQuantidadeRpsPorLoteByIdFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetQuantidadeRpsPorLoteByIdFilialResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllEstado">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllEstadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllEstadoResult" nillable="true" type="q114:ArrayOfEstadoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEstado" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetEstadoByIdResult" nillable="true" type="q115:EstadoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarNotas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="inicio" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="fim" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="notaInicial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarNotasResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarNFS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroLote" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroNF" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoVerificacao" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarNFSResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroLote" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroRPS" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarRPSResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarNF">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroNF" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoVerificacao" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="motivo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarNFResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadNFSe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroNF" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadNFSeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObterLinkNotaFiscal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroNF" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObterLinkNotaFiscalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObterLinkNotaFiscalResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddLoteRPSResult" nillable="true" type="q116:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRangeRPSInLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idLoteRPS" type="xs:int" />
+        <xs:element xmlns:q117="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstRPS" nillable="true" type="q117:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRangeRPSInLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddRangeRPSInLoteRPSResult" nillable="true" type="q118:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListLoteRPSByIdFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+        <xs:element minOccurs="0" name="idStatusLoteRPS" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListLoteRPSByIdFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListLoteRPSByIdFilialResult" nillable="true" type="q119:ArrayOfLoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteRangeRPSFromLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q120="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstRPS" nillable="true" type="q120:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteRangeRPSFromLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q121="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteRangeRPSFromLoteRPSResult" nillable="true" type="q121:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idLoteRPS" type="xs:int" />
+        <xs:element minOccurs="0" name="synchronous" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q122="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="EnviarLoteRPSResult" nillable="true" type="q122:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadNFSeByIdLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idLoteRPS" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadNFSeByIdLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLoteRPSById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idLoteRPS" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLoteRPSByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q123="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetLoteRPSByIdResult" nillable="true" type="q123:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q124="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="loteRPS" nillable="true" type="q124:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q125="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteLoteRPSResult" nillable="true" type="q125:LoteRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPermissao">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPermissaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllPermissaoResult" nillable="true" type="q126:ArrayOfPermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPermissaoById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPermissao" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPermissaoByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q127="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetPermissaoByIdResult" nillable="true" type="q127:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPermissao">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q128="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="permissao" nillable="true" type="q128:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPermissaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q129="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddPermissaoResult" nillable="true" type="q129:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePermissao">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q130="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="permissao" nillable="true" type="q130:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePermissaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q131="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdatePermissaoResult" nillable="true" type="q131:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePermissao">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q132="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="permissao" nillable="true" type="q132:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePermissaoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q133="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeletePermissaoResult" nillable="true" type="q133:PermissaoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPermissaoByUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPermissaoByUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q134="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAllPermissaoByUsuarioResult" nillable="true" type="q134:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListProjetoByIdEmpresa_INDEX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListProjetoByIdEmpresa_INDEXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q135="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListProjetoByIdEmpresa_INDEXResult" nillable="true" type="q135:ArrayOfProjetoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProjetoById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProjetoByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q136="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetProjetoByIdResult" nillable="true" type="q136:ProjetoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListRPSWithNoLoteRPSByIdFilial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListRPSWithNoLoteRPSByIdFilialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q137="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListRPSWithNoLoteRPSByIdFilialResult" nillable="true" type="q137:ArrayOfRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Faturar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FaturarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q138="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="FaturarResult" nillable="true" type="q138:RPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRPSPorIdFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRPSPorIdFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q139="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetRPSPorIdFaturaResult" nillable="true" type="q139:RPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListRPSByIdLoteRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idLoteRPS" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListRPSByIdLoteRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q140="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListRPSByIdLoteRPSResult" nillable="true" type="q140:ArrayOfRPSDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarUltimoRPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFilial" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarUltimoRPSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultarUltimoRPSResult" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddServico">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q141="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="servico" nillable="true" type="q141:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddServicoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q142="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AddServicoResult" nillable="true" type="q142:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetServicoById_CREATEEDIT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idServico" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetServicoById_CREATEEDITResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetServicoById_CREATEEDITResult" nillable="true" type="q143:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListServicoByIdDemonstrativo_INDEX">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idDemonstrativo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListServicoByIdDemonstrativo_INDEXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q144="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListServicoByIdDemonstrativo_INDEXResult" nillable="true" type="q144:ArrayOfServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListServicoByIdFatura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idFatura" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListServicoByIdFaturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q145="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetListServicoByIdFaturaResult" nillable="true" type="q145:ArrayOfServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateServico">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q146="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="servico" nillable="true" type="q146:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateServicoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q147="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="UpdateServicoResult" nillable="true" type="q147:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteServico">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q148="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="servico" nillable="true" type="q148:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteServicoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q149="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteServicoResult" nillable="true" type="q149:ServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteServicos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q150="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="lstServicos" nillable="true" type="q150:ArrayOfServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteServicosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q151="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="DeleteServicosResult" nillable="true" type="q151:ArrayOfServicoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllStatusProjeto_COMBOBOX">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllStatusProjeto_COMBOBOXResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q152="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllStatusProjeto_COMBOBOXResult" nillable="true" type="q152:ArrayOfStatusProjetoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTipoBairro">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTipoBairroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q153="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllTipoBairroResult" nillable="true" type="q153:ArrayOfTipoBairroDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoBairroById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idTipoBairro" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoBairroByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q154="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetTipoBairroByIdResult" nillable="true" type="q154:TipoBairroDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTipoLogradouro">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTipoLogradouroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q155="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllTipoLogradouroResult" nillable="true" type="q155:ArrayOfTipoLogradouroDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoLogradouroById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idTipoLogradouro" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoLogradouroByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q156="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetTipoLogradouroByIdResult" nillable="true" type="q156:TipoLogradouroDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUnidade">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUnidadeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q157="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllUnidadeResult" nillable="true" type="q157:ArrayOfUnidadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadeById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idUnidade" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadeByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q158="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetUnidadeByIdResult" nillable="true" type="q158:UnidadeDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Autenticar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="senha" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutenticarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q159="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="AutenticarResult" nillable="true" type="q159:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUsuarioById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idUsuario" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUsuarioByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q160="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetUsuarioByIdResult" nillable="true" type="q160:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUsuarioByLogin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUsuarioByLoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q161="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetUsuarioByLoginResult" nillable="true" type="q161:UsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsuario">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q162="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" minOccurs="0" name="GetAllUsuarioResult" nillable="true" type="q162:ArrayOfUsuarioDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

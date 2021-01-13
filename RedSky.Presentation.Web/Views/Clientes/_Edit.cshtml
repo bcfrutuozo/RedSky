@@ -1,0 +1,223 @@
+﻿@model RedSky.Presentation.Web.ViewModels.ClienteViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Alterar cliente @Model.Apelido</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IdEmpresa)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Apelido, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Apelido, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Apelido, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RazaoSocial, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RazaoSocial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CPFCNPJ, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.CPFCNPJ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CPFCNPJ, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InscricaoEstadual, new { @class = "control-label col-md-3" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.InscricaoEstadual, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InscricaoEstadual, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.InscricaoMunicipal, new { @class = "control-label col-md-3" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.InscricaoMunicipal, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InscricaoMunicipal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdEstado, new { @class = "control-label col-md-3" })
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.IdEstado, ViewBag.Estados as SelectList, "---", new { @class = "form-control" })
+                </div>
+
+                @Html.LabelFor(model => model.IdCidade, new { @class = "control-label col-md-1" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.IdCidade, ViewBag.Cidades as SelectList, "---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdCidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdTipoLogradouro, new { @class = "control-label col-md-3" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.IdTipoLogradouro, ViewBag.TiposLogradouros as SelectList, "---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdTipoLogradouro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Logradouro, new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Logradouro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Logradouro, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Numero, new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Complemento, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdTipoBairro, new { @class = "control-label col-md-3" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.IdTipoBairro, ViewBag.TiposBairros as SelectList, "---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdTipoBairro, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Bairro, new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CEP, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DDD, new { @class = "control-label col-md-3" })
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.DDD, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DDD, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Telefone, new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.EmailNF, new { @class = "control-label col-md-1" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.EmailNF, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmailNF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sigla, new { @class = "control-label col-md-3" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Sigla, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sigla, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailsEnvio, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.EmailsEnvio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmailsEnvio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-redSky" value="Salvar" style="float: left" />
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#IdEstado").change(function () {
+            $.get("GetListCidadeByIdEstado",
+                { IdEstado: $("#IdEstado").val() },
+                function (data) {
+                    $("#IdCidade").empty();
+                    $.each(data,
+                        function (index, row) {
+                            $("#IdCidade").append("<option value='" + row.Id + "'>" + row.Nome + "</option>");
+                        });
+                });
+        });
+    });
+
+    // Carrega o popup de faturamentos menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    // Send form via ajax
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+
+                showProgress('Adicionando demonstrativo...');
+                $('#modalbody').modal('hide');
+
+                $.ajax({
+                    url: '@Url.Action("Create")',
+                    type: "POST",
+                    data: $(this).serialize(),
+                    // In case the model is invalid.
+                    error: function(result) {
+                        $('#modalbody').empty();
+                        $('#modalbody').html(result.responseText);
+
+                        hideProgress();
+                        $('#modal-container').modal('show');
+                    },
+                    // In case the model is valid.
+                    success: function(result) {
+                        $('#modal-container').modal('hide');
+
+                        // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                        $('#partial-container').empty();
+                        $('#partial-container').html(result).fadeIn();
+                        hideProgress();
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{77AEBED5-2582-49C2-9E24-58A04733AAF5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedSky.Application</RootNamespace>
+    <AssemblyName>RedSky.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FinanceiroApplicationService.cs" />
+    <Compile Include="Interfaces\IFinanceiroApplicationService.cs" />
+    <Compile Include="Interfaces\IProjetoApplicationService.cs" />
+    <Compile Include="Interfaces\IRelatorioApplicationService.cs" />
+    <Compile Include="Interfaces\ISistemaApplicationService.cs" />
+    <Compile Include="Processing\Interfaces\IReportGenerator.cs" />
+    <Compile Include="Processing\ReportGenerator.cs" />
+    <Compile Include="ProjetoApplicationService.cs" />
+    <Compile Include="RelatorioApplicationService.cs" />
+    <Compile Include="SistemaApplicationService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedSky.Common\RedSky.Common.csproj">
+      <Project>{CC98D584-29C4-47B9-B0F1-F006101C1EAB}</Project>
+      <Name>RedSky.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Domain\RedSky.Domain.csproj">
+      <Project>{8A408061-8D09-4ED9-9FEA-75A41488BB6E}</Project>
+      <Name>RedSky.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Excel\RedSky.Excel.csproj">
+      <Project>{ACE6C23D-3C29-4AC9-AA4C-EFC53F99AE02}</Project>
+      <Name>RedSky.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Infrastructure.Data\RedSky.Infrastructure.Data.csproj">
+      <Project>{484F20AC-EDD7-43F5-881C-B62699BC0A67}</Project>
+      <Name>RedSky.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Security\RedSky.Security.csproj">
+      <Project>{B74C069F-D763-44A7-A0AE-C3907172081E}</Project>
+      <Name>RedSky.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Utilities\RedSky.Utilities.csproj">
+      <Project>{0B8BCDB4-9282-4E47-BC96-40F369F2E407}</Project>
+      <Name>RedSky.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

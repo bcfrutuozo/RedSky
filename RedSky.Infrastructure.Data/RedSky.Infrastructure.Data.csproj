@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{484F20AC-EDD7-43F5-881C-B62699BC0A67}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedSky.Infrastructure.Data</RootNamespace>
+    <AssemblyName>RedSky.Infrastructure.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\DAccess.cs" />
+    <Compile Include="Base\DBMapper.cs" />
+    <Compile Include="EntityConfiguration\CertificadoDigitalConfiguration.cs" />
+    <Compile Include="EntityConfiguration\Conventions\DecimalPrecisionAttributeConvention.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Implementations\AmbientContextSuppressor.cs" />
+    <Compile Include="Implementations\AmbientDbContextLocator.cs" />
+    <Compile Include="Implementations\DbContextCollection.cs" />
+    <Compile Include="Implementations\DbContextReadOnlyScope.cs" />
+    <Compile Include="Implementations\DbContextScope.cs" />
+    <Compile Include="Implementations\DbContextScopeFactory.cs" />
+    <Compile Include="Implementations\Factories\DefaultDbContextFactory.cs" />
+    <Compile Include="Migrations\201912211429411_InitialCreate.cs" />
+    <Compile Include="Migrations\201912211429411_InitialCreate.Designer.cs">
+      <DependentUpon>201912211429411_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Context\RedSkyContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedSky.Common\RedSky.Common.csproj">
+      <Project>{CC98D584-29C4-47B9-B0F1-F006101C1EAB}</Project>
+      <Name>RedSky.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Domain\RedSky.Domain.csproj">
+      <Project>{8a408061-8d09-4ed9-9fea-75a41488bb6e}</Project>
+      <Name>RedSky.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Security\RedSky.Security.csproj">
+      <Project>{b74c069f-d763-44a7-a0ae-c3907172081e}</Project>
+      <Name>RedSky.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Utilities\RedSky.Utilities.csproj">
+      <Project>{0b8bcdb4-9282-4e47-bc96-40f369f2e407}</Project>
+      <Name>RedSky.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201912211429411_InitialCreate.resx">
+      <DependentUpon>201912211429411_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

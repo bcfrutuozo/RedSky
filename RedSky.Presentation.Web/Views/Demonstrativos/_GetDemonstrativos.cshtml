@@ -1,0 +1,73 @@
+﻿@model IEnumerable<RedSky.Presentation.Web.ViewModels.DemonstrativoViewModel>
+
+<table class="table table-responsive table-hover">
+    <thead>
+    <tr>
+        <td colspan="15">
+            <input type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Create")" style="max-width: 3280px; width: 100%" value="Novo Demonstrativo"/>
+        </td>
+    </tr>
+    <tr>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.Cliente)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th class="text-right" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.ValorMinimo)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.EnviaEmail)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.Departamento)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.IsFaturavel)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td class="text-right" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.ValorMinimo)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.EnviaEmail)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.Departamento)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.IsFaturavel)
+            </td>
+            <td>
+                <button type="button" class="btn btn-redSky" onclick="copyDemonstrative(@item.Id, '@item.Nome')">Copy</button>
+                <button type="button" class="btn btn-redSky" onclick="editDemonstrative(@item.Id, '@item.Nome')">Edit</button>
+
+                @if (!item.HasFaturas)
+                {
+                    <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Delete", new {idDemonstrativo = item.Id})">Delete</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-redSky-clicked modal-link" disabled="disabled" title="Existem faturas processadas com esse demonstrativo">Delete</button>
+                }
+
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>

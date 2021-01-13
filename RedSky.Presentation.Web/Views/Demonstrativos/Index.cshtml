@@ -1,0 +1,130 @@
+﻿@using System.Globalization
+@{
+    ViewBag.Title = "Demonstrativos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet">
+    <div class="portlet-heading texture-portlet">
+        <div class="portlet-title">
+            <h4 class="vertical-allign">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Demonstrativos
+            </h4>
+        </div>
+    </div>
+    <div class="portlet-content text-center center-block">
+        <div id="partial-container">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Forces the load of demonstratives on page open.
+    $(document).ready(function() {
+        showDemonstratives();
+    });
+
+    function formatDecimalTextbox(e) {
+        var locale = '@Html.Raw(CultureInfo.CurrentCulture.Name)';
+        $.ajax({
+            url: '@Url.Action("GetValue")',
+            type: 'POST',
+            data: { x: e.value }
+        }).done(function(ret) {
+            var obj = JSON.parse(ret);
+            e.value = obj.Data.value.toLocaleString(locale,
+                { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: false });
+        });
+    }
+
+    function openNewDemonstrative() {
+        $.ajax({
+            url: '@Url.Action("Create")',
+            type: 'GET'
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+            $('#partial-container').html(result).fadeIn();
+        });
+    }
+
+    function editDemonstrative(idd, dnm) {
+
+        showProgress("Carregando o demonstrativo " + dnm);
+
+        $.ajax({
+            url: '@Url.Action("Edit")',
+            type: 'GET',
+            data: { idDemonstrativo: idd }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            $('#partial-container').html(result).fadeIn();
+        });
+    }
+
+    function showDemonstratives() {
+
+        showProgress("Carregando demonstrativos");
+
+        $.ajax({
+            url: '@Url.Action("GetDemonstrativos")',
+            type: 'GET'
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+
+        });
+    }
+
+    function copyDemonstrative(idd, dnm) {
+
+        showProgress("Copiando o demonstrativo " + dnm);
+
+        $.ajax({
+            url: '@Url.Action("CopyDemonstrativoById")',
+            type: 'GET',
+            data: { idDemonstrativo: idd }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+
+        });
+    }
+
+    function editService(svc) {
+        $.ajax({
+            url: '@Url.Action("Edit", "Servicos")',
+            type: 'POST',
+            data: { servico: JSON.stringify(svc) }
+        }).done(function(result) {
+            // Click the hidden button to call the modal
+            //$("#openModalButton").click();
+
+            $("#modal-container").remove();
+            $('<div id="modal-container" class="modal fade">' +
+                '<div id="container-resizer" class="modal-dialog modal-lg popup-modal">' +
+                '<div class="modal-content" id="modalbody" >' +
+                result +
+                '</div>' +
+                '</div>' +
+                '</div>').modal();
+
+            $("#modalbody").html(result);
+
+            // Write the content inside the modal.
+            //$("#modal-container").empty();
+            //$("#modal-container").html(result);
+            $("#modal-container").modal('show');
+        });
+    }
+</script>

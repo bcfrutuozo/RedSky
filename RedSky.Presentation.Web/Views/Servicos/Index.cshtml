@@ -1,0 +1,225 @@
+﻿@using System.Globalization
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.ServicoViewModel>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <table id="tblServicos" class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.Codigo)</th>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.Descricao)</th>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.NomePlanilha)</th>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.Valor)</th>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.Unidade)</th>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.QueryRateio)</th>
+                <th class="text-center" style="white-space: nowrap;">@Html.DisplayNameFor(model => model.QueryDados)</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var rowOrder = 1;
+                foreach (var servico in Model)
+                {
+                    <tr>
+                        <td id="Codigo" class="text-center" style="white-space: nowrap;">@Html.DisplayFor(svc => servico.Codigo)</td>
+                        <td id="Descricao" class="text-center" style="white-space: nowrap;">@Html.DisplayFor(svc => servico.Descricao)</td>
+                        <td id="NomePlanilha" class="text-center" style="white-space: nowrap;">@Html.DisplayFor(svc => servico.NomePlanilha)</td>
+                        <td id="Valor" class="text-center" style="white-space: nowrap;">@Html.DisplayFor(svc => servico.Valor)</td>
+                        <td id="Unidade" class="text-center" style="white-space: nowrap;">@Html.DisplayFor(svc => servico.Unidade)</td>
+                        @if (!servico.HasQueryRateio)
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </td>
+                        }
+                        @if (!servico.HasQueryDados)
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </td>
+                        }
+                        <td>
+                            @if (servico.Ordem > 1)
+                            {
+                                <button class="btn btn-redSky" onclick="location.href='@Url.Action("DecreaseOrder")'"><i class="glyphicon glyphicon-arrow-up"></i></button>
+                            }
+                        </td>
+                        <td>
+                            @if (servico.Ordem < Model.Count())
+                            {
+                                <button class="btn btn-redSky" onclick="location.href='@Url.Action("IncreaseOrder")'"><i class="glyphicon glyphicon-arrow-down"></i></button>
+                            }
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-redSky modal-link " onclick="@Url.Action("Edit", new {idServico = servico.Id})" value="Edit" />
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-redSky-clicked modal-link" onclick="@Url.Action("Delete", new {idServico = servico.Id})" value="Delete" />
+                        </td>
+                    </tr>
+                    if (servico.Ordem != rowOrder)
+                    {
+                        servico.Ordem = rowOrder;
+                    }
+
+                    rowOrder++;
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr id="lastRow">
+                <td colspan="15">
+                    <input type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Create", new {idDemonstrativo = ViewBag.IdDemonstrativo, order = Model.Last().Ordem + 1})" style="max-width: 3280px; width: 100%" value="Novo Serviço" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+
+<script type="text/javascript">
+    @*function appendRow(service) {
+        var tb = document.getElementById('tblServicos').tBodies[0]; //Get the table
+
+        // Obtém o indice da ultima linha
+        var lr = document.getElementById('lastRow');
+        var lastIndex = lr.rowIndex - 1;
+        var nodeLast = tb.rows[lastIndex].cloneNode(true); // Get the button row to memory and deletion.
+
+        var nodeCopied = tb.rows[lastIndex - 1].cloneNode(true); // Get the last table row to memory.
+        tb.deleteRow(-1); // Delete the last row (button).
+
+        if (lastIndex === 1) {
+            tb.rows[0].getElementsByTagName("button")[0].style.visibility = 'visible';
+        }
+
+        var newNm = nodeCopied.id.split("-")[1];
+        var nm = parseInt(newNm); // Get the number of last Id for incrementation
+        nm += 1;
+
+        // Cria linha, altera ID e passa as funções de manipulação do textbox.
+        nodeCopied.id = "row-" + nm.toString();
+        var svcCombo = nodeCopied.getElementsByTagName("select")[0];
+        var maxI;
+        if (svcCombo != null) {
+            maxI = 4;
+            nodeCopied.cells[0].getElementsByTagName("select")[0].value = ""; // Set the desired value for the combobox.
+
+            svcCombo.addEventListener('change',
+                function(e) {
+                    var svc = $(this).val(); // Get the service name
+                    var row = $(this)[0].parentElement.parentElement; // Get the row
+                    var rowIndex = row.rowIndex;
+
+                    var data = lstSvc;
+                    var locale = '@Html.Raw(CultureInfo.CurrentCulture.Name)';
+
+                    data.forEach(function(value) {
+                        if (svc === value.Descricao) {
+                            document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[1]
+                                .getElementsByTagName("input")[0]
+                                .value =
+                                0.0000 .toLocaleString(locale,
+                                    {
+                                        minimumFractionDigits: 4,
+                                        useGrouping: false
+                                    }); // Inicializa a quantidade com 0.
+                            document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[2]
+                                .getElementsByTagName("input")[0]
+                                .value =
+                                value.Valor.toLocaleString(locale,
+                                    {
+                                        minimumFractionDigits: 4,
+                                        useGrouping: false
+                                    }); // Obtem o valor unitário para o serviço selecionado.
+                            document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[3]
+                                .getElementsByTagName("input")[0]
+                                .value =
+                                0.00 .toLocaleString(locale,
+                                    {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                        useGrouping: false
+                                    }); // Anula o resultado do calculo.
+                        }
+                    });
+                });
+        } else {
+            maxI = 5;
+        }
+
+        // Cria celulas com os valores
+        for (var i = 1; i < maxI; i++) {
+            var inp = nodeCopied.getElementsByTagName("input")[i];
+            var splitstg = inp.id.split("-");
+            inp.id = splitstg[0] + "-" + nm.toString();
+
+            // Bind validation on decimals.
+            if (maxSize !== 5 && i !== 1)
+                setInputFilter(inp,
+                    function(value) {
+                        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/
+                            .test(value);
+                    });
+
+            if (maxI < 5) {
+                if (i === 4)
+                    inp.value = 0.00 .toLocaleString(locale, { minimumFractionDigits: 2, useGrouping: false });
+                else
+                    inp.value = 0.0000 .toLocaleString(locale, { minimumFractionDigits: 4, useGrouping: false });
+            } else {
+
+                if (i === 5)
+                    inp.value = 0.00 .toLocaleString(locale, { minimumFractionDigits: 2, useGrouping: false });
+                else if (i !== 1)
+                    inp.value = 0.0000 .toLocaleString(locale, { minimumFractionDigits: 4, useGrouping: false });
+                else
+                    inp.value = "";
+            }
+        }
+
+        var btn = nodeCopied.getElementsByTagName("button")[0];
+        btn.id = "btn-" + nm;
+        btn.style.visibility = 'visible';
+
+        tb.appendChild(nodeCopied); // Add the last row
+
+        if (maxSize === 0) {
+            tb.appendChild(nodeLast);
+        }
+        // If the number of rows matches the number of services, update it.
+        else if (maxSize !== 0 && lastIndex + 1 < maxSize)
+            tb.appendChild(nodeLast); // Insert the button row.
+    }
+
+    function deleteRow(e) {
+        var index = e.parentElement.parentElement.rowIndex - 1;
+        var tb = document.getElementById('fatTable').tBodies[0]; //Get the table
+
+        if (tb.rows.length === 3) {
+            if (index === 1)
+                tb.rows[0].getElementsByTagName("button")[0].style.visibility = 'hidden';
+            else
+                tb.rows[1].getElementsByTagName("button")[0].style.visibility = 'hidden';
+
+        }
+
+        tb.deleteRow(index);
+    }*@
+
+</script>

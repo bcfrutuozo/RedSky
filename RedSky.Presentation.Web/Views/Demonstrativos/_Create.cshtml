@@ -1,0 +1,141 @@
+﻿@using System.Globalization
+@model RedSky.Presentation.Web.ViewModels.DemonstrativoViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Cadastro de novo demonstrativo</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-horizontal">
+
+            @Html.HiddenFor(model => model.IdEmpresa)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdCliente, new { @class = "control-label col-sm-3" })
+                <div class="col-md-7">
+                    @Html.DropDownListFor(model => model.IdCliente, new SelectList(ViewBag.Clientes, "Id", "Apelido", Model.IdCliente), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome, new { @class = "control-label col-sm-3" })
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ValorMinimo, new { @class = "control-label col-sm-3" })
+
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.ValorMinimo, new { htmlAttributes = new { @class = "form-control input-filterDecimal", onchange = "formatDecimalTextbox(this)", type = "text" } })
+                    @Html.ValidationMessageFor(model => model.ValorMinimo, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.EnviaEmail, new { @class = "control-label col-sm-4" })
+                <div class="col-md-1">
+                    @Html.CheckBoxFor(model => model.EnviaEmail, new { @class = "checkbox" })
+                    @Html.ValidationMessageFor(model => model.EnviaEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AssuntoEmail, new { @class = "control-label col-sm-3" })
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.AssuntoEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AssuntoEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DestinatariosEmail, new { @class = "control-label col-sm-3" })
+                <div class="col-md-7">
+                    @Html.TextAreaFor(model => model.DestinatariosEmail, new { @class = "form-control", style = "resize: none;", rows = 3 })
+                    @Html.ValidationMessageFor(model => model.DestinatariosEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MensagemEmail, new { @class = "control-label col-sm-3" })
+                <div class="col-md-7">
+                    @Html.TextAreaFor(model => model.MensagemEmail, new { @class = "form-control", style = "resize: none;", rows = 8 })
+                    @Html.ValidationMessageFor(model => model.MensagemEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Departamento, new { @class = "control-label col-sm-3" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Departamento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.IsFaturavel, new { @class = "control-label col-sm-2" })
+                <div class="col-md-1">
+                    @Html.CheckBoxFor(model => model.IsFaturavel, new { @class = "checkbox" })
+                    @Html.ValidationMessageFor(model => model.IsFaturavel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-redSky" value="Salvar" style="float: left" />
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(".form-control.input-filterDecimal").inputFilter(function(value) {
+        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/.test(value);
+    });
+
+    // Carrega o popup de faturamentos menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    // Send form via ajax
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+
+                showProgress('Adicionando demonstrativo...');
+                $('#modalbody').modal('hide');
+
+                $.ajax({
+                    url: '@Url.Action("Create")',
+                    type: "POST",
+                    data: $(this).serialize(),
+                    // In case the model is invalid.
+                    error: function(result) {
+                        $('#modalbody').empty();
+                        $('#modalbody').html(result.responseText);
+
+                        hideProgress();
+                        $('#modal-container').modal('show');
+                    },
+                    // In case the model is valid.
+                    success: function(result) {
+                        $('#modal-container').modal('hide');
+
+                        // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                        $('#partial-container').empty();
+                        $('#partial-container').html(result).fadeIn();
+                        hideProgress();
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,45 @@
+﻿@model RedSky.Presentation.Web.ViewModels.DeleteColumnViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        @Html.HiddenFor(model => model.Id)
+        <h4 class="modal-title" style="color: #000000">Deseja mesmo excluir a coluna @Model.Header</h4>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-redSky" value="Sim" style="float: left" />
+
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Não</button>
+    </div>
+}
+
+<script type="text/javascript">
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: '@Url.Action("DeleteColumn")',
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $("#modal-container").modal('hide');
+                        $("#partial-container").empty();
+                        $('#partial-container').html(result).fadeIn();
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,70 @@
+﻿@model RedSky.Presentation.Web.ViewModels.ClienteViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Deseja mesmo excluir o cliente @Model.Apelido</h4>
+        @Html.HiddenFor(model => model.Id)
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-redSky" value="Sim" style="float: left" />
+
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Não</button>
+    </div>
+}
+
+<script type="text/javascript">
+    // Carrega o popup de faturamentos menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+                debugger;
+                showProgress("Removendo cliente");
+
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        hideProgress();
+                        $("#modal-container").modal('hide');
+                        $("#partial-container").empty();
+                        $('#partial-container').html(result).fadeIn();
+                    },
+                    error: function(e, jqxhr, settings, exception) {
+                        debugger;
+                        hideProgress();
+                        $("#modal-container").modal('hide');
+
+                        $('<div id="modal-container" class="modal fade">' +
+                            '<div id="container-resizer" class="modal-dialog modal-lg popup-modal">' +
+                            '<div class="modal-content" id="modalbody" >' +
+                            'Ocorreu o seguinte erro durante a operação: ' +
+
+                            e.responseText.messageerror +
+                            e.responseText.stackTrace +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="modal-footer">' +
+                            '<button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Fechar</button>' +
+                            '</div>').modal();
+
+                        $("#modal-container").modal('show');
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>

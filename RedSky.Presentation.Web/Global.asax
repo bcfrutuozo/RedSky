@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="RedSky.Presentation.Web.MvcApplication" Language="C#" %>

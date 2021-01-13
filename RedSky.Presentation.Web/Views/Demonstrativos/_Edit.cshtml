@@ -1,0 +1,163 @@
+﻿@using System.Globalization
+@using RedSky.Presentation.Web.Extensions
+@model RedSky.Presentation.Web.ViewModels.DemonstrativoViewModel
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div style="float: left">
+                <input type="submit" value="Salvar" class="btn btn-redSky" />
+            </div>
+
+            <div style="float: right">
+                <input type="button" class="btn btn-redSky-clicked" onclick="showDemonstratives();" value="Voltar" />
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Id, new { @class = "control-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdCliente, new { @class = "control-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdCliente, new SelectList(ViewBag.Clientes, "Id", "Apelido", Model.IdCliente), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorMinimo, new { @class = "control-label col-sm-2" })
+            <div class="row">
+                <label class="control-label col-sm-1" style="width: 1%">@CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol</label>
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.ValorMinimo, new { htmlAttributes = new { @class = "form-control input-filterDecimal", onchange = "formatDecimalTextbox(this)", type = "text" } })
+                    @Html.ValidationMessageFor(model => model.ValorMinimo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EnviaEmail, new { @class = "control-label col-sm-2" })
+            <div class="col-md-1">
+                @Html.CheckBoxFor(model => model.EnviaEmail, new { @class = "checkbox" })
+                @Html.ValidationMessageFor(model => model.EnviaEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssuntoEmail, new { @class = "control-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AssuntoEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AssuntoEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DestinatariosEmail, new { @class = "control-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DestinatariosEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DestinatariosEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MensagemEmail, new { @class = "control-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.MensagemEmail, new { @class = "form-control", style = "resize: none;", rows = 6 })
+                @Html.ValidationMessageFor(model => model.MensagemEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Departamento, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Departamento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsFaturavel, new { @class = "control-label col-md-2" })
+            <div class="col-md-1">
+                @Html.CheckBoxFor(model => model.IsFaturavel, new { @class = "checkbox" })
+                @Html.ValidationMessageFor(model => model.IsFaturavel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="partial-services">
+
+            @* Partial view para os serviços *@
+
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(".form-control.input-filterDecimal").inputFilter(function(value) {
+        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/.test(value);
+    });
+
+    // Forces the load of all services if the demonstrative is in edit mode.
+    $(document).ready(function() {
+        loadServices();
+    });
+
+    function loadServices() {
+
+        // Doesn't query the system if the model is in Create mode. Only if it's on edit mode.
+        if (@Model.Id !== 0) {
+
+            showProgress("Carregando os serviços");
+            $.ajax({
+                url: '@Url.Action("Index", "Servicos")',
+                type: 'GET',
+                data: { idDemonstrativo: @Model.Id },
+                success: function(result) {
+                    // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                    $("#partial-services").empty();
+
+                    $('#partial-services').html(result).fadeIn();
+                }
+            }).done(function(result) {
+                hideProgress();
+            });
+        }
+    }
+
+    function deleteService(lstSvc, svc) {
+        $.ajax({
+            url: '@Url.Action("Delete", "Servicos")',
+            type: 'POST',
+            data: {
+                lstServicos: JSON.stringify(lstSvc),
+                servico: JSON.stringify(svc),
+                @Html.AntiForgeryTokenForAjaxPost()
+            }
+
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-services").empty();
+
+            $('#partial-services').html(result).fadeIn();
+        });
+    }
+
+</script>

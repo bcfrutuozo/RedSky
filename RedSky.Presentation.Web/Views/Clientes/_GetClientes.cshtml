@@ -1,0 +1,86 @@
+﻿@model IEnumerable<RedSky.Presentation.Web.ViewModels.GetClientesViewModel>
+
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <td colspan="15">
+                <input type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Create")" style="max-width: 3280px; width: 100%" value="Cadastrar Novo Cliente" />
+            </td>
+        </tr>
+        <tr>
+            <th class="text-center" style="white-space: initial;">
+                @Html.DisplayNameFor(model => model.Apelido)
+            </th>
+            <th class="text-center" style="white-space: initial;">
+                @Html.DisplayNameFor(model => model.RazaoSocial)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.CPFCNPJ)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.InscricaoEstadual)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.InscricaoMunicipal)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th class="text-center" style="white-space: initial;">
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.Sigla)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => item.Id)
+
+                <td class="text-center" style="white-space: initial;">
+                    @Html.DisplayFor(modelItem => item.Apelido)
+                </td>
+                <td class="text-center" style="white-space: initial;">
+                    @Html.DisplayFor(modelItem => item.RazaoSocial)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.CPFCNPJ)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.InscricaoEstadual)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.InscricaoMunicipal)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.Cidade)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td class="text-center" style="white-space: initial;">
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.Sigla)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Edit", new {id = item.Id})">Edit</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-redSky-clicked modal-link" data-targeturl="@Url.Action("Delete", new {id = item.Id})">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>

@@ -1,0 +1,108 @@
+﻿@using System.Globalization
+@using System.Threading
+@using RedSky.Common
+@{
+    ViewBag.Title = "Faturamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet">
+    <div class="portlet-heading texture-portlet">
+        <div class="portlet-title">
+            <h4 class="vertical-allign">
+                <i class="glyphicon glyphicon-euro"></i>
+                Faturamentos
+            </h4>
+        </div>
+    </div>
+    <div class="portlet-content text-center center-block">
+
+        <input class="btn btn-redSky" type="button" value="<" onclick="decreaseYear()"/>
+
+        @if (ViewBag.Year == null)
+        {
+            <input class="year-input" type="text" id="year" value="@DateTime.Now.Year" readonly="readonly">
+        }
+        else
+        {
+            <input class="year-input" type="text" id="year" value="@ViewBag.Year" readonly="readonly">
+        }
+
+        <input class="btn btn-redSky" type="button" value=">" onclick="increaseYear()"/>
+
+        <div>
+            <div class="btn-group">
+                <input id="1" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[0].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="2" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[1].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="3" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[2].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="4" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[3].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="5" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[4].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="6" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[5].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="7" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[6].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="8" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[7].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="9" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[8].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="10" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[9].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="11" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[10].Substring(0, 3).FirstLetterToUpperCase()"/>
+                <input id="12" onclick="loadFaturas(this.id)" class="btn btn-redSky-selection month_input" type="button" value="@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[11].Substring(0, 3).FirstLetterToUpperCase()"/>
+            </div>
+        </div>
+
+        <div id="partial-container">
+            @* Page rendering content via Ajax. *@
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    @if (ViewBag.Month != null)
+    {
+        @Html.Raw("$(document).ready(function() {if (" + ViewBag.Month + " != null) {document.getElementById('" + ViewBag.Month + "').click();}});")
+    }
+
+    // Script para a lógica de seleção do botão no cabeçalho da página.
+    $(".btn-group > .btn-redSky-selection").click(function() {
+        $(this).addClass("btn-redSky-clicked").siblings().removeClass("btn-redSky-clicked");
+    });
+
+    function decreaseYear() {
+        var date = document.getElementById("year").value;
+        var increment = parseInt(date);
+        document.getElementById("year").value = increment - 1;
+    }
+
+    function increaseYear() {
+        var date = document.getElementById("year").value;
+        var increment = parseInt(date);
+        document.getElementById("year").value = increment + 1;
+    }
+
+    function loadFaturas(id) {
+        var m = id;
+        var y = document.getElementById("year").value;
+        var date = new Date(y, m - 1, 01);
+        var msg = "Obtendo as faturas de " +
+            date.toLocaleString('@Thread.CurrentThread.CurrentCulture.Name', { month: 'long' }) +
+            " de " +
+            y.toString();
+
+        showProgress(msg);
+
+        $.ajax({
+            url: '@Url.Action("GetFaturas")',
+            type: 'GET',
+            cache: false,
+            data: { month: m, year: y },
+            beforeSend: function() {
+                $("#modal-container").modal('hide');
+            }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    }
+
+</script>

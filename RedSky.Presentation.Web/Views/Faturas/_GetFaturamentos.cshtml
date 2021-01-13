@@ -1,0 +1,531 @@
+﻿@using System.Globalization
+@using RedSky.Presentation.Web.Extensions
+@using RedSky.Presentation.Web.ViewModels
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.FaturamentoViewModel>
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+@using (Html.BeginForm("UpdateFaturamentos", "Faturas", new { idFatura = ViewBag.IdFatura, lstFaturamentos = Model }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Cobranças da fatura @ViewBag.NomeFatura</h4>
+    </div>
+    <div class="modal-body">
+        <table id="fatTable" class="table table-responsive table-hover">
+            <thead>
+                <tr>
+                    @if (ViewBag.IsFaturado)
+                    {
+                        <th class="text-center no-wrap" style="width: 46%">
+                            @Html.DisplayNameFor(model => model.Descritivo)
+                        </th>
+                    }
+                    else
+                    {
+                        <th class="text-center no-wrap" style="width: 36%">
+                            @Html.DisplayNameFor(model => model.Descritivo)
+                        </th>
+                    }
+                    <th class="text-center no-wrap" style="width: 14%">
+                        @Html.DisplayNameFor(model => model.Quantidade)
+                    </th>
+                    <th class="text-center no-wrap" style="width: 20%">
+                        @Html.DisplayNameFor(model => model.ValorUnitario)
+                    </th>
+                    <th class="text-center no-wrap" style="width: 20%">
+                        @Html.DisplayNameFor(model => model.ValorTotal)
+                    </th>
+                    @if (!ViewBag.IsFaturado)
+                    {
+                        <th class="text-center no-wrap" style="width: 10%"></th>
+                    }
+            </thead>
+            <tbody>
+                @{
+                    var rowNumber = 0;
+
+                    if (Model.Count() > 0)
+                    {
+                        foreach (var fat in Model)
+                        {
+                            <tr id="row-@rowNumber">
+                                @Html.HiddenFor(f => fat.IdFatura)
+                                @if (ViewBag.IsFaturado)
+                                {
+                                    <td class="no-wrap" style="width: 46%;">
+                                        @Html.TextBoxFor(f => fat.Descritivo, new { @class = "form-control", disabled = "disabled" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="no-wrap" style="width: 36%;">
+                                        @if (ViewBag.IsProcessavel)
+                                        {
+                                            @Html.DropDownListFor(f => fat.Descritivo, new SelectList(ViewBag.Servicos, "Descricao", "Descricao", fat.Descritivo), string.Empty, new { @class = "form-control " })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(f => fat.Descritivo, new { @class = "form-control" })
+                                        }
+                                    </td>
+                                }
+                                <td class="no-wrap" style="width: 14%">
+                                    @if (ViewBag.IsFaturado)
+                                    {
+                                        @Html.TextBoxFor(f => fat.Quantidade, new { @class = "form-control input-filterDecimal", style = "text-align: right", id = "qtde-" + rowNumber, onchange = "calc(this)", type = "text", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(f => fat.Quantidade, new { @class = "form-control input-filterDecimal", style = "text-align: right", id = "qtde-" + rowNumber, onchange = "calc(this)", type = "text" })
+                                    }
+                                </td>
+                                <td class="no-wrap" style="width: 20%">
+                                    <label class="vertical-allign" style="margin-top: 8px">@CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol</label>
+                                    @if (ViewBag.IsProcessavel)
+                                    {
+                                        @Html.TextBoxFor(f => fat.ValorUnitario, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", id = "vunitario-" + +rowNumber, onchange = "calc(this)", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.IsFaturado)
+                                        {
+                                            @Html.TextBoxFor(f => fat.ValorUnitario, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", id = "vunitario-" + +rowNumber, onchange = "calc(this)", @readonly = "readonly", type = "text" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(f => fat.ValorUnitario, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", id = "vunitario-" + +rowNumber, onchange = "calc(this)", type = "text" })
+                                        }
+                                    }
+                                </td>
+                                <td class="no-wrap" style="width: 20%">
+                                    <label class="vertical-allign" style="margin-top: 8px">@CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol</label>
+                                    @Html.TextBoxFor(f => fat.ValorTotal, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", @readonly = "readonly", id = "vtotal-" + rowNumber, type = "text" })
+                                </td>
+                                @if (!ViewBag.IsFaturado)
+                                {
+                                    <td class="no-wrap" style="width: 10%">
+                                        @if (Model.Count() == 1)
+                                        {
+                                            <button id="btn-@rowNumber" type="button" class="btn btn-redSky-clicked" onclick="deleteRow(this)" style="visibility: hidden">Delete</button>
+                                        }
+                                        else
+                                        {
+                                            <button id="btn-@rowNumber" type="button" class="btn btn-redSky-clicked" onclick="deleteRow(this)">Delete</button>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                            rowNumber += 1;
+                        }
+                    }
+                    else
+                    {
+                        var fat = new FaturamentoViewModel { IdFatura = ViewBag.IdFatura, ValorUnitario = 0.0000m, Quantidade = 0.0000m };
+                        <tr id="row-@rowNumber">
+                            @Html.HiddenFor(f => fat.IdFatura)
+                            @if (ViewBag.IsFaturado)
+                            {
+                                <td class="no-wrap" style="width: 46%;">
+                                    @if (ViewBag.IsProcessavel)
+                                    {
+                                        @Html.DropDownListFor(f => fat.Descritivo, new SelectList(ViewBag.Servicos, "Descricao", "Descricao", fat.Descritivo), string.Empty, new { @class = "form-control ", tabindex = "-1", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(f => fat.Descritivo, new { @class = "form-control", @readonly = "readonly", tabindex = "-1" })
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="no-wrap" style="width: 36%;">
+                                    @if (ViewBag.IsProcessavel)
+                                    {
+                                        @Html.DropDownListFor(f => fat.Descritivo, new SelectList(ViewBag.Servicos, "Descricao", "Descricao", fat.Descritivo), string.Empty, new { @class = "form-control " })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(f => fat.Descritivo, new { @class = "form-control" })
+                                    }
+                                </td>
+                            }
+                            <td class="no-wrap" style="width: 14%">
+                                @if (ViewBag.IsFaturado)
+                                {
+                                    @Html.TextBoxFor(f => fat.Quantidade, new { @class = "form-control input-filterDecimal", style = "text-align: right", id = "qtde-" + rowNumber, type = "text", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(f => fat.Quantidade, new { @class = "form-control input-filterDecimal", style = "text-align: right", id = "qtde-" + rowNumber, onchange = "calc(this)", type = "text" })
+                                }
+                            </td>
+                            <td class="no-wrap" style="width: 20%">
+                                <label class="vertical-allign" style="margin-top: 8px">@CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol</label>
+                                @if (ViewBag.IsProcessavel)
+                                {
+                                    @Html.TextBoxFor(f => fat.ValorUnitario, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", id = "vunitario-" + +rowNumber, tabindex = "-1", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    if (ViewBag.IsFaturado)
+                                    {
+                                        @Html.TextBoxFor(f => fat.ValorUnitario, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", id = "vunitario-" + +rowNumber, @readonly = "readonly", tabindex = "-1", type = "text" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(f => fat.ValorUnitario, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", id = "vunitario-" + +rowNumber, onchange = "calc(this)", type = "text" })
+                                    }
+                                }
+                            </td>
+                            <td class="no-wrap" style="width: 20%">
+                                <label class="vertical-allign" style="margin-top: 8px">@CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol</label>
+                                @Html.TextBoxFor(f => fat.ValorTotal, new { @class = "form-control input-filterDecimal", style = "width: 85%; text-align: right", @readonly = "readonly", id = "vtotal-" + rowNumber, type = "text", value = 0.00m, tabindex = "-1" })
+                            </td>
+                            @if (!ViewBag.IsFaturado)
+                            {
+                                <td class="no-wrap" style="width: 10%">
+                                    <button id="btn-@rowNumber" type="button" class="btn btn-redSky-clicked" onclick="deleteRow(this)" style="visibility: hidden">Delete</button>
+                                </td>
+                            }
+                        </tr>
+                        rowNumber += 1;
+                    }
+                }
+                @if (!ViewBag.IsFaturado)
+                {
+                    <tr id="lastRow">
+                        @if (ViewBag.IsProcessavel && ViewBag.Servicos != null && Model.Count() < ViewBag.MaxSize)
+                        {
+                            <td colspan="15">
+                                <input type="button" class="btn btn-redSky" style="max-width: 100%; width: 100%" value="Adicionar Faturamento" onclick="addNewRow(@ViewBag.MaxSize, @Json.Encode(ViewBag.Servicos))" />
+                            </td>
+                        }
+                        else if (!ViewBag.IsProcessavel)
+                        {
+                            <td colspan="15">
+                                <input type="button" class="btn btn-redSky" style="max-width: 100%; width: 100%" value="Adicionar Faturamento" onclick="addNewRow(@ViewBag.MaxSize, @Json.Encode(ViewBag.Servicos))" />
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+            </tfoot>
+
+        </table>
+    </div>
+    <div class="modal-footer">
+        @if (!ViewBag.IsFaturado)
+        {
+            <input type="button" class="btn btn-redSky" onclick="addFaturamentos(@ViewBag.IdFatura, '@ViewBag.NomeFatura', @Json.Encode(Model))" data-dismiss="modal" value="Salvar" style="float: left" />
+            <input type="button" class="btn btn-redSky-clicked" onclick="removeFaturamentos(@ViewBag.IdFatura, '@ViewBag.NomeFatura')" data-dismiss="modal" value="Excluir Todos" />
+        }
+
+        @*<button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>*@
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(".form-control.input-filterDecimal").inputFilter(function(value) {
+        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/.test(value);
+    });
+
+
+    // Carrega o popup de faturamentos menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    $('select').change(function(e) {
+        var svc = $(this).val(); // Get the service name
+        var row = $(this)[0].parentElement.parentElement; // Get the row
+        var rowIndex = row.rowIndex;
+
+        var data = @Html.Raw(Json.Encode(ViewBag.Servicos));
+        var locale = '@Html.Raw(CultureInfo.CurrentCulture.Name)';
+
+        $.each(data,
+            function(name, value) {
+                if (svc === value.Descricao) {
+                    debugger;
+                    document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[1]
+                        .getElementsByTagName("input")[0]
+                        .value =
+                        0.0000 .toLocaleString(locale, { minimumFractionDigits: 4 }); // Inicializa a quantidade com 0.
+                    document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[2]
+                        .getElementsByTagName("input")[0]
+                        .value =
+                        value.Valor.toLocaleString(locale,
+                            { minimumFractionDigits: 4 }); // Obtem o valor unitário para o serviço selecionado.
+                    document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[3]
+                        .getElementsByTagName("input")[0]
+                        .value =
+                        0.00 .toLocaleString(locale, { minimumFractionDigits: 2 }); // Anula o resultado do calculo.
+                }
+            });
+    });
+
+    function calc(e) {
+
+        var row = e.id.split("-")[1];
+
+        var x = document.getElementById('qtde-' + row).value;
+        var y = document.getElementById('vunitario-' + row).value;
+
+        $.ajax({
+            url: '@Url.Action("GetCalculateValue")',
+            type: 'POST',
+            data: { x: x, y: y }
+        }).done(function(ret) {
+            var obj = JSON.parse(ret);
+            document.getElementById('qtde-' + row).value =
+                obj.Data.x.toLocaleString(locale, { minimumFractionDigits: 4, useGrouping: false });
+            document.getElementById('vunitario-' + row).value =
+                obj.Data.y.toLocaleString(locale, { minimumFractionDigits: 4, useGrouping: false });
+            document.getElementById('vtotal-' + row).value =
+                obj.Data.ret.toLocaleString(locale, { minimumFractionDigits: 2, useGrouping: false });
+        });
+    }
+
+    function addNewRow(maxSize, lstSvc) {
+        var tb = document.getElementById('fatTable').tBodies[0]; //Get the table
+
+        // Obtém o indice da ultima linha
+        var lr = document.getElementById('lastRow');
+        var lastIndex = lr.rowIndex - 1;
+        var nodeLast = tb.rows[lastIndex].cloneNode(true); // Get the button row to memory and deletion.
+
+        var nodeCopied = tb.rows[lastIndex - 1].cloneNode(true); // Get the last table row to memory.
+        tb.deleteRow(-1); // Delete the last row (button).
+
+        if (lastIndex === 1) {
+            tb.rows[0].getElementsByTagName("button")[0].style.visibility = 'visible';
+        }
+
+        var newNm = nodeCopied.id.split("-")[1];
+        var nm = parseInt(newNm); // Get the number of last Id for incrementation
+        nm += 1;
+
+        // Cria linha, altera ID e passa as funções de manipulação do textbox.
+        nodeCopied.id = "row-" + nm.toString();
+        var svcCombo = nodeCopied.getElementsByTagName("select")[0];
+        var maxI;
+        if (svcCombo != null) {
+            maxI = 4;
+            nodeCopied.cells[0].getElementsByTagName("select")[0].value = ""; // Set the desired value for the combobox.
+
+            svcCombo.addEventListener('change',
+                function(e) {
+                    var svc = $(this).val(); // Get the service name
+                    var row = $(this)[0].parentElement.parentElement; // Get the row
+                    var rowIndex = row.rowIndex;
+
+                    var data = lstSvc;
+
+                    data.forEach(function(value) {
+                        if (svc === value.Descricao) {
+                            document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[1]
+                                .getElementsByTagName("input")[0]
+                                .value =
+                                0.0000 .toLocaleString(locale,
+                                    {
+                                        minimumFractionDigits: 4,
+                                        useGrouping: false
+                                    }); // Inicializa a quantidade com 0.
+                            document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[2]
+                                .getElementsByTagName("input")[0]
+                                .value =
+                                value.Valor.toLocaleString(locale,
+                                    {
+                                        minimumFractionDigits: 4,
+                                        useGrouping: false
+                                    }); // Obtem o valor unitário para o serviço selecionado.
+                            document.getElementById('fatTable').tBodies[0].rows[rowIndex - 1].cells[3]
+                                .getElementsByTagName("input")[0]
+                                .value =
+                                0.00 .toLocaleString(locale,
+                                    {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                        useGrouping: false
+                                    }); // Anula o resultado do calculo.
+                        }
+                    });
+                });
+        } else {
+            maxI = 5;
+        }
+
+        // Cria celulas com os valores
+        for (var i = 1; i < maxI; i++) {
+            var inp = nodeCopied.getElementsByTagName("input")[i];
+            var splitstg = inp.id.split("-");
+            inp.id = splitstg[0] + "-" + nm.toString();
+
+            // Bind validation on decimals.
+            if (maxSize !== 5 && i !== 1)
+                setInputFilter(inp,
+                    function(value) {
+                        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/
+                            .test(value);
+                    });
+
+            if (maxI < 5) {
+                if (i === 4)
+                    inp.value = 0.00 .toLocaleString(locale, { minimumFractionDigits: 2, useGrouping: false });
+                else
+                    inp.value = 0.0000 .toLocaleString(locale, { minimumFractionDigits: 4, useGrouping: false });
+            } else {
+
+                if (i === 5)
+                    inp.value = 0.00 .toLocaleString(locale, { minimumFractionDigits: 2, useGrouping: false });
+                else if (i !== 1)
+                    inp.value = 0.0000 .toLocaleString(locale, { minimumFractionDigits: 4, useGrouping: false });
+                else
+                    inp.value = "";
+            }
+        }
+
+        var btn = nodeCopied.getElementsByTagName("button")[0];
+        btn.id = "btn-" + nm;
+        btn.style.visibility = 'visible';
+
+        tb.appendChild(nodeCopied); // Add the last row
+
+        if (maxSize === 0) {
+            tb.appendChild(nodeLast);
+        }
+        // If the number of rows matches the number of services, update it.
+        else if (maxSize !== 0 && lastIndex + 1 < maxSize)
+            tb.appendChild(nodeLast); // Insert the button row.
+    }
+
+    function deleteRow(e) {
+        var index = e.parentElement.parentElement.rowIndex - 1;
+        var tb = document.getElementById('fatTable').tBodies[0]; //Get the table
+
+        if (tb.rows.length === 3) {
+            if (index === 1)
+                tb.rows[0].getElementsByTagName("button")[0].style.visibility = 'hidden';
+            else
+                tb.rows[1].getElementsByTagName("button")[0].style.visibility = 'hidden';
+
+        }
+
+        tb.deleteRow(index);
+    }
+
+    function addFaturamentos(idf, idt) {
+        debugger;
+
+        var newSvcs = [];
+        var table = document.getElementById('fatTable').tBodies[0];
+
+        var localeDecimal = '@Html.Raw(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)';
+
+        for (var i = 0; i < table.rows.length; i++) {
+
+            var initialValueInput;
+            var desc;
+
+            if (table.rows[i].id !== "lastRow") {
+
+                var dropdownElement = table.rows[i].getElementsByTagName("select");
+                if (dropdownElement != null && dropdownElement[0] != null) {
+                    desc = table.rows[i].getElementsByTagName("select")[0].selectedOptions[0].text;
+                    initialValueInput = 1;
+                } else {
+                    desc = table.rows[i].getElementsByTagName("input")[1].value;
+                    initialValueInput = 2;
+                }
+
+                var qtde;
+                var vu;
+                if (localeDecimal === comma) {
+                    qtde = parseFloat(table.rows[i].getElementsByTagName("input")[initialValueInput].value
+                        .replace(dot, ' ')
+                        .replace(comma, dot).replace(' ', ','));
+                    vu = parseFloat(table.rows[i].getElementsByTagName("input")[initialValueInput + 1].value
+                        .replace(dot, ' ')
+                        .replace(comma, dot).replace(' ', ','));
+                } else {
+                    qtde = parseFloat(
+                        table.rows[i].getElementsByTagName("input")[initialValueInput].value.replace(comma, ''));
+                    vu = parseFloat(
+                        table.rows[i].getElementsByTagName("input")[initialValueInput + 1].value
+                        .replace(comma, ''));
+                }
+
+                var item = {
+                    Descritivo: desc,
+                    Quantidade: qtde,
+                    ValorUnitario: vu,
+                    IdFatura: idf
+                };
+
+                newSvcs.push(item);
+            }
+        }
+
+        for (var j = 0; j < newSvcs.length; j++) {
+            if (newSvcs[j].Descritivo === "") {
+                alert("Não se pode inserir um faturamento sem um serviço cadastrado.");
+                return;
+            }
+
+            if (newSvcs[j].Quantidade === 0) {
+                alert("Não se pode inserir um faturamento com quantidade nulo.");
+                return;
+            }
+
+            if (newSvcs[j].ValorUnitario === 0) {
+                alert("Não se pode inserir um faturamento com valor unitário nulo.");
+                return;
+            }
+        }
+
+        showProgress("Atualizando os faturamentos e valores para a fatura " + idt);
+
+        $.ajax({
+            url: '@Url.Action("UpdateFaturamentos")',
+            type: 'POST',
+            data: { idFatura: idf, lstFaturamentos: JSON.stringify(newSvcs), @Html.AntiForgeryTokenForAjaxPost() },
+            beforeSend: function() {
+                $("#modal-container").modal('hide');
+            }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+            // Atualiza os faturas.
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    };
+
+
+    function removeFaturamentos(idf, idt) {
+
+        var confirmDelete = confirm("Deseja mesmo excluir todos os faturamentos de + ", idt);
+
+        if (confirmDelete) {
+            $.ajax({
+                url: '@Url.Action("RemoveFaturamentos")',
+                type: 'POST',
+                data: { idFatura: idf, @Html.AntiForgeryTokenForAjaxPost() },
+                beforeSend: function() {
+                    $("#modal-container").modal('hide');
+                }
+            }).done(function(result) {
+                // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                $("#partial-container").empty();
+                // Atualiza os faturas.
+                $('#partial-container').html(result).fadeIn();
+                hideProgress();
+            });
+        }
+    };
+
+</script>

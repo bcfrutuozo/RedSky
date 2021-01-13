@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RedSky.Services.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfUsuarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UsuarioDTO" nillable="true" type="tns:UsuarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsuarioDTO" nillable="true" type="tns:ArrayOfUsuarioDTO" />
+  <xs:complexType name="UsuarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Empresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Hash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEmpresa" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Parametrizador" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Permissoes" nillable="true" type="tns:ArrayOfPermissaoDTO" />
+      <xs:element minOccurs="0" name="Senha" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsuarioDTO" nillable="true" type="tns:UsuarioDTO" />
+  <xs:complexType name="ArrayOfPermissaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PermissaoDTO" nillable="true" type="tns:PermissaoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPermissaoDTO" nillable="true" type="tns:ArrayOfPermissaoDTO" />
+  <xs:complexType name="PermissaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PermissaoDTO" nillable="true" type="tns:PermissaoDTO" />
+  <xs:complexType name="ArrayOfIncidenciaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="IncidenciaDTO" nillable="true" type="tns:IncidenciaDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfIncidenciaDTO" nillable="true" type="tns:ArrayOfIncidenciaDTO" />
+  <xs:complexType name="IncidenciaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IncidenciaDTO" nillable="true" type="tns:IncidenciaDTO" />
+  <xs:complexType name="ArrayOfItensServicoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItensServicoDTO" nillable="true" type="tns:ItensServicoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItensServicoDTO" nillable="true" type="tns:ArrayOfItensServicoDTO" />
+  <xs:complexType name="ItensServicoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ItensServicoDTO" nillable="true" type="tns:ItensServicoDTO" />
+  <xs:complexType name="ArrayOfOperacaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OperacaoDTO" nillable="true" type="tns:OperacaoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOperacaoDTO" nillable="true" type="tns:ArrayOfOperacaoDTO" />
+  <xs:complexType name="OperacaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Parametro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperacaoDTO" nillable="true" type="tns:OperacaoDTO" />
+  <xs:complexType name="ArrayOfRegimeTributarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RegimeTributarioDTO" nillable="true" type="tns:RegimeTributarioDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRegimeTributarioDTO" nillable="true" type="tns:ArrayOfRegimeTributarioDTO" />
+  <xs:complexType name="RegimeTributarioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegimeTributarioDTO" nillable="true" type="tns:RegimeTributarioDTO" />
+  <xs:complexType name="TipoRecolhimentoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Parametro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TipoRecolhimentoDTO" nillable="true" type="tns:TipoRecolhimentoDTO" />
+  <xs:complexType name="ArrayOfTipoRecolhimentoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoRecolhimentoDTO" nillable="true" type="tns:TipoRecolhimentoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTipoRecolhimentoDTO" nillable="true" type="tns:ArrayOfTipoRecolhimentoDTO" />
+  <xs:complexType name="ArrayOfTributacaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TributacaoDTO" nillable="true" type="tns:TributacaoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTributacaoDTO" nillable="true" type="tns:ArrayOfTributacaoDTO" />
+  <xs:complexType name="TributacaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Parametro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TributacaoDTO" nillable="true" type="tns:TributacaoDTO" />
+  <xs:complexType name="ArrayOfUtilizacaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UtilizacaoDTO" nillable="true" type="tns:UtilizacaoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUtilizacaoDTO" nillable="true" type="tns:ArrayOfUtilizacaoDTO" />
+  <xs:complexType name="UtilizacaoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UtilizacaoDTO" nillable="true" type="tns:UtilizacaoDTO" />
+  <xs:complexType name="AtividadeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoAtividade" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdIncidencia" type="xs:int" />
+      <xs:element minOccurs="0" name="IdItensServico" type="xs:int" />
+      <xs:element minOccurs="0" name="IdOperacao" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTributacao" type="xs:int" />
+      <xs:element minOccurs="0" name="IdUtilizacao" type="xs:int" />
+      <xs:element minOccurs="0" name="Incidencia" nillable="true" type="tns:IncidenciaDTO" />
+      <xs:element minOccurs="0" name="IsImune" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsIsento" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsServico" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ItensServico" nillable="true" type="tns:ItensServicoDTO" />
+      <xs:element minOccurs="0" name="Operacao" nillable="true" type="tns:OperacaoDTO" />
+      <xs:element minOccurs="0" name="Servico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tributacao" nillable="true" type="tns:TributacaoDTO" />
+      <xs:element minOccurs="0" name="Utilizacao" nillable="true" type="tns:UtilizacaoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AtividadeDTO" nillable="true" type="tns:AtividadeDTO" />
+  <xs:complexType name="ArrayOfAtividadeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AtividadeDTO" nillable="true" type="tns:AtividadeDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAtividadeDTO" nillable="true" type="tns:ArrayOfAtividadeDTO" />
+  <xs:complexType name="CertificadoDigitalDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExpiryDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FriendlyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HashCertificado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdFilial" type="xs:int" />
+      <xs:element minOccurs="0" name="Issuer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NomeEmpresarial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PublicKeyFormat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RawDataLength" type="xs:int" />
+      <xs:element minOccurs="0" name="SenhaCertificado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subject" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Thumbprint" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValidDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Version" type="xs:int" />
+      <xs:element minOccurs="0" name="X509CertificateData" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CertificadoDigitalDTO" nillable="true" type="tns:CertificadoDigitalDTO" />
+  <xs:complexType name="ArrayOfCertificadoDigitalDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CertificadoDigitalDTO" nillable="true" type="tns:CertificadoDigitalDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCertificadoDigitalDTO" nillable="true" type="tns:ArrayOfCertificadoDigitalDTO" />
+  <xs:complexType name="ArrayOfCidadeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CidadeDTO" nillable="true" type="tns:CidadeDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCidadeDTO" nillable="true" type="tns:ArrayOfCidadeDTO" />
+  <xs:complexType name="CidadeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="tns:EstadoDTO" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEstado" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CidadeDTO" nillable="true" type="tns:CidadeDTO" />
+  <xs:complexType name="EstadoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sigla" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EstadoDTO" nillable="true" type="tns:EstadoDTO" />
+  <xs:complexType name="ClienteDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apelido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Bairro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CEP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CPFCNPJ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cidade" nillable="true" type="tns:CidadeDTO" />
+      <xs:element minOccurs="0" name="Complemento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DDD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailNF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailsEnvio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdCidade" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoBairro" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoLogradouro" type="xs:int" />
+      <xs:element minOccurs="0" name="InscricaoEstadual" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InscricaoMunicipal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Logradouro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RazaoSocial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sigla" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoBairro" nillable="true" type="tns:TipoBairroDTO" />
+      <xs:element minOccurs="0" name="TipoLogradouro" nillable="true" type="tns:TipoLogradouroDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClienteDTO" nillable="true" type="tns:ClienteDTO" />
+  <xs:complexType name="TipoBairroDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TipoBairroDTO" nillable="true" type="tns:TipoBairroDTO" />
+  <xs:complexType name="TipoLogradouroDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TipoLogradouroDTO" nillable="true" type="tns:TipoLogradouroDTO" />
+  <xs:complexType name="ArrayOfClienteDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClienteDTO" nillable="true" type="tns:ClienteDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClienteDTO" nillable="true" type="tns:ArrayOfClienteDTO" />
+  <xs:complexType name="ConexaoBancoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DBProvider" nillable="true" type="tns:DBProviderDTO" />
+      <xs:element minOccurs="0" name="Database" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Hash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdDBProvider" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SenhaBanco" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Servidor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioBanco" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConexaoBancoDTO" nillable="true" type="tns:ConexaoBancoDTO" />
+  <xs:complexType name="DBProviderDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Namespace" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DBProviderDTO" nillable="true" type="tns:DBProviderDTO" />
+  <xs:complexType name="ArrayOfConexaoBancoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConexaoBancoDTO" nillable="true" type="tns:ConexaoBancoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfConexaoBancoDTO" nillable="true" type="tns:ArrayOfConexaoBancoDTO" />
+  <xs:complexType name="ArrayOfDBProviderDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DBProviderDTO" nillable="true" type="tns:DBProviderDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDBProviderDTO" nillable="true" type="tns:ArrayOfDBProviderDTO" />
+  <xs:complexType name="DemonstrativoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AssuntoEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cliente" nillable="true" type="tns:ClienteDTO" />
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinatariosEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Empresa" nillable="true" type="tns:EmpresaDTO" />
+      <xs:element minOccurs="0" name="EnviaEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasFaturas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="IsFaturavel" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MensagemEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Servicos" nillable="true" type="tns:ArrayOfServicoDTO" />
+      <xs:element minOccurs="0" name="ValorMinimo" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DemonstrativoDTO" nillable="true" type="tns:DemonstrativoDTO" />
+  <xs:complexType name="EmpresaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AliquotaCOFINS" type="xs:double" />
+      <xs:element minOccurs="0" name="AliquotaCSLL" type="xs:double" />
+      <xs:element minOccurs="0" name="AliquotaINSS" type="xs:double" />
+      <xs:element minOccurs="0" name="AliquotaIR" type="xs:double" />
+      <xs:element minOccurs="0" name="AliquotaPIS" type="xs:double" />
+      <xs:element minOccurs="0" name="Atividades" nillable="true" type="tns:ArrayOfAtividadeDTO" />
+      <xs:element minOccurs="0" name="Ativo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CaminhoRelatorio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConexoesBanco" nillable="true" type="tns:ArrayOfConexaoBancoDTO" />
+      <xs:element minOccurs="0" name="Demonstrativos" nillable="true" type="tns:ArrayOfDemonstrativoDTO" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnableSSL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HashEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdRegimeTributario" type="xs:int" />
+      <xs:element minOccurs="0" name="Identificacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LogoEmail" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Port" type="xs:int" />
+      <xs:element minOccurs="0" name="RazaoSocial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegimeTributario" nillable="true" type="tns:RegimeTributarioDTO" />
+      <xs:element minOccurs="0" name="SenhaEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServidorSMTP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TimeOut" type="xs:int" />
+      <xs:element minOccurs="0" name="UseDefaultCredentials" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmpresaDTO" nillable="true" type="tns:EmpresaDTO" />
+  <xs:complexType name="ArrayOfDemonstrativoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DemonstrativoDTO" nillable="true" type="tns:DemonstrativoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDemonstrativoDTO" nillable="true" type="tns:ArrayOfDemonstrativoDTO" />
+  <xs:complexType name="ArrayOfServicoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServicoDTO" nillable="true" type="tns:ServicoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfServicoDTO" nillable="true" type="tns:ArrayOfServicoDTO" />
+  <xs:complexType name="ServicoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConexaoBanco" nillable="true" type="tns:ConexaoBancoDTO" />
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HasQueryDados" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasQueryRateio" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdConexaoBanco" type="xs:int" />
+      <xs:element minOccurs="0" name="IdDemonstrativo" type="xs:int" />
+      <xs:element minOccurs="0" name="IdUnidade" type="xs:int" />
+      <xs:element minOccurs="0" name="NomePlanilha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ordem" type="xs:int" />
+      <xs:element minOccurs="0" name="QueryDados" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QueryRateio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Unidade" nillable="true" type="tns:UnidadeDTO" />
+      <xs:element minOccurs="0" name="Valor" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServicoDTO" nillable="true" type="tns:ServicoDTO" />
+  <xs:complexType name="UnidadeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnidadeDTO" nillable="true" type="tns:UnidadeDTO" />
+  <xs:complexType name="ArrayOfEmpresaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmpresaDTO" nillable="true" type="tns:EmpresaDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmpresaDTO" nillable="true" type="tns:ArrayOfEmpresaDTO" />
+  <xs:complexType name="FaturaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AliquotaCOFINS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaCSLL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaINSS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaIR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaISS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaPIS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Ano" type="xs:int" />
+      <xs:element minOccurs="0" name="Atividade" nillable="true" type="tns:AtividadeDTO" />
+      <xs:element minOccurs="0" name="Competencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataRecebimento" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DataVencimento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Demonstrativo" nillable="true" type="tns:DemonstrativoDTO" />
+      <xs:element minOccurs="0" name="Descritivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Faturamentos" nillable="true" type="tns:ArrayOfFaturamentoDTO" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdAtividade" type="xs:int" />
+      <xs:element minOccurs="0" name="IdCidadePrestacao" type="xs:int" />
+      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="IdDemonstrativo" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IdFilial" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoRecolhimento" type="xs:int" />
+      <xs:element minOccurs="0" name="Identificacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsEdit" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFaturado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsProcessado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LocalPrestacao" nillable="true" type="tns:CidadeDTO" />
+      <xs:element minOccurs="0" name="Mes" type="xs:int" />
+      <xs:element minOccurs="0" name="NomeArquivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Prestador" nillable="true" type="tns:FilialDTO" />
+      <xs:element minOccurs="0" name="RPS" nillable="true" type="tns:ArrayOfRPSDTO" />
+      <xs:element minOccurs="0" name="TipoRecolhimento" nillable="true" type="tns:TipoRecolhimentoDTO" />
+      <xs:element minOccurs="0" name="Tomador" nillable="true" type="tns:ClienteDTO" />
+      <xs:element minOccurs="0" name="ValorBruto" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorCOFINS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorCSLL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorDedutivel" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorINSS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorIR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorISS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorLiquido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorPIS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorRecebido" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaturaDTO" nillable="true" type="tns:FaturaDTO" />
+  <xs:complexType name="ArrayOfFaturamentoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FaturamentoDTO" nillable="true" type="tns:FaturamentoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFaturamentoDTO" nillable="true" type="tns:ArrayOfFaturamentoDTO" />
+  <xs:complexType name="FaturamentoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descritivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdFatura" type="xs:int" />
+      <xs:element minOccurs="0" name="Quantidade" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorUnitario" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaturamentoDTO" nillable="true" type="tns:FaturamentoDTO" />
+  <xs:complexType name="FilialDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AliquotaISS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Bairro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CEP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CPFCNPJ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CertificadosDigitais" nillable="true" type="tns:ArrayOfCertificadoDigitalDTO" />
+      <xs:element minOccurs="0" name="Cidade" nillable="true" type="tns:CidadeDTO" />
+      <xs:element minOccurs="0" name="Complemento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DDD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdCidade" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoBairro" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoLogradouro" type="xs:int" />
+      <xs:element minOccurs="0" name="Identificacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InscricaoEstadual" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InscricaoMunicipal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Logradouro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NomeFantasia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QuantidadeRPSPorLote" type="xs:int" />
+      <xs:element minOccurs="0" name="Telefone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoBairro" nillable="true" type="tns:TipoBairroDTO" />
+      <xs:element minOccurs="0" name="TipoLogradouro" nillable="true" type="tns:TipoLogradouroDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FilialDTO" nillable="true" type="tns:FilialDTO" />
+  <xs:complexType name="ArrayOfRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RPSDTO" nillable="true" type="tns:RPSDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRPSDTO" nillable="true" type="tns:ArrayOfRPSDTO" />
+  <xs:complexType name="RPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AliquotaAtividade" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaCOFINS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaCSLL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaINSS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaIR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AliquotaPIS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Assinatura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BairroTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CEPTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CPFCNPJIntermediario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CPFCNPJTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CidadeTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CidadeTomadorDescricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ComplementoEnderecoTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DDDPrestador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DDDTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataEmissaoNFSeSubstituida" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DataEmissaoRPS" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DeducaoRPS" nillable="true" type="tns:ArrayOfDeducaoRPSDTO" />
+      <xs:element minOccurs="0" name="DescricaoRPS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocTomadorEstrangeiro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdAtividade" type="xs:int" />
+      <xs:element minOccurs="0" name="IdFatura" type="xs:int" />
+      <xs:element minOccurs="0" name="IdLoteRPS" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Identificacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InscricaoMunicipalPrestador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InscricaoMunicipalTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ItensRPS" nillable="true" type="tns:ArrayOfItemRPSDTO" />
+      <xs:element minOccurs="0" name="LogradouroTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LoteRPS" nillable="true" type="tns:LoteRPSDTO" />
+      <xs:element minOccurs="0" name="MatriculaCEI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MotivoCancelamento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MunicipioPrestacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MunicipioPrestacaoDescricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotaFiscal" nillable="true" type="tns:ArrayOfNotaFiscalDTO" />
+      <xs:element minOccurs="0" name="NumeroEnderecoTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroNFSeSubstituida" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroRPS" type="xs:long" />
+      <xs:element minOccurs="0" name="NumeroRPSSubstituido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Operacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RazaoSocialPrestador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RazaoSocialTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeriePrestacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SerieRPS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SerieRPSSubstituido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SituacaoRPS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefonePrestador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefoneTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoBairroTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoLogradouroTomador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoRPS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoRecolhimento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tributacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValorCOFINS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorCSLL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorINSS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorIR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorPIS" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RPSDTO" nillable="true" type="tns:RPSDTO" />
+  <xs:complexType name="ArrayOfDeducaoRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DeducaoRPSDTO" nillable="true" type="tns:DeducaoRPSDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDeducaoRPSDTO" nillable="true" type="tns:ArrayOfDeducaoRPSDTO" />
+  <xs:complexType name="DeducaoRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CPFCNPJReferencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeducaoPor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdRPS" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroNFReferencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PercentualDeduzir" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoDeducao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValorDeduzir" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorTotalReferencia" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DeducaoRPSDTO" nillable="true" type="tns:DeducaoRPSDTO" />
+  <xs:complexType name="ArrayOfItemRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItemRPSDTO" nillable="true" type="tns:ItemRPSDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItemRPSDTO" nillable="true" type="tns:ArrayOfItemRPSDTO" />
+  <xs:complexType name="ItemRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DiscriminacaoServico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdRPS" type="xs:int" />
+      <xs:element minOccurs="0" name="Quantidade" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Tributavel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValorTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorUnitario" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ItemRPSDTO" nillable="true" type="tns:ItemRPSDTO" />
+  <xs:complexType name="LoteRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CPFCNPJRemetente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodCidade" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataPrimeiroRPS" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DataUltimoRPS" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdFilial" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStatusLoteRPS" type="xs:int" />
+      <xs:element minOccurs="0" name="MetodoEnvio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroLote" type="xs:long" />
+      <xs:element minOccurs="0" name="QuantidadeRPS" type="xs:int" />
+      <xs:element minOccurs="0" name="RazaoSocialRemetente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StatusLoteRPS" nillable="true" type="tns:StatusLoteRPSDTO" />
+      <xs:element minOccurs="0" name="Transacao" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ValorTotalDeducoes" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValorTotalServicos" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Versao" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoteRPSDTO" nillable="true" type="tns:LoteRPSDTO" />
+  <xs:complexType name="StatusLoteRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusLoteRPSDTO" nillable="true" type="tns:StatusLoteRPSDTO" />
+  <xs:complexType name="ArrayOfNotaFiscalDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NotaFiscalDTO" nillable="true" type="tns:NotaFiscalDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNotaFiscalDTO" nillable="true" type="tns:ArrayOfNotaFiscalDTO" />
+  <xs:complexType name="NotaFiscalDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoVerificacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdRPS" type="xs:int" />
+      <xs:element minOccurs="0" name="IsCancelada" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Link" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MotivoCancelamento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NomeArquivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroNF" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotaFiscalDTO" nillable="true" type="tns:NotaFiscalDTO" />
+  <xs:complexType name="ArrayOfFaturaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FaturaDTO" nillable="true" type="tns:FaturaDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFaturaDTO" nillable="true" type="tns:ArrayOfFaturaDTO" />
+  <xs:complexType name="ArrayOfFilialDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FilialDTO" nillable="true" type="tns:FilialDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFilialDTO" nillable="true" type="tns:ArrayOfFilialDTO" />
+  <xs:complexType name="ArrayOfEstadoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EstadoDTO" nillable="true" type="tns:EstadoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEstadoDTO" nillable="true" type="tns:ArrayOfEstadoDTO" />
+  <xs:complexType name="ArrayOfLoteRPSDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LoteRPSDTO" nillable="true" type="tns:LoteRPSDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLoteRPSDTO" nillable="true" type="tns:ArrayOfLoteRPSDTO" />
+  <xs:complexType name="ArrayOfProjetoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProjetoDTO" nillable="true" type="tns:ProjetoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProjetoDTO" nillable="true" type="tns:ArrayOfProjetoDTO" />
+  <xs:complexType name="ProjetoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataFinal" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DataInicio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Empresa" nillable="true" type="tns:EmpresaDTO" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStatusProjeto" type="xs:int" />
+      <xs:element minOccurs="0" name="Identificacao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StatusProjeto" nillable="true" type="tns:StatusProjetoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProjetoDTO" nillable="true" type="tns:ProjetoDTO" />
+  <xs:complexType name="StatusProjetoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descricao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusProjetoDTO" nillable="true" type="tns:StatusProjetoDTO" />
+  <xs:complexType name="ArrayOfStatusProjetoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StatusProjetoDTO" nillable="true" type="tns:StatusProjetoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStatusProjetoDTO" nillable="true" type="tns:ArrayOfStatusProjetoDTO" />
+  <xs:complexType name="ArrayOfTipoBairroDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoBairroDTO" nillable="true" type="tns:TipoBairroDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTipoBairroDTO" nillable="true" type="tns:ArrayOfTipoBairroDTO" />
+  <xs:complexType name="ArrayOfTipoLogradouroDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoLogradouroDTO" nillable="true" type="tns:TipoLogradouroDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTipoLogradouroDTO" nillable="true" type="tns:ArrayOfTipoLogradouroDTO" />
+  <xs:complexType name="ArrayOfUnidadeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UnidadeDTO" nillable="true" type="tns:UnidadeDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnidadeDTO" nillable="true" type="tns:ArrayOfUnidadeDTO" />
+</xs:schema>

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8A408061-8D09-4ED9-9FEA-75A41488BB6E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedSky.Domain</RootNamespace>
+    <AssemblyName>RedSky.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Arquivo.cs" />
+    <Compile Include="Entities\Atividade.cs" />
+    <Compile Include="Entities\CertificadoDigital.cs" />
+    <Compile Include="Entities\Cidade.cs" />
+    <Compile Include="Entities\Cliente.cs" />
+    <Compile Include="Entities\Color.cs" />
+    <Compile Include="Entities\ConexaoBanco.cs" />
+    <Compile Include="Entities\DataType.cs" />
+    <Compile Include="Entities\DBProvider.cs" />
+    <Compile Include="Entities\DeducaoRPS.cs" />
+    <Compile Include="Entities\Demonstrativo.cs" />
+    <Compile Include="Entities\Empresa.cs" />
+    <Compile Include="Entities\Estado.cs" />
+    <Compile Include="Entities\EtapaVenda.cs" />
+    <Compile Include="Entities\EventoNFSe.cs" />
+    <Compile Include="Entities\Fatura.cs" />
+    <Compile Include="Entities\Faturamento.cs" />
+    <Compile Include="Entities\Filial.cs" />
+    <Compile Include="Entities\Incidencia.cs" />
+    <Compile Include="Entities\ItemRPS.cs" />
+    <Compile Include="Entities\ItensServico.cs" />
+    <Compile Include="Entities\LoteRPS.cs" />
+    <Compile Include="Entities\Negocio.cs" />
+    <Compile Include="Entities\NotaFiscal.cs" />
+    <Compile Include="Entities\NotaNegocio.cs" />
+    <Compile Include="Entities\Operacao.cs" />
+    <Compile Include="Entities\Permissao.cs" />
+    <Compile Include="Entities\Projeto.cs" />
+    <Compile Include="Entities\RegimeTributario.cs" />
+    <Compile Include="Entities\RPS.cs" />
+    <Compile Include="Entities\Servico.cs" />
+    <Compile Include="Entities\StatusLoteRPS.cs" />
+    <Compile Include="Entities\StatusProjeto.cs" />
+    <Compile Include="Entities\Label.cs" />
+    <Compile Include="Entities\Task.cs" />
+    <Compile Include="Entities\TaskCell.cs" />
+    <Compile Include="Entities\TaskColumn.cs" />
+    <Compile Include="Entities\TaskGroup.cs" />
+    <Compile Include="Entities\TaskUser.cs" />
+    <Compile Include="Entities\TipoBairro.cs" />
+    <Compile Include="Entities\TipoLogradouro.cs" />
+    <Compile Include="Entities\TipoRecolhimento.cs" />
+    <Compile Include="Entities\Tributacao.cs" />
+    <Compile Include="Entities\Unidade.cs" />
+    <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Entities\UsuarioPermissao.cs" />
+    <Compile Include="Entities\Utilizacao.cs" />
+    <Compile Include="Enums\DbContextScope\DbContextScopeOption.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Interfaces\DbContextScope\IAmbientDbContextLocator.cs" />
+    <Compile Include="Interfaces\DbContextScope\IDbContextCollection.cs" />
+    <Compile Include="Interfaces\DbContextScope\IDbContextFactory.cs" />
+    <Compile Include="Interfaces\DbContextScope\IDbContextReadOnlyScope.cs" />
+    <Compile Include="Interfaces\DbContextScope\IDbContextScope.cs" />
+    <Compile Include="Interfaces\DbContextScope\IDbContextScopeFactory.cs" />
+    <Compile Include="Interfaces\Entities\IEntity.cs" />
+    <Compile Include="Interfaces\NFSe\INFSeService.cs" />
+    <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
+    <Compile Include="Interfaces\Services\IAtividadeService.cs" />
+    <Compile Include="Interfaces\Services\ICertificadoDigitalService.cs" />
+    <Compile Include="Interfaces\Services\ICidadeService.cs" />
+    <Compile Include="Interfaces\Services\IClienteService.cs" />
+    <Compile Include="Interfaces\Services\IColorService.cs" />
+    <Compile Include="Interfaces\Services\IConexaoBancoService.cs" />
+    <Compile Include="Interfaces\Services\IDataTypeService.cs" />
+    <Compile Include="Interfaces\Services\IDBProviderService.cs" />
+    <Compile Include="Interfaces\Services\IDeducaoRPSService.cs" />
+    <Compile Include="Interfaces\Services\IDemonstrativoService.cs" />
+    <Compile Include="Interfaces\Services\IEmpresaService.cs" />
+    <Compile Include="Interfaces\Services\IEstadoService.cs" />
+    <Compile Include="Interfaces\Services\IFaturamentoService.cs" />
+    <Compile Include="Interfaces\Services\IFaturaService.cs" />
+    <Compile Include="Interfaces\Services\IFilialService.cs" />
+    <Compile Include="Interfaces\Services\IIncidenciaService.cs" />
+    <Compile Include="Interfaces\Services\IItemRPSService.cs" />
+    <Compile Include="Interfaces\Services\IItensServicoService.cs" />
+    <Compile Include="Interfaces\Services\ILoteRPSService.cs" />
+    <Compile Include="Interfaces\Services\INegocioService.cs" />
+    <Compile Include="Interfaces\Services\INotaFiscalService.cs" />
+    <Compile Include="Interfaces\Services\IOperacaoService.cs" />
+    <Compile Include="Interfaces\Services\IPermissaoService.cs" />
+    <Compile Include="Interfaces\Services\IProjetoService.cs" />
+    <Compile Include="Interfaces\Services\IRegimeTributarioService.cs" />
+    <Compile Include="Interfaces\Services\IRPSService.cs" />
+    <Compile Include="Interfaces\Services\IServiceBase.cs" />
+    <Compile Include="Interfaces\Services\IServicoService.cs" />
+    <Compile Include="Interfaces\Services\IStatusLoteRPSService.cs" />
+    <Compile Include="Interfaces\Services\IStatusProjetoService.cs" />
+    <Compile Include="Interfaces\Services\ILabelService.cs" />
+    <Compile Include="Interfaces\Services\ITaskCellService.cs" />
+    <Compile Include="Interfaces\Services\ITaskColumnService.cs" />
+    <Compile Include="Interfaces\Services\ITaskGroupService.cs" />
+    <Compile Include="Interfaces\Services\ITaskService.cs" />
+    <Compile Include="Interfaces\Services\ITaskUserService.cs" />
+    <Compile Include="Interfaces\Services\ITipoBairroService.cs" />
+    <Compile Include="Interfaces\Services\ITipoLogradouroService.cs" />
+    <Compile Include="Interfaces\Services\ITipoRecolhimentoService.cs" />
+    <Compile Include="Interfaces\Services\ITributacaoService.cs" />
+    <Compile Include="Interfaces\Services\IUnidadeService.cs" />
+    <Compile Include="Interfaces\Services\IUsuarioPermissaoService.cs" />
+    <Compile Include="Interfaces\Services\IUsuarioService.cs" />
+    <Compile Include="Interfaces\Services\IUtilizacaoService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AtividadeService.cs" />
+    <Compile Include="Services\CertificadoDigitalService.cs" />
+    <Compile Include="Services\CidadeService.cs" />
+    <Compile Include="Services\ClienteService.cs" />
+    <Compile Include="Services\ColorService.cs" />
+    <Compile Include="Services\ConexaoBancoService.cs" />
+    <Compile Include="Services\DataTypeService.cs" />
+    <Compile Include="Services\DBProviderService.cs" />
+    <Compile Include="Services\DeducaoRPSService.cs" />
+    <Compile Include="Services\DemonstrativoService.cs" />
+    <Compile Include="Services\EmpresaService.cs" />
+    <Compile Include="Services\EstadoService.cs" />
+    <Compile Include="Services\FaturamentoService.cs" />
+    <Compile Include="Services\FaturaService.cs" />
+    <Compile Include="Services\FilialService.cs" />
+    <Compile Include="Services\IncidenciaService.cs" />
+    <Compile Include="Services\ItemRPSService.cs" />
+    <Compile Include="Services\ItensServicoService.cs" />
+    <Compile Include="Services\LoteRPSService.cs" />
+    <Compile Include="Services\NegocioService.cs" />
+    <Compile Include="Services\NotaFiscalService.cs" />
+    <Compile Include="Services\OperacaoService.cs" />
+    <Compile Include="Services\PermissaoService.cs" />
+    <Compile Include="Services\ProjetoService.cs" />
+    <Compile Include="Services\RegimeTributarioService.cs" />
+    <Compile Include="Services\RPSService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\ServicoService.cs" />
+    <Compile Include="Services\StatusLoteRPSService.cs" />
+    <Compile Include="Services\StatusProjetoService.cs" />
+    <Compile Include="Services\LabelService.cs" />
+    <Compile Include="Services\TaskCellService.cs" />
+    <Compile Include="Services\TaskColumnService.cs" />
+    <Compile Include="Services\TaskGroupService.cs" />
+    <Compile Include="Services\TaskService.cs" />
+    <Compile Include="Services\TaskUserService.cs" />
+    <Compile Include="Services\TipoBairroService.cs" />
+    <Compile Include="Services\TipoLogradouroService.cs" />
+    <Compile Include="Services\TipoRecolhimentoService.cs" />
+    <Compile Include="Services\TributacaoService.cs" />
+    <Compile Include="Services\UnidadeService.cs" />
+    <Compile Include="Services\UsuarioPermissaoService.cs" />
+    <Compile Include="Services\UsuarioService.cs" />
+    <Compile Include="Services\UtilizacaoService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedSky.Common\RedSky.Common.csproj">
+      <Project>{CC98D584-29C4-47B9-B0F1-F006101C1EAB}</Project>
+      <Name>RedSky.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Security\RedSky.Security.csproj">
+      <Project>{b74c069f-d763-44a7-a0ae-c3907172081e}</Project>
+      <Name>RedSky.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Utilities\RedSky.Utilities.csproj">
+      <Project>{0b8bcdb4-9282-4e47-bc96-40f369f2e407}</Project>
+      <Name>RedSky.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,106 @@
+﻿@using System.Globalization
+@model RedSky.Presentation.Web.ViewModels.ServicoViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Alterar @Model.Descricao</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+            @Html.HiddenFor(model => model.IdDemonstrativo)
+            @Html.HiddenFor(model => model.Ordem)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-sm-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, new { @class = "control-label col-sm-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NomePlanilha, new { @class = "control-label col-sm-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.NomePlanilha, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NomePlanilha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdUnidade, new { @class = "control-label col-sm-3" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.IdUnidade, new SelectList(ViewBag.Unidades, "Id", "Descricao", Model.IdUnidade), "Selecione a Unidade", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdUnidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Valor, new { @class = "control-label col-sm-3" })
+                <div class="row">
+                    <label class="control-label col-sm-1" style="width: 1%">@CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol</label>
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control input-filterDecimal", onchange = "formatDecimalTextbox(this)", type = "text" } })
+                        @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdConexaoBanco, new { @class = "control-label col-sm-3" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.IdConexaoBanco, new SelectList(ViewBag.ConexoesBanco, "Id", "Nome", Model.IdConexaoBanco), "Selecione a conexao", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdConexaoBanco, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    @Html.LabelFor(model => model.QueryRateio, new { @class = "control-label col-md-offset-1 col-sm-1" })
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(model => model.QueryRateio, new { @class = "form-control", style = "resize: none;", rows = 32 })
+                        @Html.ValidationMessageFor(model => model.QueryRateio, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.QueryDados, new { @class = "control-label col-sm-1" })
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(model => model.QueryDados, new { @class = "form-control", style = "resize: none;", rows = 32 })
+                        @Html.ValidationMessageFor(model => model.QueryDados, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-redSky" value="Salvar" style="float: left" />
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(".form-control.input-filterDecimal").inputFilter(function(value) {
+        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/.test(value);
+    });
+
+    // Carrega o popup de faturamentos menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+    $('#container-resizer').first().addClass('popup-modal-sm');
+</script>

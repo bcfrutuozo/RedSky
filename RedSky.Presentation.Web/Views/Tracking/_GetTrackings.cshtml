@@ -1,0 +1,1297 @@
+﻿@using System.Globalization
+@using System.Threading
+@using System.Web.Mvc.Html
+@using RedSky.Presentation.Web.Extensions
+@using RedSky.Presentation.Web.ViewModels
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.GetTrackingsViewModel>
+
+<style type="text/css">
+    .innertable {
+        border-collapse: collapse;
+        width: 100%;
+        overflow-x: scroll;
+        display: block;
+        min-width: 100%;
+        margin: auto;
+        table-layout: fixed;
+    }
+
+        .innertable thead {
+            background-color: #EFEFEF;
+        }
+
+        .innertable thead, .innertable tbody {
+            display: block;
+        }
+
+        .innertable tbody {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 300px;
+        }
+
+        .innertable td, .innertable thead tr td {
+            min-width: 300px;
+            height: 60px;
+            border: solid 1px #CCCCCC;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+            width: 300px;
+        }
+
+        .innertable > thead:first-child > tr:first-child > td {
+            border: solid 1px #CCCCCC;
+        }
+
+        .innertable tbody td.editInfo {
+            vertical-align: middle;
+            padding: 2px;
+        }
+
+            .innertable tbody td.editInfo .editInner {
+                line-height: 54px;
+            }
+
+
+    .editable {
+        height: 54px;
+        width: 100%;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .editHeader {
+        vertical-align: middle;
+    }
+
+        .editHeader:hover {
+            background-color: #bbbbbb !important;
+        }
+
+    .innertable tbody td.editInfo:hover {
+        background-color: #dddddd !important;
+    }
+
+    .block-status:hover {
+        box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-label {
+        width: 130px;
+        height: 50px;
+    }
+
+        .btn-label:hover {
+            box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+        }
+
+    .innertable thead tr td {
+        vertical-align: middle;
+    }
+
+    .innertable thead td input {
+        height: 100%;
+        width: 100%;
+    }
+
+    .innertable tbody td.editInfo {
+        vertical-align: middle;
+    }
+
+    .innertable tbody td.delete-index input {
+        height: 100%;
+        width: 100%;
+    }
+
+    .column-tooltip {
+        z-index: 2;
+        padding: 3px;
+        border: solid 1px;
+        position: absolute;
+        visibility: hidden;
+        background: #dddddd;
+        height: 170px;
+        width: 300px;
+    }
+
+    .edit-status-column-tooltip {
+        z-index: 2;
+        padding: 3px;
+        border: solid 1px;
+        position: absolute;
+        visibility: hidden;
+        background: #dddddd;
+        width: 300px;
+    }
+
+    div a {
+        color: #222222;
+        float: right;
+    }
+
+    
+</style>
+
+<table class="table">
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <thead>
+        <tr>
+            <td colspan="15">
+                <input type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("CreateTaskGroup")" style="        max-width: 3280px;
+        width: 100%" value="New Task Group" />
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @Html.HiddenFor(m => item.Id)
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-redSky btn-@item.Id" data-toggle="collapse" data-target="#collapseme-@item.Id">
+                        @Html.DisplayName(item.TaskGroupTitle)
+                    </button>
+
+                    <input type="button" class="btn btn-redSky" onclick="newTask(@item.Id)" value="New Task" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="collapse in" id="collapseme-@item.Id">
+                        <table class="table table-responsive innertable">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <label class="control-label">
+                                            @Html.DisplayNameFor(m => m.First().Tasks[0].TaskTitle)
+                                        </label>
+                                    </td>
+                                    @for (int c = 0; c < item.Columns.Count; c++)
+                                    {
+                                        <td class="editHeader">
+                                            @Html.HiddenFor(m => item.Columns[c].Id, new { @id = "key", })
+                                            <b id="header">@Html.DisplayFor(model => item.Columns[c].Header, new { htmlAttributes = new { @class = "control-label col-sm-2" } })</b>
+
+                                            @* Update column div code *@
+                                            <div id="@("tooltip-edit_" + item.Columns[c].Id)" class="column-tooltip">
+                                                <a id="close-tooltip" href="#" aria-label="Close">&times;</a>
+                                                <div class="form-group tooltip-form-group">
+                                                    @Html.LabelFor(model => item.Columns[c].Header, new { @class = "control-label tooltip-column-header-label" })
+                                                    <div class="form-group tooltip-form-group">
+                                                        @Html.EditorFor(model => item.Columns[c].Header, new { htmlAttributes = new { @class = "form-control tooltip-input", @id = "input-column" } })
+                                                        @Html.ValidationMessageFor(model => item.Columns[c].Header, "", new { @class = "text-danger tooltip-input-validation", @id = Html.DescriptionFor(Model => item.Columns[c].Header) })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group tooltip-form-group">
+                                                    <input type="button" class="btn btn-default btn-redSky tooltip-button" onclick="updateColumn(this, '@item.Columns[c].Header')" value="Update" />
+                                                    <input type="button" class="btn btn-default btn-redSky-danger tooltip-button modal-link" data-targeturl="@Url.Action("DeleteColumn", new {@idTaskColumn = item.Columns[c].Id})" value="Delete" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    }
+                                    <td>
+                                        <input type="button" class="btn btn-redSky-clicked modal-link" data-targeturl="@Url.Action("CreateColumn", new {@idTaskGroup = item.Id})" value="+ Columns" />
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int r = 0; r < item.Tasks.Count; r++)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(m => item.Tasks[r].Id, new { @id = "key" })
+                                        <td class="editInfo">
+                                            <div id="column-value-spot-name-@item.Tasks[r].Id">
+                                                <div id="column-value-name-@item.Tasks[r].Id">
+                                                    @Html.DisplayFor(m => item.Tasks[r].TaskTitle)
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        @for (int c = 0; c < item.Tasks[r].Cells.Count; c++)
+                                        {
+                                            <td class="editInfo">
+                                                @Html.HiddenFor(m => item.Columns[c].DataType.Type, new { @id = "type" })
+                                                @Html.HiddenFor(m => item.Tasks[r].Cells[c].Id, new { @id = "key" })
+                                                <div id="column-value-spot-@item.Tasks[r].Cells[c].Id" class="editBlock">
+                                                    <div id="column-value-@item.Tasks[r].Cells[c].Id" class="editInner">
+                                                        @switch (item.Columns[c].DataType.Type)
+                                                        {
+                                                            case "System.Int32":
+                                                                @Convert.ToInt32(item.Tasks[r].Cells[c].Value)
+                                                                break;
+                                                            case "System.Decimal":
+                                                                @Convert.ToString(Convert.ToDecimal(item.Tasks[r].Cells[c].Value, new CultureInfo("en-US")), CultureInfo.CurrentCulture)
+                                                                break;
+                                                            case "System.String":
+                                                                @Convert.ChangeType(item.Tasks[r].Cells[c].Value, Type.GetType("System.String"))
+                                                                break;
+                                                            case "System.DateTime":
+                                                                if (item.Tasks[r].Cells[c].Value != null)
+                                                                {
+                                                                    try
+                                                                    {
+                                                                        @DateTime.Parse(item.Tasks[r].Cells[c].Value, new CultureInfo("en-US")).ToShortDateString();
+                                                                    }
+                                                                    catch (Exception ex)
+                                                                    {
+
+                                                                    }
+                                                                }
+                                                                break;
+                                                            case "RedSky.Domain.Entities.Label":
+                                                                @* Label column *@
+                                                                <div id="@("status-column_" + item.Tasks[r].Cells[c].Id)" class="status-column">
+                                                                    @{ var id = item.Tasks[r].Cells[c].Value == null ? "1" : item.Tasks[r].Cells[c].Value;}
+                                                                    @{ var x = ((IEnumerable<LabelDisplayViewModel>)ViewBag.LabelList).First(p => p.Id == Convert.ToInt32(id));}
+                                                                    <div id="block-status_@item.Tasks[r].Cells[c].Id" class="block-status" style="background-color: #@x.Color.Hex">
+                                                                        @x.Description
+                                                                    </div>
+                                                                </div>
+
+                                                                @* StatusColumn edit div code *@
+                                                                <div id="@("edit-status-cell_" + item.Tasks[r].Cells[c].Id)" class="edit-status-column-tooltip">
+                                                                    <a id="close-tooltip" href="#" aria-label="Close">&times;</a>
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => x.Description, new { @class = "control-label" })
+
+                                                                        @for (int i = 0; i < Enumerable.Count(ViewBag.LabelList); i++)
+                                                                        {
+                                                                            if (i % 2 == 0)
+                                                                            {
+                                                                                @Html.Raw("<div class=\"input-group\">")
+                                                                            }
+
+                                                                            <input id="@ViewBag.LabelList[i].Id" disabled="disabled" onclick="updateLabel(@item.Tasks[r].Cells[c].Id, this)" type="button" class="btn btn-default btn-label" value="@ViewBag.LabelList[i].Description" style="background-color: #@ViewBag.LabelList[i].Color.Hex" />
+
+                                                                            if (i % 2 == 1)
+                                                                            {
+                                                                                @Html.Raw("</div>")
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                    <a cursor="pointer" class="modal-link" data-targeturl="@Url.Action("Create", "Label", new {@idEmpresa = item.IdEmpresa})">Add Label</a>
+                                                                </div>
+                                                                break;
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        }
+                                        <td class="delete-index">
+                                            <input type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("DeleteTask", new {idTask = item.Tasks[r].Id})" value="Delete" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>
+
+<script type="text/javascript" language="javascript">
+
+    $('table').on('scroll', function () {
+        $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
+    });
+
+    $(".btn").click(function () {
+        if ($("#collapseme").hasClass("out")) {
+            $("#collapseme").addClass("in");
+            $("#collapseme").removeClass("out");
+        } else {
+            $("#collapseme").addClass("out");
+            $("#collapseme").removeClass("in");
+        }
+    });
+
+    // Automatic month picker event binder to dynamically created DateTime fields
+    $('body').on('focus',
+        ".monthPicker",
+        function() {
+            $(".monthPicker").datepicker({
+                dateFormat: '@Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.Replace("yyyy", "yy").ToLower()',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: false,
+                constrainInput: true,
+                nextText: '>',
+                prevText: '<',
+                inline: true,
+
+                onClose: function datePickerClose(dateText, inst) {
+                    var day = inst.selectedDay;
+                    var month = inst.selectedMonth;
+                    var year = inst.selectedYear;
+                    $(this).val($.datepicker.formatDate('@Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.Replace("yyyy", "yy").ToLower()', new Date(year, month, day)));
+
+                    // Simulate ENTER key press to execute the saving logic
+                    var keyboardEvent = new KeyboardEvent('keypress', { 'keyCode': 13 });
+
+                    Object.defineProperty(keyboardEvent, 'currentTarget', {writable: false, value: this});
+                    Object.defineProperty(keyboardEvent, 'target', {writable: false, value: this});
+
+                    checkKey(keyboardEvent, 'System.DateTime');
+
+                    $('#ui-datepicker-div').remove();
+                }
+            });
+
+            $(".monthPicker").focus(function() {
+                //$(".ui-datepicker-calendar").hide();
+                $("#ui-datepicker-div").position({
+                    my: "left",
+                    at: "right",
+                    of: $(this)
+                });
+            });
+        });
+
+    // Check click on every place of the screen to update the cells
+    $(document).click(function(e) {
+
+        // Avoid all processing if element interacts with modal popup
+        if (e.target.className.includes('modal')) {
+            return;
+        }
+
+        //e.stopPropagation();
+
+        // If the click occurs in a datepicker suppress it
+        if (document.getElementById('ui-datepicker-div') != null && e.target.className.includes('ui-datepicker')) {
+            return;
+        }
+
+        // If the click occurs in a datepicker suppress it
+        if (e.target.className.includes('tooltip')) {
+            return;
+        }
+
+        hideColumnHeaderTooltips(e);
+        var c = document.querySelector('td[class~="edit"]');
+        if (c != null) {
+            updateEditingValues(c);
+        }
+    });
+
+    function updateEditingValues(c) {
+
+        if (c != null) {
+
+            // Treat clicks for inputs
+            var typeColumn = c.querySelector('input[id~="type"]');
+            var dataType = undefined;
+            if(typeColumn != undefined)
+                dataType = typeColumn.value;
+
+            switch(dataType) {
+            case "System.Int32":
+                integerUpdate(c.querySelector('input[class~="editable"]'));
+                break;
+            case "System.Decimal":
+                decimalUpdate(c.querySelector('input[class~="editable"]'));
+                break;
+            case "System.String":
+            case undefined: // Used to treat specifically the Task Name which doesn't enter on dynamic column workflow
+                stringUpdate(c.querySelector('input[class~="editable"]'));
+                break;
+            case "System.DateTime":
+                datetimeUpdate(c.querySelector('input[class~="editable"]'));
+                break;
+            case "IEnumerable<RedSky.Domain.Entities.Usuario>":
+                removeEditingFromUserList(c);
+                break;
+            case "RedSky.Domain.Entities.Label":
+                removeEditingFromLabel(c);
+                break;
+            }
+        }
+    }
+
+    function hideColumnHeaderTooltips(e) {
+        // If the click occurs in a column edit tooltip suppress it
+        if (e.target.className.includes('column-tooltip')) {
+            return;
+        } else {
+            var columnsTooltip = document.getElementsByClassName('column-tooltip');
+            for (i = 0; i < columnsTooltip.length; i++)
+            {
+                columnsTooltip[i].style.visibility = "hidden";
+            }
+        }
+    }
+
+    function closeOpenColumnHeaderTooltips() {
+        var columnsTooltip = document.getElementsByClassName('column-tooltip');
+        for (i = 0; i < columnsTooltip.length; i++)
+        {
+            if(columnsTooltip[i].style.visibility === "visible")
+                columnsTooltip[i].style.visibility = "hidden";
+        }
+
+    }
+
+    // Check key press on each cell on the screen
+    function checkKey(e, dataType) {
+        e.stopPropagation();
+        var ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false); // CTRL detection
+
+        // If all the conditions are met, update the cell values
+        if (e.keyCode === 13 || e.keyCode === 9) {
+            var c = e.currentTarget;
+            if (c != null) {
+
+                switch (dataType) {
+                case "System.Int32":
+                    integerUpdate(e.currentTarget);
+                    return true;
+                case "System.Decimal":
+                    decimalUpdate(e.currentTarget);
+                    return true;
+                case "System.String":
+                case
+                    undefined: // Used to treat specifically the Task Name which doesn't enter on dynamic column workflow
+                    stringUpdate(e.currentTarget);
+                    return true;
+                case "System.DateTime":
+                    $("#ui-datepicker-div").remove();
+                    datetimeUpdate(e.currentTarget);
+                case "IEnumerable<RedSky.Domain.Entities.Usuario>":
+                    return true;
+                case "RedSky.Domain.Entities.Label":
+                    return true;
+                }
+            }
+        }
+
+        // Allow the user to CTRL+C / CTRL+X the values inside the input
+        //TODO: Implement paste function (e.keyCode === 86)
+        if ((e.keyCode === 67 || e.keyCode === 88) && ctrl) {
+            return true;
+        }
+
+        // Allow F1-F12 keys to be sent to the browser
+        if (e.keyCode >= 112 && e.keyCode <= 143) {
+            return true;
+        }
+
+        // Allow backspace and delete key to be processed
+        if (e.keyCode === 8 || e.keyCode === 46)
+            return true;
+
+        // Allow arrow keys to be executed
+        if (e.keyCode >= 37 && e.keyCode <= 40)
+            return true;
+
+        // Build the right input value to test regex.
+        var startIndex = e.target.selectionStart;
+        var endIndex = e.target.selectionEnd;
+
+        var message;
+        if (startIndex === 0 && endIndex === 0) {
+            message = e.key + e.target.value;
+        } else {
+            message = e.target.value.substr(0, startIndex) +
+                e.key +
+                e.target.value.substr(endIndex, e.target.value.length - endIndex);
+        }
+
+        // Treat the values with regex
+        switch (dataType) {
+
+        case "System.Int32":
+
+            if ((/^-?\d*$/.test(message))) {
+                return true;
+            } else {
+                e.preventDefault();
+                return false;
+            }
+        case "System.Decimal":
+
+            if (/^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/.test(
+                message)) {
+                return true;
+            } else {
+                e.preventDefault();
+                return false;
+            }
+        case "System.DateTime": // Block all kinds of key for the date popup window
+            e.preventDefault();
+            return false;
+        default:
+            return true; // Valid for string and task name cell
+        }
+    }
+
+    $(".editHeader").click(function(e) {
+
+        // Avoid all processing if element interacts with modal popup
+        if (e.target.className.includes('modal-link')) {
+            return;
+        }
+
+        if (e.target.id === "close-tooltip") {
+            hideColumnHeaderTooltips(e);
+            return;
+        }
+
+        // If the click occurs in a datepicker suppress it
+        if (e.target.className.includes('tooltip')) {
+            return;
+        }
+
+        e.stopPropagation();
+        closeOpenColumnHeaderTooltips();
+
+        // Update current cell in edit mode
+        var c = document.querySelector('td[class~="edit"]');
+        if (c != null) {
+            updateEditingValues(c);
+        }
+
+        var column = $(e.target).closest('td');
+        var idColumn = column.find($("[Id*=key]")).val();
+        var it = document.getElementById('tooltip-edit_' + idColumn);
+
+        // Updates the opened editHeader with the label value to prevent user from not updating and
+        // reopening with wrong value
+        var header = column.find($('b[id*="header"]'))[0].innerHTML;
+        var newInput = it.querySelector('input[id="input-column"]');
+        newInput.value = header;
+
+        var rect = column[0].getBoundingClientRect();
+        var posX = rect.left + window.scrollX;
+        var posY = rect.top + window.scrollY;
+
+        it.style.top = posY + "px";
+        it.style.left = posX + "px";
+
+        it.style.visibility = "visible";
+    });
+
+    function closeTooltip(control) {
+        control.attr("hidden", true);
+    }
+
+    function removeEditingFromLabel(c) {
+        var viewColumnControl = c.querySelector('div[id^="status-column_"]');
+        viewColumnControl.style.visibility = "visible";
+        var editColumnControl = c.querySelector('div[id^="edit-status-cell_"]');
+
+        // Make the status task buttons unclickable to prevent user to force its use.
+        var buttons = editColumnControl.querySelectorAll('input[class~="btn-label"]');
+        buttons.forEach(function(btn) {
+            btn.disabled = true;
+        });
+
+        editColumnControl.style.visibility = "hidden";
+
+        // Disable edit mode for status task column
+        c.classList.remove('edit');
+    }
+
+    function removeEditingFromUserList(c)
+    {
+
+        // Disable edit mode for user column
+        c.classList.remove('edit');
+    }
+
+    function updateLabel(idTaskCell, control) {
+        
+        var taskCellUpdate = {
+            Id: idTaskCell,
+            Value: control.id,
+            culture: locale
+        };
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['__RequestVerificationToken'] = token;
+
+        showProgress("Updating status");
+
+        $.ajax({
+            url: '@Url.Action("UpdateStatusValue")',
+            type: 'POST',
+            data: { taskCellJson: JSON.stringify(taskCellUpdate) },
+            headers: headers,
+            accept: 'application/json',
+            statusCode: {
+                // In case the model is valid.
+                200: function(result) {
+                    debugger;
+                    var block = document.getElementById('block-status_' + idTaskCell);
+                    block.style.backgroundColor = control.style.backgroundColor;
+                    block.style.color = control.style.color;
+                    block.innerHTML = control.value;
+                    removeEditingFromLabel(control.closest('td'));
+                    hideProgress();
+                },
+
+                // In case the model is invalid.
+                500: function(result) {
+                    debugger;
+                    var obj = JSON.parse(result.responseJSON);
+                    alert(obj.ex);
+
+                    removeEditingFromLabel(control.closest('td'));
+                    hideProgress();
+                    //TODO: SIGNALR to avoid multiple users to edit same cell;
+                    hideProgress();
+                }
+            }
+        });
+    }
+
+    // Edit cell on double click
+    $(".editInfo").click(function(e) {
+
+        // Avoid all processing if element interacts with modal popup
+        if (e.target.className.includes('modal-link')) {
+            return;
+        }
+
+        e.stopPropagation();
+
+        hideColumnHeaderTooltips(e);
+
+        var element = $(this);
+
+        if (element[0].classList.contains("edit"))
+            return;
+
+        //TODO: SIGNALR to avoid multiple users to edit same cell;
+
+        var column = $(e.target).closest('td');
+        var idTaskCell = column.find($("[Id*=key]")).val();
+        var dataType = column.find($("[Id*=type]")).val();
+        var row = $(e.target).closest('tr');
+        var idTask = row.find($("[Id*=key]")).val();
+
+        // Check if there's already a control in edit mode.
+        var c = document.querySelector('td[class~="edit"]');
+        if (c != null) {
+
+            // Treat clicks for inputs
+            var typeColumn = c.querySelector('input[id~="type"]');
+            var selDataType = undefined;
+            if(typeColumn != undefined)
+                selDataType = typeColumn.value;
+
+            switch (selDataType) {
+                case "System.Int32":
+                    integerUpdate(c.querySelector('input[class~="editable"]'));
+                    break;
+                case "System.Decimal":
+                    decimalUpdate(c.querySelector('input[class~="editable"]'));
+                    break;
+                case "System.String":
+                case undefined:  // Used to treat specifically the Task Name which doesn't enter on dynamic column workflow
+                    stringUpdate(c.querySelector('input[class~="editable"]'));
+                    break;
+                case "System.DateTime":
+                    datetimeUpdate(c.querySelector('input[class~="editable"]'));
+                    break;
+                case "IEnumerable<RedSky.Domain.Entities.Usuario>":
+                    removeEditingFromUserList(c);
+
+                    break;
+                case "RedSky.Domain.Entities.Label":
+                    removeEditingFromLabel(c);
+            }
+        }
+
+        var columnValueDiv;
+        var columnValueSpotDiv;
+
+        if (idTaskCell != null) {
+            columnValueDiv = "column-value-" + idTaskCell;
+            columnValueSpotDiv = "column-value-spot-" + idTaskCell;
+        }
+        else {
+            columnValueDiv = "column-value-name-" + idTask;
+            columnValueSpotDiv = "column-value-spot-name-" + idTask;
+        }
+
+        var value = $('#' + columnValueDiv).html().trim();
+        // Treat each data type
+        switch(dataType) {
+        case "System.Int32":
+            $('#' + columnValueDiv).remove();
+            $('#' + columnValueSpotDiv).html('<div id="' +
+                columnValueDiv +
+                '" ><input id="edit-control_' +
+                idTaskCell +
+                '" class="form-control text-box single-line editable" id="Value" name="Value" onkeydown="checkKey(event, \'' + dataType + '\')" value="' +
+                value +
+                '"/></div>');
+            break;
+        case "System.Decimal":
+            $('#' + columnValueDiv).remove();
+            $('#' + columnValueSpotDiv).html('<div id="' +
+                columnValueDiv +
+                '" ><input id="edit-control_' +
+                idTaskCell +
+                '" class="form-control input-filterDecimal text-box single-line editable" id="Value" name="Value" onkeydown="checkKey(event, \'' + dataType + '\')" value="' +
+                value +
+                '"/></div>');
+            break;
+        case "System.String":
+        case undefined:  // Used to treat specifically the Task Name which doesn't enter on dynamic column workflow
+            $('#' + columnValueDiv).remove();
+            if (idTaskCell == null) {
+                $('#' + columnValueSpotDiv).html('<div id="' +
+                    columnValueDiv +
+                    '" ><input type="text" id="edit-control_name-' +
+                    idTask +
+                    '" class="form-control text-box single-line editable" id="Value" name="Value" onkeydown="checkKey(event, undefined)" value="' +
+                    value +
+                    '"/></div>');
+            } else {
+                $('#' + columnValueSpotDiv).html('<div id="' +
+                    columnValueDiv +
+                    '" ><input id="edit-control_' +
+                    idTaskCell +
+                    '" class="form-control text-box single-line editable" id="Value" name="Value" onkeydown="checkKey(event, \'' + dataType + '\')" value="' +
+                    value +
+                    '"/></div>');
+            }
+            break;
+        case "System.DateTime":
+            $('#' + columnValueDiv).remove();
+            $('#' + columnValueSpotDiv).html('<div id="' +
+                columnValueDiv +
+                '" ><input id="edit-control_' +
+                idTaskCell +
+                '" class="form-control monthPicker editable" readonly="readonly" id="Value" name="Value" onkeydown="checkKey(event, \'' + dataType + '\')" value="' +
+                value +
+                '"/></div>');
+            break;
+        case "IEnumerable<RedSky.Domain.Entities.Usuario>":
+            // Creates/Removes nothing. Just open the edit div and hides the column info.
+            element[0].classList.add('edit');
+            //TODO: OPEN EDIT WINDOW
+            return; // Do not focus or select new created elements.
+        case "RedSky.Domain.Entities.Label":
+            // Creates/Removes nothing. Just open the edit div and hides the column info.
+
+            element[0].classList.add('edit');
+
+            var rect = column[0].getBoundingClientRect();
+            var posX = rect.left + window.scrollX;
+            var posY = rect.top + window.scrollY;
+
+            var viewColumnControl = document.getElementById('status-column_' + idTaskCell);
+            viewColumnControl.style.visibility = "hidden";
+            var editColumnControl = document.getElementById('edit-status-cell_' + idTaskCell);
+
+            editColumnControl.style.top = posY + "px";
+            editColumnControl.style.left = posX + "px";
+
+            editColumnControl.style.visibility = "visible";
+
+            // Make the status task buttons clicable.
+            var buttons = editColumnControl.querySelectorAll('input[class~="btn-label"]');
+            buttons.forEach(function(btn) {
+                btn.disabled = false;
+            });
+
+            return; // Do not focus or select new created elements.
+        }
+
+        // Add edit class to avoid function recalling until editing has finished
+        var newElement;
+        element[0].classList.add('edit');
+        if (idTaskCell == null) {
+            newElement = document.getElementById('edit-control_name-' + idTask);
+        } else {
+            newElement = document.getElementById('edit-control_' + idTaskCell);
+        }
+        newElement.focus();
+        newElement.select();
+    });
+
+    function integerUpdate(control) {
+        var element = $(control).closest('td');
+
+        var divAdd = control.id.replace("edit-control_", ''); // Get the TaskCell Id
+        var columnValueDiv = "column-value-" + divAdd;
+        var columnValueSpotDiv = "column-value-spot-" + divAdd;
+
+        var oldValue = control.defaultValue;
+
+        var taskCellId = divAdd;
+        var value = parseInt($(control).val());
+
+        // Check for both int max and min values;
+        if (value > 2147483647) {
+            value = 2147483647;
+            $(control).val(value);
+        }
+
+        if(value < -2147483648) {
+            value = -2147483648;
+            $(control).val(value);
+        }
+
+        var taskCellUpdate = {
+            Id: taskCellId,
+            Value: value,
+            oldValue: oldValue,
+            culture: locale
+        };
+
+        if (oldValue === value) {
+            $('#' + columnValueDiv).remove();
+            $('#' + columnValueSpotDiv).html('<div id="'+columnValueDiv+'">'+ oldValue + '</div>');
+            element[0].classList.remove('edit');
+            return;
+        }
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['__RequestVerificationToken'] = token;
+
+        showProgress("Updating cell value");
+
+        $.ajax({
+            url: '@Url.Action("UpdateIntegerValue")',
+            type: 'POST',
+            data: { taskCellJson: JSON.stringify(taskCellUpdate) },
+            headers: headers,
+            accept: 'application/json',
+            statusCode: {
+                // In case the model is valid.
+                200: function(result) {
+
+                    $('#' + columnValueDiv).remove();
+                    $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + result.Value + '</div>');
+
+                    // Remove edit class to avoid function recalling until editing has finished
+                    element[0].classList.remove('edit');
+                    hideProgress();
+                },
+
+                // In case the model is invalid.
+                500: function(result) {
+
+                    var obj = JSON.parse(result.responseJSON);
+                    alert(obj.ex);
+
+                    $('#' + columnValueDiv).remove();
+                    $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + obj.oldValue + '</div>');
+
+                    // Remove edit class to avoid function recalling until editing has finished
+                    element[0].classList.remove('edit');
+                    //TODO: SIGNALR to avoid multiple users to edit same cell;
+                    hideProgress();
+                }
+            }
+        });
+    }
+
+    function decimalUpdate(control) {
+        var element = $(control).closest('td');
+
+        var divAdd = control.id.replace("edit-control_", ''); // Get the TaskCell Id
+        var columnValueDiv = "column-value-" + divAdd;
+        var columnValueSpotDiv = "column-value-spot-" + divAdd;
+
+        var oldValue = control.defaultValue;
+
+        var taskCellId = divAdd;
+        var value = parseDecimal($(control).val()).toLocaleString(locale,
+            { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: false });;
+
+        // Check for both int max and min values;
+        if (value > 999999.99) {
+            value = 999999.99;
+            $(control).val(value);
+        }
+
+        if (value < -999999.99) {
+            value = -999999.99;
+            $(control).val(value);
+        }
+
+        var taskCellUpdate = {
+            Id: taskCellId,
+            Value: value,
+            oldValue: oldValue,
+            culture: locale
+        };
+
+        if (oldValue === value) {
+            $('#' + columnValueDiv).remove();
+            $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + oldValue + '</div>');
+            element[0].classList.remove('edit');
+            return;
+        }
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['__RequestVerificationToken'] = token;
+
+        showProgress("Updating cell value");
+
+        $.ajax({
+            url: '@Url.Action("UpdateDecimalValue")',
+            type: 'POST',
+            data: { taskCellJson: JSON.stringify(taskCellUpdate) },
+            headers: headers,
+            accept: 'application/json',
+            statusCode: {
+                // In case the model is valid.
+                200: function(result) {
+
+                    $('#' + columnValueDiv).remove();
+                    $('#' + columnValueSpotDiv).html('<div id="' +
+                        columnValueDiv +
+                        '">' +
+                        parseDecimal(result.Value).toLocaleString(locale,
+                            { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: false }) +
+                        '</div>');
+
+                    // Remove edit class to avoid function recalling until editing has finished
+                    element[0].classList.remove('edit');
+                    hideProgress();
+                },
+
+                // In case the model is invalid.
+                500: function(result) {
+
+                    var obj = JSON.parse(result.responseJSON);
+                    alert(obj.ex);
+
+                    $('#' + columnValueDiv).remove();
+                    $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + obj.oldValue + '</div>');
+
+                    // Remove edit class to avoid function recalling until editing has finished
+                    element[0].classList.remove('edit');
+                    //TODO: SIGNALR to avoid multiple users to edit same cell;
+                    hideProgress();
+                }
+            }
+        });
+    }
+
+    function stringUpdate(control) {
+        var element = $(control).closest('td');
+
+        var divAdd = control.id.replace("edit-control_", ''); // Get the TaskCell Id
+        var columnValueDiv = "column-value-" + divAdd;
+        var columnValueSpotDiv = "column-value-spot-" + divAdd;
+
+        var token;
+        var headers = {};
+        var oldValue = control.defaultValue;
+
+        if (divAdd.includes('name')) {
+            var taskId = divAdd.split('-')[1];
+            var taskTitle = $(control).val();
+
+            var taskNameUpdate = {
+                Id: taskId,
+                TaskTitle: taskTitle,
+                oldValue: oldValue,
+                culture: locale
+            };
+
+            if (oldValue === taskTitle) {
+                $('#' + columnValueDiv).remove();
+                $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + oldValue + '</div>');
+                element[0].classList.remove('edit');
+                return;
+            }
+
+            token = $('input[name="__RequestVerificationToken"]').val();
+            headers = {};
+            headers['__RequestVerificationToken'] = token;
+
+            showProgress("Updating task " + oldValue + " name");
+
+            $.ajax({
+                url: '@Url.Action("UpdateTaskName")',
+                type: 'POST',
+                data: { taskJson: JSON.stringify(taskNameUpdate) },
+                headers: headers,
+                accept: 'application/json',
+                statusCode: {
+                    // In case the model is valid.
+                    200: function(result) {
+
+                        $('#' + columnValueDiv).remove();
+                        $('#' + columnValueSpotDiv)
+                            .html('<div id="' + columnValueDiv + '">' + result.TaskTitle + '</div>');
+
+                        // Remove edit class to avoid function recalling until editing has finished
+                        element[0].classList.remove('edit');
+                        //TODO: SIGNALR to avoid multiple users to edit same cell;
+                        hideProgress();
+                    },
+
+                    // In case the model is invalid.
+                    500: function(result) {
+
+                        var obj = JSON.parse(result.responseJSON);
+                        alert(obj.ex);
+
+                        $('#' + columnValueDiv).remove();
+                        $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + obj.oldValue + '</div>');
+
+                        // Remove edit class to avoid function recalling until editing has finished
+                        element[0].classList.remove('edit');
+                        //TODO: SIGNALR to avoid multiple users to edit same cell;
+                        hideProgress();
+                    }
+                }
+            });
+        } else { // Update task name because task cell is null which means the field isn't a dynamic cell
+            var taskCellId = divAdd;
+            var value = $(control).val();
+
+            var taskCellUpdate = {
+                Id: taskCellId,
+                Value: value,
+                oldValue: oldValue,
+                culture: locale
+            };
+
+            if (oldValue === value) {
+                $('#' + columnValueDiv).remove();
+                $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + oldValue + '</div>');
+                element[0].classList.remove('edit');
+                return;
+            }
+
+            token = $('input[name="__RequestVerificationToken"]').val();
+            headers = {};
+            headers['__RequestVerificationToken'] = token;
+
+            showProgress("Updating cell value");
+
+            $.ajax({
+                url: '@Url.Action("UpdateCellValue")',
+                type: 'POST',
+                data: { taskCellJson: JSON.stringify(taskCellUpdate)},
+                headers: headers,
+                accept: 'application/json',
+                statusCode: {
+                    // In case the model is valid.
+                    200: function(result) {
+
+                        $('#' + columnValueDiv).remove();
+                        $('#' + columnValueSpotDiv).html('<div id="'+columnValueDiv+'">'+ result.Value + '</div>');
+
+                        // Remove edit class to avoid function recalling until editing has finished
+                        element[0].classList.remove('edit');
+                        hideProgress();
+                    },
+
+                    // In case the model is invalid.
+                    500: function(result) {
+
+                        var obj = JSON.parse(result.responseJSON);
+                        alert(obj.ex);
+
+                        $('#' + columnValueDiv).remove();
+                        $('#' + columnValueSpotDiv).html('<div id="'+columnValueDiv+'">'+ obj.oldValue + '</div>');
+
+                        // Remove edit class to avoid function recalling until editing has finished
+                        element[0].classList.remove('edit');
+                        //TODO: SIGNALR to avoid multiple users to edit same cell;
+                        hideProgress();
+                    }
+                }
+            });
+        }
+    }
+
+    function datetimeUpdate(control) {
+        var element = $(control).closest('td');
+
+        var divAdd = control.id.replace("edit-control_", ''); // Get the TaskCell Id
+        var columnValueDiv = "column-value-" + divAdd;
+        var columnValueSpotDiv = "column-value-spot-" + divAdd;
+
+        var oldValue = control.defaultValue;
+
+        var taskCellId = divAdd;
+        var value = moment().format($(control).val(), '@Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()');
+
+        var taskCellUpdate = {
+            Id: taskCellId,
+            Value: value,
+            oldValue: oldValue,
+            culture: locale
+        };
+
+        if (oldValue === value) {
+            $('#' + columnValueDiv).remove();
+            $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + oldValue + '</div>');
+            element[0].classList.remove('edit');
+            return;
+        }
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['__RequestVerificationToken'] = token;
+
+        showProgress("Updating cell value");
+
+        $.ajax({
+            url: '@Url.Action("UpdateDateTimeValue")',
+            type: 'POST',
+            data: { taskCellJson: JSON.stringify(taskCellUpdate) },
+            headers: headers,
+            accept: 'application/json',
+            statusCode: {
+                // In case the model is valid.
+                200: function(result) {
+                    $('#' + columnValueDiv).remove();
+                    $('#' + columnValueSpotDiv).html('<div id="' +
+                        columnValueDiv +
+                        '">' +
+                        moment().format(result.Value, '@Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()') +
+                        '</div>');
+
+                    // Remove edit class to avoid function recalling until editing has finished
+                    element[0].classList.remove('edit');
+                    hideProgress();
+                },
+
+                // In case the model is invalid.
+                500: function(result) {
+
+                    var obj = JSON.parse(result.responseJSON);
+                    alert(obj.ex);
+
+                    $('#' + columnValueDiv).remove();
+                    $('#' + columnValueSpotDiv).html('<div id="' + columnValueDiv + '">' + obj.oldValue + '</div>');
+
+                    // Remove edit class to avoid function recalling until editing has finished
+                    element[0].classList.remove('edit');
+                    //TODO: SIGNALR to avoid multiple users to edit same cell;
+                    hideProgress();
+                }
+            }
+        });
+    }
+
+    // Script para criar(abrir) uma task.
+    function newTask(idf) {
+
+        showProgress("Creating new Task");
+
+        $.ajax({
+            url: '@Url.Action("NewTask")',
+            type: 'GET',
+            data: { idTaskGroup: idf }
+
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            // Adiciona todos os dados novamente na tela
+            $('#partial-container').html(result).fadeIn();
+
+            hideProgress();
+        });;
+    }
+
+    function updateColumn(c, oldValue) {
+
+        var td = c.closest('td');
+        var taskColumnId = td.querySelector('input[id="key"]').value;
+        var input = td.querySelector('input[id="input-column"]');
+
+        var column = {
+            Id: taskColumnId,
+            Header: input.value,
+            oldValue: oldValue
+        };
+
+        if (oldValue === input.value) {
+            closeOpenColumnHeaderTooltips();
+            return;
+        }
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['__RequestVerificationToken'] = token;
+
+        showProgress("Updating column");
+
+        $.ajax({
+            url: '@Url.Action("UpdateColumn")',
+            type: 'POST',
+            data: { taskColumnJson: JSON.stringify(column) },
+            headers: headers,
+            accept: 'application/json',
+            statusCode: {
+                // In case of success
+                200: function(result) {
+
+                    var td = c.closest('td');
+                    var input = td.querySelector('input[id="input-column"]');
+                    var headerName = td.querySelector('b[id="header"]');
+
+                    headerName.innerHTML = result.Header;
+                    input.value = result.Header;
+
+                    var tooltip = td.querySelector('div[id^="tooltip-edit_"');
+                    tooltip.style.visibility = "hidden";
+
+                    hideProgress();
+                },
+
+                // Invalid model
+                422: function(result) {
+                    var obj = JSON.parse(result.responseJSON);
+                    var td = c.closest('td');
+
+                    obj.Error.forEach(function(validationerror) {
+                        validationerror.MemberNames.forEach(function(member) {
+                            var validator = td.querySelector('span[id="' + member + '"]');
+                            if (validator != null) {
+                                validator.innerHTML = null;
+                                validator.append(validationerror.ErrorMessage);
+                            }
+                        });
+                    });
+
+                    //TODO: SIGNALR to avoid multiple users to edit same cell;
+                    hideProgress();
+                },
+
+                // In case of generic exception
+                500: function(result) {
+                    debugger;
+                    var obj = JSON.parse(result.responseJSON);
+
+                    alert(obj.ex);
+
+                    var td = c.closest('td');
+                    var input = td.querySelector('input[id="input-column"]');
+                    input.value = obj.oldValue;
+
+                    //TODO: SIGNALR to avoid multiple users to edit same cell;
+                    hideProgress();
+                }
+            }
+
+        });
+    }
+</script>

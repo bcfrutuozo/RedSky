@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RedSky.Presentation.Web.ViewModels.ProjetoDisplayViewModel>
+
+<table class="table">
+
+    @{
+
+        int numberPerRow = 2;
+        int rows = Model.Count() / numberPerRow;
+        int rmn = Model.Count() % numberPerRow;
+
+        if (rmn > 0)
+        {
+            rows += 1;
+        }
+
+        int index = 0;
+
+        for (int i = 0; i < rows; i++)
+        {
+            <tr>
+                @for (int j = 0; j < numberPerRow; j++)
+                {
+                    if (@Model.ElementAtOrDefault(index) != null)
+                    {
+                        <td>
+                            <div>
+                                <a>@Model.ElementAt(index).Identificacao</a>
+                                <a>@Model.ElementAt(index).DataInicio</a>
+                                <a>@Model.ElementAt(index).DataFinal</a>
+                                <a>@Model.ElementAt(index).Status</a>
+                            </div>
+                        </td>
+                    }
+                    index += 1;
+                }
+            </tr>
+        }
+    }
+
+</table>

@@ -1,0 +1,259 @@
+﻿@using System.Globalization
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopernik</title>
+    <link rel="icon" type="image/png" href="~/Images/logo-sm-op.png" />
+
+    @* Add current culture values on page header *@
+    <script type="text/javascript" language="jscript">
+        var localeDecimal = '@Html.Raw(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)';
+        var locale = '@Html.Raw(CultureInfo.CurrentCulture.Name)';
+    </script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/kopernik")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body id="mainBody">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <img class="img-rounded" src="~/Images/logo-sm-wp-inv.png" alt="">
+                    </a>
+                </div>
+                <ul class="nav navbar-nav">
+                    @if (User.IsInRole("Armazem"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Armazém<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">Test 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Test 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Test 3</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Cadastro"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Clientes")">Clientes</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Produtos")">Produtos </a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Fornecedores")">Fornecedores</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Departamentos")">Departamentos</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Perfis")">Perfis</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Usuarios")">Usuários</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Compras"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Compras<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">Test 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Test 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Test 3</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Financeiro"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Financeiro<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Faturas")">Faturamento</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "LotesRPS")">Lotes de RPS</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Logistica"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Logística<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li href="#">Test 1</li>
+                                <li href="#">Test 2</li>
+                                <li href="#">Test 3</li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("OS"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ordens de Serviço<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li href="#">Test 1</li>
+                                <li href="#">Test 2</li>
+                                <li href="#">Test 3</li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("RH"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recursos Humanos<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li href="#">Test 1</li>
+                                <li href="#">Test 2</li>
+                                <li href="#">Test 3</li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Relatorios"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Relatórios<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Demonstrativos")">Cadastrar</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Processar", "Demonstrativos")">Processar</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Sistema"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sistema<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Empresa")">Configurar Empresa</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Filiais")">Gerenciar Filiais</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("TI"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tecnologia da Informação<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li href="#">Test 1</li>
+                                <li href="#">Test 2</li>
+                                <li href="#">Test 3</li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Projetos"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" href="@Url.Action("Index", "Projetos", new {idEmpresa = Convert.ToInt32(Session["IdEmpresa"])})">Projetos</a>
+                            @*<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projeto<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li href="#">Acompanhamento</li>
+                            <li href="#">Test 2</li>
+                            <li href="#">Test 3</li>
+                        </ul>*@
+                        </li>
+                    }
+                    @if (User.IsInRole("Inteligencia"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inteligencia<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Tracking")">Tracking</a>
+                                    <a class="item" href="@Url.Action("Index", "Status")">Status</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administração<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Atividades")">Atividades</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Empresas")">Empresas</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Usuarios")">Usuários</a>
+                                </li>
+                                <li>
+                                    <a class="item" href="@Url.Action("Index", "Permissoes")">Permissões</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                @{ Html.RenderAction("AuthenticatedUser", "Home"); }
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="jumbotron">
+            @RenderBody()
+        </div>
+        <footer class="panel-footer site-background">
+            <p>&copy; @DateTime.Now.Year - Kopernik</p>
+        </footer>
+    </div>
+
+<div id="ajax_window">
+    <div class="modal fade in centered-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="ajax_windows_msg"></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active kopernik-progress-bar" role="progressbar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade in"></div>
+</div>
+</body>
+</html>

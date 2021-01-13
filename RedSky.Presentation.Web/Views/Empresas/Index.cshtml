@@ -1,0 +1,95 @@
+﻿@model IEnumerable<RedSky.Presentation.Web.ViewModels.EmpresaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Identificacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazaoSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegimeTributario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliquotaPIS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliquotaCOFINS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliquotaCSLL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliquotaIR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliquotaINSS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaminhoRelatorio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Identificacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RazaoSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegimeTributario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliquotaPIS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliquotaCOFINS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliquotaCSLL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliquotaIR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliquotaINSS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaminhoRelatorio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Detalhar", "Details", new {id = item.Id}) |
+                @Html.ActionLink("Remove", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
+
+</table>

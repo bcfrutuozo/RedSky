@@ -1,0 +1,111 @@
+﻿@using RedSky.Presentation.Web.Extensions
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.RPSViewModel>
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title" style="color: #000000">Excluir RPS no lote @ViewBag.IdLoteRPS</h4>
+</div>
+<div class="modal-body">
+    <table class="table">
+        <tr>
+            <th class="text-center" style="white-space: nowrap;"></th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.Identificacao)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.DataEmissaoRPS)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.IdFatura)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.RazaoSocialTomador)
+            </th>
+            <th class="text-center" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.CPFCNPJTomador)
+            </th>
+            <th class="text-right" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.ValorTotal)
+            </th>
+            <th class="text-right" style="white-space: nowrap;">
+                @Html.DisplayNameFor(model => model.DeducaoTotal)
+            </th>
+            <th class="text-center" style="white-space: nowrap;"></th>
+        </tr>
+        @foreach (var rps in Model)
+        {
+            <tr>
+                @Html.HiddenFor(r => rps.Id)
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.CheckBoxFor(r => rps.IsChecked, new { id = rps.Id })
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.Identificacao)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.DataEmissaoRPS)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.IdFatura)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.RazaoSocialTomador)
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.CPFCNPJTomador)
+                </td>
+                <td class="text-right" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.ValorTotal)
+                </td>
+                <td class="text-right" style="white-space: nowrap;">
+                    @Html.DisplayFor(r => rps.DeducaoTotal)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-redSky" onclick="removeRpsInBatch(@ViewBag.IdFilial, @ViewBag.IdLoteRPS)" data-dismiss="modal" value="Excluir" style="float: left" />
+    <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>
+</div>
+
+<script type="text/javascript" language="javascript">
+
+    // Script para remover um RPS de um lote RPS.
+    function removeRpsInBatch(idf, idb) {
+
+        showProgress("Removendo RPS selecionados no lote " + idb);
+
+        var lstIds = $('input:checked').map(function() {
+            return this.id;
+        }).get();
+
+        if (lstIds.length > 0) {
+            $.ajax({
+                url: '@Url.Action("RemoveRPSFromLote")',
+                type: 'POST',
+                beforeSend: function() {
+                    $("#modal-container").modal('hide');
+                },
+                data: { idFilial: idf, lstRps: lstIds, @Html.AntiForgeryTokenForAjaxPost() }
+            }).done(function(result) {
+                // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                $("#partial-container").empty();
+
+                // Adiciona todos os dados novamente na tela
+                $('#partial-container').html(result).fadeIn();
+
+                hideProgress();
+            });
+        } else {
+            alert("É necessário selecionar ao menos um RPS para remover do lote.");
+        }
+    }
+
+</script>

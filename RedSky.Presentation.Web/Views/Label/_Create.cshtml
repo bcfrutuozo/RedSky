@@ -1,0 +1,69 @@
+﻿@using RedSky.Presentation.Web.ViewModels
+@model RedSky.Presentation.Web.ViewModels.CreateLabelViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+    <link href="@Url.Content("~/Content/Label/Create.css")" rel="stylesheet" type="text/css" />
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdEmpresa)
+        <h4 class="modal-title">Add New Label</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "control-label col-sm-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdColor, new { @class = "control-label col-sm-2" })
+                <div id="back-color" class="btn-group col-md-4" role="group">
+                    @foreach (var color in ViewBag.Colors as IEnumerable<ColorDisplayViewModel>)
+                    {
+                        <button name="IdColor" type="button" class="btn tracking-label" style="background: #@color.Hex"></button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-redSky" value="Save" style="float: left" />
+
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancel</button>
+    </div>
+}
+
+<script type="text/javascript">
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: '@Url.Action("AddLabel")',
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $("#modal-container").modal('hide');
+                        $("#partial-container").empty();
+                        $('#partial-container').html(result).fadeIn();
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>

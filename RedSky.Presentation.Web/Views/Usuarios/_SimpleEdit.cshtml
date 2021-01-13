@@ -1,0 +1,194 @@
+﻿@using System.Globalization
+@using System.Text
+@using RedSky.Common
+@using RedSky.Presentation.Web.ViewModels
+@model RedSky.Presentation.Web.ViewModels._SimpleEditUserViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+
+@using (Html.BeginForm("SimpleEdit", "Usuarios", FormMethod.Post, new { id = "mainFrm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Alterar suas informações</h4>
+
+    </div>
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdEmpresa)
+        @Html.HiddenFor(model => model.Picture)
+
+        <div style="width: 200px; align-items: center; text-align: center; display: inline-block;vertical-align: top">
+
+            <div>
+                @if (Model.Picture.Length > 0)
+                {
+                    <img class="circleBase type2" id="pic" class="img-rounded" src="@string.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(Model.Picture))" alt="Image" width="128" height="128" />
+                }
+                else
+                {
+                    <img class="circleBase type2" id="pic" class="img-rounded" src="../../Images/empty_user.png" alt="Image" width="128" height="128" />
+                }
+
+            </div>
+
+            <input id="uploader" type="file" style="display: none;" name="file" />
+            <input class="btn btn-redSky" type="button" value="Browse" onclick="document.getElementById('uploader').click();" style="margin: 8px" />
+
+        </div>
+
+        <div class="form-horizontal" style="display: inline-block;width:650px">
+
+            @if (Model.IdEmpresa.HasValue && Model.IdEmpresa > 0)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Empresa, new { @class = "control-label col-sm-3" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Empresa, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Empresa, new { @class = "control-label col-sm-3" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Empresa, new { @class = "form-control", @readonly = "true", @Value = "No Company (System Administrator)" })
+                        @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Login, new { @class = "control-label col-sm-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome, new { @class = "control-label col-sm-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Senha, new { @class = "control-label col-sm-3" })
+                <div class="col-md-8">
+                    @Html.PasswordFor(model => model.Senha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmaSenha, new { @class = "control-label col-sm-3" })
+                <div class="col-md-8">
+                    @Html.PasswordFor(model => model.ConfirmaSenha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ConfirmaSenha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label col-sm-3" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <input type="submit" id="btnSalvar" class="btn btn-redSky" value="Salvar" style="float: left" />
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(function() {
+        $('#uploader').change(function() {
+            if (this.files[0].size > 262144) {
+                $('#pic').attr('src', '../../Images/empty_user.png');
+                alert("The maximum file size allowed to the user picture is 256KB.");
+                this.value = "";
+                return;
+            };
+
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#pic').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#pic').attr('src', '../../Images/empty_user.png');
+            }
+        });
+    });
+
+    // Carrega o popup menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    // Send form via ajax
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+                showProgress('Salvando alterações');
+                $('#modalbody').modal('hide');
+
+                // Serialize the entire form
+                var form = $('#mainFrm');
+                var formData = new FormData(form.get(0));
+                formData.append('files', $('#mainFrm input[type="file"]')[0].files[0]);
+
+                $.ajax({
+                    url: '@Url.Action("SimpleEdit")',
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    traditional: true,
+                    statusCode: {
+                        // In case the model is valid.
+                        200: function(result) {
+                            debugger;
+                            $('#modal-body').empty();
+                            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                            $('#partial-container').empty();
+                            //$('#partial-container').html(result).fadeIn();
+                            hideProgress();
+                            location.reload(true);
+                        },
+
+                        // In case the model is invalid.
+                        422: function(result) {
+                            debugger;
+                            $('#modalbody').empty();
+                            $('#modalbody').html(result.responseText);
+
+                            hideProgress();
+                            $('#modal-container').modal('show');
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,98 @@
+﻿@model RedSky.Presentation.Web.ViewModels.ServicoViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Servico</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdDemonstrativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdDemonstrativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomePlanilha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomePlanilha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeConexao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeConexao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QueryRateio)
+        </dt>
+
+        <dd>
+            <pre>@Model.QueryRateio</pre>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QueryDados)
+        </dt>
+
+        <dd>
+            <pre>@Model.QueryDados</pre>
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default"/> |
+            @Html.ActionLink("Retornar", "Edit", "Demonstrativos", new RouteValueDictionary(new {id = Model.IdDemonstrativo}), null)
+        </div>
+    }
+</div>

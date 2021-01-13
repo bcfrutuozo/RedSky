@@ -1,0 +1,45 @@
+﻿@using System.Globalization
+@{
+    ViewBag.Title = "Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet">
+    <div class="portlet-heading texture-portlet">
+        <div class="portlet-title">
+            <h4 class="vertical-allign">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Tracking
+            </h4>
+        </div>
+    </div>
+    <div class="portlet-content text-center center-block">
+        <div id="partial-container">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Forces the load of demonstratives on page open.
+    $(document).ready(function() {
+        showTrackings();
+    });
+
+    function showTrackings() {
+
+        showProgress("Carregando tarefas");
+
+        $.ajax({
+            url: '@Url.Action("GetTrackings")',
+            type: 'GET'
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+
+        });
+    }
+</script>

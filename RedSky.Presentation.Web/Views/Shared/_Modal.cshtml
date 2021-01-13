@@ -1,0 +1,12 @@
+﻿<div class="modal-lg centered-modal inner-modal">
+    <div class="modal-content">
+        @if (ViewBag.Exception != null)
+        {
+            <div>
+                @ViewBag.Exception
+            </div>
+        }
+
+        @RenderBody()   
+    </div>
+</div>

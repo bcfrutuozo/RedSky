@@ -1,0 +1,364 @@
+﻿@using RedSky.Presentation.Web.Extensions
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.FaturaDisplayViewModel>
+
+<table class="table table-responsive table-hover">
+
+    @if (Model.Count() != 0)
+    {
+        <thead>
+            <tr>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.NumeroNF)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.Filial)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.Competencia)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.NomeArquivo)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.Identificacao)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.DataVencimento)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayNameFor(model => model.DataRecebimento)
+                </th>
+                <th class="text-center" style="white-space: nowrap;">
+                    @Html.DisplayName("Processamento")
+                </th>
+                <th class="text-right" style="white-space: nowrap;">
+                    @Html.DisplayName("Valor Total")
+                </th>
+                <th></th>
+                <th class="text-right" style="white-space: nowrap;">
+                    @Html.DisplayName("Valor Recebido")
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    }
+    <tbody>
+        @{
+            // Declare variable on scope to allow the mapping for the tooltip between rows indexes.
+            var i = 0;
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center" style="white-space: nowrap;">
+                        <div style="display: inline">
+                            @if (item.NumeroNF != null && item.NumeroNF > 0)
+                            {
+                                @Html.DisplayFor(modelItem => item.NumeroNF)
+                                <button type="submit" data-toggle="tooltip" title="Enviar a NFSe para o cliente" data-placement="top" style="background: none; border: none; float: right; padding: 0;" onclick="sendInvoiceEmail(@item.Id, @item.IdFilial, @item.NumeroNF, '@item.Identificacao')">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </button>
+                            }
+                        </div>
+                    </td>
+
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Filial)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Competencia)
+                    </td>
+                    <td class="text-center" style="white-space: nowrap">
+                        <div style="display: inline">
+                            @if (!string.IsNullOrEmpty(item.NomeArquivo))
+                            {
+                                @Html.ActionLink(item.NomeArquivo, "DownloadFatura", new { idFatura = item.Id })
+                                <button type="submit" data-toggle="tooltip" title="Enviar a fatura para aprovação do cliente" data-placement="top" style="background: none; border: none; float: right; padding: 0;" onclick="sendBillEmail(@item.Id, '@item.Identificacao')">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </button>
+                            }
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Identificacao)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.DataVencimento)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.DataRecebimento)
+                    </td>
+                    <td class="text-center">
+                        @if (item.IsFaturado)
+                        {
+                            if (item.IdLoteRPS == 0)
+                            {
+                                <input type="button" class="btn btn-redSky-clicked" onclick="deleteRPS('@item.Identificacao', @ViewBag.Month, @ViewBag.Year, @item.IdRPS)" value="Cancelar RPS" />
+                            }
+                            else
+                            {
+                                if (item.NumeroNF.HasValue)
+                                {
+                                    <label>-----------</label>
+                                }
+                                else
+                                {
+                                    if (item.IdStatusLoteRPS == 4 || item.IdStatusLoteRPS == 5)
+                                    {
+                                        <input type="button" class="btn btn-redSky-clicked" onclick="bill(@item.Id, '@item.Identificacao')" value="Gerar Novo RPS" />
+                                    }
+                                    else
+                                    {
+                                        <label>LoteRPS @item.IdLoteRPS</label>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (item.IsProcessavel)
+                            {
+                                if (item.IsProcessado)
+                                {
+                                    <button type="submit" data-toggle="tooltip" title="Reprocessar fatura" data-placement="top" style="background: none; border: none; margin: 0px 10px" onclick="process(@item.Id, '@item.Identificacao')">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" data-toggle="tooltip" title="Processar fatura" data-placement="top" style="background: none; border: none; padding: 0" onclick="process(@item.Id, '@item.Identificacao')">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </button>
+                                }
+                            }
+
+                            if (item.ValorBruto > decimal.Zero)
+                            {
+                                <button type="submit" data-toggle="tooltip" title="Faturar (Gerar o RPS da fatura)" data-placement="top" style="background: none; border: none; margin: 0px 10px" onclick="bill(@item.Id, '@item.Identificacao')">
+                                    <span class="glyphicon glyphicon-usd"></span>
+                                </button>
+                            }
+                        }
+                    </td>
+                    <td class="text-right">
+                        @Html.DisplayFor(modelItem => item.ValorBruto)
+                    </td>
+                    <td class="text-left">
+                        @if (item.IsFaturado)
+                        {
+                            @* Tooltip code *@
+                            <div id="@("tooltip_" + item.Id)" class="xstooltip">
+                                Impostos
+                                <br />
+                                COFINS: @item.ValorCOFINS.ToString("C2")<br />
+                                CSLL: @item.ValorCSLL.ToString("C2")<br />
+                                INSS: @item.ValorINSS.ToString("C2") <br />
+                                IR: @item.ValorIR.ToString("C2") <br />
+                                ISS: @item.ValorISS.ToString("C2") (à ser recolhido)<br />
+                                PIS: @item.ValorPIS.ToString("C2") <br />
+                                <br /><br />
+                                Valor Bruto: @item.ValorBruto.ToString("C2") <br /><br />
+                                Total de Impostos Retidos: @item.ValorImpostosRetidos.ToString("C2")<br />
+                                Valor Dedutível: @item.ValorDedutivel.ToString("C2")<br /><br />
+                                Valor Líquido: @item.ValorLiquido.ToString("C2") <br />
+                            </div>
+
+                            <span id="row-@(i)" class="glyphicon glyphicon-info-sign" onmouseover="xstooltip_show('@("tooltip_" + item.Id)', 'row-@(i)');" onmouseout="xstooltip_hide('@("tooltip_" + item.Id)');"></span>
+                        }
+                    </td>
+                    <td class="text-right">
+                        @Html.DisplayFor(modelItem => item.ValorRecebido)
+                    </td>
+                    <td></td>
+                    <td class="text-right">
+                        @if ((item.IsProcessavel && item.IsProcessado) || !item.IsProcessavel || (item.IsProcessavel && item.IsEdit))
+                        {
+                            <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("GetFaturamentos", new {idFatura = item.Id, nomeFatura = item.Identificacao, month = ViewBag.Month, year = ViewBag.Year, isProcessavel = item.IsProcessavel, isFaturado = item.IsFaturado})">Revenues</button>
+                        }
+                        @if (item.ValorBruto > decimal.Zero)
+                        {
+                            <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Detail", new {idFatura = item.Id})">Details</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Edit", new {idFatura = item.Id})">Edit</button>
+                            <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Delete", new {idFatura = item.Id})">Delete</button>
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="15">
+                @if (Model.Count() == 0)
+                {
+                    <button type="button" class="btn btn-redSky" onclick="copyMonth(@ViewBag.Month, @ViewBag.Year)" style="margin-bottom: 20px; max-width: 3280px; width: 100%;">Copiar Anterior</button>
+                }
+                <input type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Create", new {month = ViewBag.Month, year = ViewBag.Year})" style="max-width: 3280px; width: 100%" value="Nova Fatura" />
+            </td>
+        </tr>
+        <tr class="no-hover">
+            @if (Model.Count() != 0)
+            {
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right" style="vertical-align: middle;">
+                    <div>
+                        <label>Total Faturado: </label>
+                        <strong>@string.Format("{0:C2}", Model.Sum(v => v.ValorBruto))</strong>
+                    </div>
+                </td>
+                <td></td>
+                <td class="text-right" style="vertical-align: middle;">
+                    <strong>@string.Format("{0:C2}", Model.Sum(v => v.ValorRecebido))</strong>
+                </td>
+                <td class="text-right" style="vertical-align: middle;">
+                    <strong>@string.Format("{0:C2}", Model.Where(fat => fat.ValorRecebido > 0.00m).Sum(v => v.ValorISS))</strong>
+                </td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-download-alt"></span> Exportar
+                    </button>
+                </td>
+            }
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript" language="javascript">
+    function sendBillEmail(idf, idt) {
+        showProgress("Enviando os e-mails de " + idt);
+
+        $.ajax({
+            url: '@Url.Action("SendBillEmail")',
+            type: 'POST',
+            data: { idFatura: idf, @Html.AntiForgeryTokenForAjaxPost() }
+
+        }).done(function() {
+            hideProgress();
+        });
+    }
+
+    /*
+    STATUS: WORKING PROPERLY
+
+    Tested on 2019-04-26
+    Bruno Corrêa Frutuozo
+    */
+    function sendInvoiceEmail(idft, idfl, nmNf, idt) {
+        showProgress("Enviando a NFSe de " + idt);
+
+        $.ajax({
+            url: '@Url.Action("SendInvoiceEmail")',
+            type: 'POST',
+            data: { idFatura: idft, idFilial: idfl, numeroNF: nmNf, @Html.AntiForgeryTokenForAjaxPost() }
+
+        }).done(function() {
+            hideProgress();
+        });
+    }
+
+    function deleteRPS(idt, month, year, idr) {
+        showProgress("Cancalando o processo de faturamento para a fatura " + idt);
+
+        $.ajax({
+            url: '@Url.Action("DeleteRPS")',
+            type: 'POST',
+            data: { idRPS: idr, month: month, year: year, @Html.AntiForgeryTokenForAjaxPost() }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+            // Atualiza os faturas.
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    }
+
+    function bill(idf, idt) {
+
+        showProgress("Gerando o RPS da fatura " + idt);
+
+        $.ajax({
+            url: '@Url.Action("Bill")',
+            type: 'POST',
+            data: { idFatura: idf, @Html.AntiForgeryTokenForAjaxPost() }
+
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    }
+
+    /*
+    STATUS: WORKING PROPERLY
+
+    Tested on 2019-04-24
+    Bruno Corrêa Frutuozo
+
+    */
+    function process(idf, idt) {
+
+        showProgress("Processando o demonstrativo " + idt);
+
+        $.ajax({
+            url: '@Url.Action("Process")',
+            type: 'POST',
+            data: { idFatura: idf, @Html.AntiForgeryTokenForAjaxPost() }
+
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    }
+
+    function deleteBill(idf, idt) {
+
+        showProgress("Eliminando a fatura " + idt);
+
+        $.ajax({
+            url: '@Url.Action("Delete")',
+            type: 'GET',
+            data: { idFatura: idf }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    }
+
+    function copyMonth(m, y) {
+
+        showProgress("Copiando as faturas da competência anterior...");
+
+        $.ajax({
+            url: '@Url.Action("CopiarCompetenciaAnterior")',
+            type: 'POST',
+            data: { month: m, year: y, @Html.AntiForgeryTokenForAjaxPost() },
+            beforeSend: function() {
+                $("#modal-container").modal('hide');
+            }
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            $('#partial-container').html(result).fadeIn();
+            hideProgress();
+        });
+    }
+</script>

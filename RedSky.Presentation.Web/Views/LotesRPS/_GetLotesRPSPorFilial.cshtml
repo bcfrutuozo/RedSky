@@ -1,0 +1,158 @@
+﻿@using RedSky.Presentation.Web.Extensions
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.LoteRPSViewModel>
+
+<table id="@ViewBag.IdFilial" class="table table-responsive table-hover">
+    <tr>
+        <input id="newBatch" class="btn btn-redSky" type="button" value="Novo Lote" style="margin: 12px; max-width: 3280px; width: 100%;" onclick="newBatch(@ViewBag.IdFilial)" readonly="readonly"/>
+    </tr>
+    <thead>
+    <tr>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.StatusLoteRPS)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.NumeroLote)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.CPFCNPJRemetente)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.DataPrimeiroRPS)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.DataUltimoRPS)
+        </th>
+        <th class="text-center" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.QuantidadeRPS)
+        </th>
+        <th class="text-right" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.ValorTotalServicos)
+        </th>
+        <th class="text-right" style="white-space: nowrap;">
+            @Html.DisplayNameFor(model => model.ValorTotalDeducoes)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.StatusLoteRPS)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.NumeroLote)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.CPFCNPJRemetente)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.DataPrimeiroRPS)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.DataUltimoRPS)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.QuantidadeRPS)
+            </td>
+            <td class="text-right" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.ValorTotalServicos)
+            </td>
+            <td class="text-right" style="white-space: nowrap;">
+                @Html.DisplayFor(modelItem => item.ValorTotalDeducoes)
+            </td>
+            <td class="text-center" style="white-space: nowrap;">
+                @if (item.IdStatusLoteRPS == 3) // ABERTO
+                {
+                    <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("GetRPSSemLote", new {idFilial = ViewBag.IdFilial, idLoteRPS = item.Id})">Add</button>
+
+                    if (item.QuantidadeRPS > 0)
+                    {
+                        <button type="button" class="btn btn-primary modal-link" data-targeturl="@Url.Action("GetListRPSByIdLoteRPS", new {idFilial = ViewBag.IdFilial, idLoteRPS = item.Id})">Edit</button>
+                        <input id="@(item.Id)" onclick="processBatch(@ViewBag.IdFilial, this.id)" class="btn btn-redSky" type="button" value="Processar"/>
+                    }
+                    else
+                    {
+                        <button class="btn btn-redSky modal-link" type="button" data-targeturl="@Url.Action("Delete", new {idLoteRPS = item.Id})">Delete</button>
+                    }
+                }
+
+                @if (item.IdStatusLoteRPS == 1) // SUCESSO
+                {
+                    if (item.QuantidadeRPS > 0)
+                    {
+                        <input id="@(item.NumeroLote)" onclick="downloadBatch(@ViewBag.IdFilial, @item.Id, this.id)" class="btn btn-redSky-clicked" type="button" value="Download"/>
+                    }
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>
+
+<script type="text/javascript" language="javascript">
+    // Script para criar(abrir) um novo lote RPS.
+    function newBatch(idf) {
+
+        showProgress("Criando um novo lote RPS...");
+
+        $.ajax({
+            url: '@Url.Action("Create")',
+            type: 'GET',
+            data: { idFilial: idf }
+
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            // Adiciona todos os dados novamente na tela
+            $('#partial-container').html(result).fadeIn();
+
+            hideProgress();
+        });;
+    }
+
+    // Script para enviar o lote de RPS.
+    function processBatch(idf, idLote) {
+
+        showProgress("Enviado o lote " + idLote + " para processamento...");
+
+        $.ajax({
+            url: '@Url.Action("ProcessBatch")',
+            type: 'POST',
+            data: { idFilial: idf, idLoteRPS: idLote, @Html.AntiForgeryTokenForAjaxPost() }
+
+        }).done(function(result) {
+            // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+            $("#partial-container").empty();
+
+            // Adiciona todos os dados novamente na tela
+            $('#partial-container').html(result).fadeIn();
+
+            hideProgress();
+        });;
+    }
+
+    // Script para efetuar o download das NFs de um lote já processado.
+    function downloadBatch(idf, idb, nLote) {
+
+        showProgress("Realizando os downloads das NFSe do lote " + nLote);
+
+        $.ajax({
+            url: '@Url.Action("DownloadBatch")',
+            type: 'POST',
+            data: { idFilial: idf, idLoteRPS: idb, @Html.AntiForgeryTokenForAjaxPost() }
+        }).done(function() {
+            hideProgress();
+        });
+    }
+
+</script>

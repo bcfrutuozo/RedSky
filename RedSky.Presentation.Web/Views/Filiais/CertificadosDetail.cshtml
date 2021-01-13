@@ -1,0 +1,83 @@
+﻿@model RedSky.Presentation.Web.ViewModels.CertificadoDigitalViewModel
+@{
+    ViewBag.Title = "CertificadosDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do certificado digital</h2>
+
+<div>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issuer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issuer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Version)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Version)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Thumbprint)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Thumbprint)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SerialNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FriendlyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FriendlyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PublicKeyFormat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PublicKeyFormat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RawDataLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RawDataLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeEmpresarial)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomeEmpresarial)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Retornar", "CertificadosIndex", new {id = Model.IdFilial})
+</p>

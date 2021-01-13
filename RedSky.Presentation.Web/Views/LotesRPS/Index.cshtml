@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Lotes RPS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet">
+    <div class="portlet-heading texture-portlet">
+        <div class="portlet-title">
+            <h4 class="vertical-allign">
+                <i class="glyphicon glyphicon-compressed"></i>
+                Lotes de RPS
+            </h4>
+        </div>
+    </div>
+    <div class="portlet-content">
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.DropDownList("Filials", ViewBag.Filiais as SelectList, "Selecione a filial", new {id = "IdFilial", @class = "form-control"})
+            </div>
+            <div class="col-md-2">
+                <input type="button" onclick="getLotesRpsPorFilial()" value="Listar" class="btn btn-redSky"/>
+            </div>
+        </div>
+
+        <div id="partial-container">
+            @* Page rendering content via Ajax. *@
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function getLotesRpsPorFilial() {
+
+        var m = document.getElementById("IdFilial");
+        var fl = m.options[m.selectedIndex];
+
+        showProgress("Obtendo os lotes de RPS de " + fl.text);
+
+        if (fl.value !== "") {
+            $.ajax({
+                url: '@Url.Action("GetLotesRPSPorFilial")',
+                type: 'GET',
+                data: { idFilial: fl.value }
+            }).done(function(result) {
+                // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                $("#partial-container").empty();
+
+                // Adiciona todos os dados novamente na tela
+                $('#partial-container').html(result).fadeIn();
+
+                hideProgress();
+            });
+        } else {
+            alert("Selecione a filial para poder obter os lotes de RPS.");
+            hideProgress();
+        }
+    }
+
+</script>

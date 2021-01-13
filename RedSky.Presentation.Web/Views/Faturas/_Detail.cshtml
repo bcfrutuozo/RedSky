@@ -1,0 +1,250 @@
+﻿@using System.Globalization
+@model RedSky.Presentation.Web.ViewModels.FaturaViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Visualizar @Model.Identificacao</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Identificacao, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Identificacao, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Identificacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdFilial, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.IdFilial, new SelectList(new List<dynamic> { ViewBag.Filial }, "Id", "Identificacao", Model.IdFilial), "Selecione a filial", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.IdFilial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdCliente, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.IdCliente, new SelectList(new List<dynamic> { ViewBag.Cliente }, "Id", "Apelido", Model.IdCliente), "Selecione o cliente", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Competencia, new { @class = "control-label col-sm-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Competencia, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Competencia, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.DataVencimento, new { @class = "control-label col-sm-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsProcessavel, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.CheckBoxFor(model => model.IsProcessavel, new { @class = "checkbox", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.IsProcessavel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (@Model.IdDemonstrativo.HasValue)
+            {
+                <div class="form-group" id="demonstrativo">
+                    @Html.LabelFor(model => model.IdDemonstrativo, new { @class = "control-label col-sm-2" })
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.IdDemonstrativo, new SelectList(new List<dynamic> { ViewBag.Demonstrativo }, "Id", "Nome", Model.IdDemonstrativo), new { @class = "form-control", disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.IdDemonstrativo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HasRetencao, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.CheckBoxFor(model => model.HasRetencao, new { @class = "checkbox", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.HasRetencao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <table id="tbValores" class="table table-responsive table-hover">
+                    <tr>
+                        <td style="width: 20%">
+                            @Html.LabelFor(model => model.AliquotaCOFINS, new { @class = "control-label col-sm-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaCOFINS, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", style = "text-align: right" } })
+                            </div>
+                        </td>
+                        <td style="width: 20%">
+                            @Html.LabelFor(model => model.AliquotaCSLL, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaCSLL, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", style = "text-align: right" } })
+                            </div>
+                        </td>
+                        <td style="width: 20%">
+                            @Html.LabelFor(model => model.AliquotaINSS, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaINSS, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", style = "text-align: right" } })
+                            </div>
+                        </td>
+                        <td style="width: 20%">
+                            @Html.LabelFor(model => model.AliquotaIR, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaIR, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", style = "text-align: right" } })
+                            </div>
+                        </td>
+                        <td style="width: 20%">
+                            @Html.LabelFor(model => model.AliquotaPIS, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaPIS, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", style = "text-align: right" } })
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdAtividade, new { @class = "control-label col-sm-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.IdAtividade, new SelectList(new List<dynamic> { ViewBag.Atividade }, "Id", "Exibicao", Model.IdAtividade), "Selecione a atividade", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.IdAtividade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div id="tbImpostos" class="col-sm-offset-2 col-md-8">
+                    <table class="table table-responsive table-hover">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <label id="atDescricao">@ViewBag.Atividade.Servico</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Local de Incidência: </label>
+                                    <label id="atLocalIncidencia" class="text-info">@ViewBag.Atividade.Incidencia</label>
+                                </td>
+                                <td>
+                                    <label>Utilização: </label>
+                                    <label id="atUtilizacao" class="text-info">@ViewBag.Atividade.Utilizacao</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Tributação: </label>
+                                    <label id="atTributacao" class="text-info">@(ViewBag.Atividade.Tributacao == "Tributável" ? "Sim" : "Não")</label>
+                                </td>
+                                <td>
+                                    <label>Dedução de Valor: </label>
+                                    <label id="atDeducaoValor" class="text-info">@(ViewBag.Atividade.Tributacao == "Sem Dedução" ? "Sim" : "Não")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Dedução: </label>
+                                    <label id="atDeducao" class="text-info">@(ViewBag.Atividade.Tributacao == "Sem Dedução" ? "Não" : string.Empty)</label>
+                                </td>
+                                <td>
+                                    <label>Serviço: </label>
+                                    <label id="atServico" class="text-info">@(ViewBag.Atividade.IsServico ? "Sim" : "Não")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Grupo: </label>
+                                    <label id="atGrupo" class="text-info">@ViewBag.Atividade.Grupo</label>
+                                </td>
+                                <td>
+                                    <label>Itens: </label>
+                                    <label id="atItenss" class="text-info">@ViewBag.Atividade.ItensServico</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Imune: </label>
+                                    <label id="atImune" class="text-info">@(ViewBag.Atividade.IsImune ? "Sim" : "Não")</label>
+                                </td>
+                                <td>
+                                    <label>Isento: </label>
+                                    <label id="atIsento" class="text-info">@(ViewBag.Atividade.IsIsento ? "Sim" : "Não")</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div id="dadosAtividade" class="col-sm-offset-2 col-md-8" style="border: 1px solid #3a3a5e">
+
+                    <div class="form-group">
+                        <label class="col-md-5 text-center" style="background: white; margin-left: 12px; margin-top: -12px;">Dados da Prestação do Serviço</label>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdTipoRecolhimento, new { @class = "control-label col-sm-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.IdTipoRecolhimento, new SelectList(new List<dynamic> { ViewBag.TipoRecolhimento }, "Id", "Descricao", Model.IdTipoRecolhimento), new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdEstadoPrestacao, new { @class = "control-label col-sm-2" })
+                        <div class="col-md-2 ">
+                            @Html.DropDownListFor(model => model.IdEstadoPrestacao, new SelectList(new List<dynamic> { ViewBag.EstadoPrestacao }, "Id", "Sigla", Model.IdEstadoPrestacao), "", new { @class = "form-control", disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.IdCidadePrestacao, "", new { @class = "text-danger" })
+
+                        </div>
+                        @Html.LabelFor(model => model.IdCidadePrestacao, new { @class = "control-label col-sm-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.IdCidadePrestacao, new SelectList(new List<dynamic> { ViewBag.CidadePrestacao }, "Id", "Nome", Model.IdCidadePrestacao), new { @class = "form-control", disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.IdCidadePrestacao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AliquotaISS, new { @class = "control-label col-sm-10" })
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.AliquotaISS, new { htmlAttributes = new { @class = "form-control input-filterDecimal", style = "text-align: right", disabled = "disabled", type = "text" } })
+                            @Html.ValidationMessageFor(model => model.AliquotaISS, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descritivo, new { @class = "control-label col-sm-2" })
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.Descritivo, new { @class = "form-control", style = "resize: none;", rows = 8, disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.Descritivo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Fechar</button>
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    // Carrega o popup de faturamentos menor.
+    // OK
+    $('#container-resizer').first().removeClass('popup-modal');
+</script>

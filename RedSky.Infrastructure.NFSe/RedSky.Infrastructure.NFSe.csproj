@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B2498F0F-D1B0-4227-87AA-A97B93C2EC31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedSky.Infrastructure.NFSe</RootNamespace>
+    <AssemblyName>RedSky.Infrastructure.NFSe</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\SPSorocabaNFSe\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SPTatuiNFSeCancelarNFSe\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\NFSeWSFactory.cs" />
+    <Compile Include="Interfaces\INFSeWS.cs" />
+    <Compile Include="Interfaces\INFSeWSFactory.cs" />
+    <Compile Include="NFSeService.cs" />
+    <Compile Include="Proxies\SPSorocaba\SPSorocabaProxies.cs" />
+    <Compile Include="Proxies\Xml\Namespaces.cs" />
+    <Compile Include="Proxies\Xml\v4610550\KeyInfoType.cs" />
+    <Compile Include="Proxies\Xml\v4610550\ReferenceType.cs" />
+    <Compile Include="Proxies\Xml\v4610550\ReferenceTypeDigestMethod.cs" />
+    <Compile Include="Proxies\Xml\v4610550\SignatureType.cs" />
+    <Compile Include="Proxies\Xml\v4610550\SignatureValueType.cs" />
+    <Compile Include="Proxies\Xml\v4610550\SignedInfoType.cs" />
+    <Compile Include="Proxies\Xml\v4610550\SignedInfoTypeCanonicalizationMethod.cs" />
+    <Compile Include="Proxies\Xml\v4610550\SignedInfoTypeSignatureMethod.cs" />
+    <Compile Include="Implementations\SPSorocabaNFSeWS.cs" />
+    <Compile Include="Proxies\Xml\v4610550\TransformType.cs" />
+    <Compile Include="Proxies\Xml\v4610550\TTransformURI.cs" />
+    <Compile Include="Proxies\Xml\v4610550\X509DataType.cs" />
+    <Compile Include="Implementations\SPTatuiNFSeWS.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\SPTatui\SPTatuiProxies.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\LoteRps.wsdl" />
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.cancelarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.consultarAliquotaSimplesNacionalResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.consultarLoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.consultarNFSeRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.consultarNotaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.consultarNotaTomadaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.consultarSequencialRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.enviarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.enviarSincronoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPSorocabaNFSe\RedSky.Infrastructure.NFSe.SPSorocabaNFSe.testeEnviarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPTatuiNFSeCancelarNFSe\CancelarNfse.wsdl" />
+    <None Include="Connected Services\SPTatuiNFSeCancelarNFSe\RedSky.Infrastructure.NFSe.SPTatuiNFSeCancelarNFSe.ExecuteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\ConsultarNfsePorRps.wsdl" />
+    <None Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\RedSky.Infrastructure.NFSe.SPTatuiNFSeConsultarNFSePorRPS.ExecuteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\RecepcionarLoteRpsSincrono.wsdl" />
+    <None Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\RedSky.Infrastructure.NFSe.SPTatuiNFSeRecepcionarLoteRPSSincrono.ExecuteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\SPSorocabaNFSe\" />
+    <WCFMetadataStorage Include="Connected Services\SPTatuiNFSeCancelarNFSe\" />
+    <WCFMetadataStorage Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\" />
+    <WCFMetadataStorage Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPSorocabaNFSe\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPSorocabaNFSe\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPSorocabaNFSe\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedSky.Common\RedSky.Common.csproj">
+      <Project>{cc98d584-29c4-47b9-b0f1-f006101c1eab}</Project>
+      <Name>RedSky.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Domain\RedSky.Domain.csproj">
+      <Project>{8A408061-8D09-4ED9-9FEA-75A41488BB6E}</Project>
+      <Name>RedSky.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Exceptions\RedSky.Exceptions.csproj">
+      <Project>{655E32EA-E550-4DAE-A751-323D5897E96C}</Project>
+      <Name>RedSky.Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedSky.Utilities\RedSky.Utilities.csproj">
+      <Project>{0B8BCDB4-9282-4E47-BC96-40F369F2E407}</Project>
+      <Name>RedSky.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeCancelarNFSe\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeCancelarNFSe\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeCancelarNFSe\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeConsultarNFSePorRPS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\SPTatuiNFSeRecepcionarLoteRPSSincrono\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

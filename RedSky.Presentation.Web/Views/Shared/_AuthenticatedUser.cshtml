@@ -1,0 +1,21 @@
+﻿@model RedSky.Presentation.Web.ViewModels.AuthenticatedUserViewModel
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <span class="noti glyphicon glyphicon-bell">
+            <span class="count">&nbsp;</span>
+        </span>
+        <div class="noti-content">
+            <div class="noti-top-arrow"></div>
+            <ul id="notiContent"></ul>
+        </div>
+    </li>
+    <li>
+        <a class="modal-link" data-targeturl="@Url.Action("SimpleEdit", "Usuarios", new {idUsuario = @Model.Id})">
+            <span><img class="circleBase type2-sm-header" src="@string.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(@Model.Picture))" alt=""/></span> @Model.Name
+        </a>
+    </li>
+    <li>
+        <a class="logout" href="@Url.Action("Logout", "Home")"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+    </li>
+</ul>

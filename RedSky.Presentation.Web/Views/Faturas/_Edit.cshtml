@@ -1,0 +1,694 @@
+﻿@using System.Globalization
+@model RedSky.Presentation.Web.ViewModels.FaturaViewModel
+
+@{
+    Layout = "../Shared/_Modal.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="color: #000000">Alterar @Model.Identificacao</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.Mes)
+            @Html.HiddenFor(model => model.Ano)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Identificacao, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Identificacao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Identificacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdFilial, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.IdFilial, new SelectList(ViewBag.Filiais, "Id", "Identificacao", Model.IdFilial), "Selecione a filial", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdFilial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdCliente, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+
+                    @Html.DropDownListFor(model => model.IdCliente, new SelectList(ViewBag.Clientes, "Id", "Apelido", Model.IdCliente), "Selecione o cliente", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Competencia, new { @class = "control-label col-sm-2" })
+                <div class="col-md-2">
+
+                    @Html.EditorFor(model => model.Competencia, new { htmlAttributes = new { @class = "form-control monthPicker" } })
+                    @Html.ValidationMessageFor(model => model.Competencia, "", new { @class = "text-danger" })
+
+                </div>
+                @Html.LabelFor(model => model.DataVencimento, new { @class = "control-label col-sm-2" })
+                <div class="col-md-2">
+
+                    @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control vencimentoPicker" } })
+                    @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsProcessavel, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+
+                    @Html.CheckBoxFor(model => model.IsProcessavel, new { @class = "checkbox" })
+                    @Html.ValidationMessageFor(model => model.IsProcessavel, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group" id="demonstrativo">
+                @Html.LabelFor(model => model.IdDemonstrativo, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+
+                    @Html.DropDownListFor(model => model.IdDemonstrativo, new SelectList(ViewBag.Demonstrativos, "Id", "Nome", Model.IdDemonstrativo), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdDemonstrativo, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HasRetencao, new { @class = "control-label col-sm-2" })
+                <div class="col-md-6">
+
+                    @Html.CheckBoxFor(model => model.HasRetencao, new { @class = "checkbox" })
+                    @Html.ValidationMessageFor(model => model.HasRetencao, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <table id="tbValores" class="table table-responsive table-hover">
+                    <tr>
+
+                        <td>
+                            @Html.LabelFor(model => model.AliquotaCOFINS, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaCOFINS, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => model.AliquotaCSLL, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaCSLL, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => model.AliquotaINSS, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaINSS, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => model.AliquotaIR, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaIR, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => model.AliquotaPIS, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.AliquotaPIS, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdAtividade, new { @class = "control-label col-sm-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.IdAtividade, new SelectList(ViewBag.Atividades, "Id", "Exibicao", Model.IdAtividade), "Selecione a atividade", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.IdAtividade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div id="tbImpostos" class="col-sm-offset-2 col-md-8">
+                    <table class="table table-responsive table-hover">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <label id="atDescricao"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Local de Incidência: </label>
+                                    <label id="atLocalIncidencia" class="text-info"></label>
+                                </td>
+                                <td>
+                                    <label>Utilização: </label>
+                                    <label id="atUtilizacao" class="text-info"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Tributação: </label>
+                                    <label id="atTributacao" class="text-info"></label>
+                                </td>
+                                <td>
+                                    <label>Dedução de Valor: </label>
+                                    <label id="atDeducaoValor" class="text-info"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Dedução: </label>
+                                    <label id="atDeducao" class="text-info"></label>
+                                </td>
+                                <td>
+                                    <label>Serviço: </label>
+                                    <label id="atServico" class="text-info"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Grupo: </label>
+                                    <label id="atGrupo" class="text-info"></label>
+                                </td>
+                                <td>
+                                    <label>Itens: </label>
+                                    <label id="atItenss" class="text-info"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Imune: </label>
+                                    <label id="atImune" class="text-info"></label>
+                                </td>
+                                <td>
+                                    <label>Isento: </label>
+                                    <label id="atIsento" class="text-info"></label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div id="dadosAtividade" class="col-sm-offset-2 col-md-8" style="border: 1px solid #3a3a5e">
+
+                    <div class="form-group">
+                        <label class="col-md-5 text-center" style="background: white; margin-left: 12px; margin-top: -12px;">Dados da Prestação do Serviço</label>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdTipoRecolhimento, new { @class = "control-label col-sm-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.IdTipoRecolhimento, new SelectList(ViewBag.TiposRecolhimentos, "Id", "Descricao", Model.IdTipoRecolhimento), new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdEstadoPrestacao, new { @class = "control-label col-sm-2" })
+                        <div class="col-md-2 ">
+
+                            @Html.DropDownListFor(model => model.IdEstadoPrestacao, new SelectList(ViewBag.EstadosPrestacao, "Id", "Sigla", Model.IdEstadoPrestacao), "", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IdCidadePrestacao, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        @Html.LabelFor(model => model.IdCidadePrestacao, new { @class = "control-label col-sm-2" })
+                        <div class="col-md-6">
+
+                            @Html.DropDownListFor(model => model.IdCidadePrestacao, new SelectList(ViewBag.CidadesPrestacao, "Id", "Nome", Model.IdCidadePrestacao), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IdCidadePrestacao, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AliquotaISS, new { @class = "control-label col-sm-10" })
+                        <div class="col-md-2">
+
+                            @Html.EditorFor(model => model.AliquotaISS, new { htmlAttributes = new { @class = "form-control input-filterDecimal", style = "text-align: right", type = "text" } })
+                            @Html.ValidationMessageFor(model => model.AliquotaISS, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descritivo, new { @class = "control-label col-sm-2" })
+                <div class="col-md-8">
+
+                    @Html.TextAreaFor(model => model.Descritivo, new { @class = "form-control", style = "resize: none;", rows = 8 })
+                    @Html.ValidationMessageFor(model => model.Descritivo, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-sm-1">
+                    <label>TAGS</label>
+
+                    <input type="button" id="btnComp" class="btn btn-redSky-clicked" value="@Html.Raw("@")COMPETENCIA" style="font-size: 10px; margin-top: 4px;" onclick="addValueToTextBox(this.value)" />
+                    <input type="button" id="btnVenc" class="btn btn-redSky-clicked" value="@Html.Raw("@")VENCIMENTO" style="font-size: 10px; margin-top: 4px;" onclick="addValueToTextBox(this.value)" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        @if (!Model.IsProcessado && !Model.IsFaturado)
+        {
+            <input type="submit" id="btnSalvar" class="btn btn-redSky" value="Salvar" style="float: left" />
+        }
+
+        <button type="button" class="btn btn-redSky-clicked" data-dismiss="modal" style="float: right">Cancelar</button>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    var empresa = @Html.Raw(Json.Encode(ViewBag.Empresa));
+    var fll = @Html.Raw(Json.Encode(ViewBag.Filiais));
+    var atvs = @Html.Raw(Json.Encode(ViewBag.Atividades));
+
+    // OK
+    $(".form-control.input-filterDecimal").inputFilter(function(value) {
+        return /^-?\d*[@CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator]?\d*$/.test(value);
+    });
+
+    // Carrega o popup de faturamentos menor.
+    $('#container-resizer').first().removeClass('popup-modal');
+
+    $(document).ready(function() {
+        $("#IdFilial").change(function() {
+            filialComboBoxChange();
+        });
+        filialComboBoxChange();
+    });
+
+    // Lógica para carregar e selecionar cidade com o Id da mesma se fornecido
+    function loadCidades(slt) {
+        showProgress("Carregando...");
+        $.ajax({
+            url: '@Url.Action("GetCidadesPorEstado")',
+            type: 'GET',
+            cache: false,
+            data: { idEstado: $('#IdEstadoPrestacao').val() }
+        }).done(function(data) {
+            $('#IdCidadePrestacao').empty();
+            $.each(data,
+                function(index, row) {
+                    $('#IdCidadePrestacao').append("<option value='" + row.Id + "'>" + row.Nome + "</option>");
+                    if (slt !== 0) {
+                        $('#IdCidadePrestacao').val(slt);
+                    }
+                });
+            hideProgress();
+        });
+    }
+
+    $(document).ready(function() {
+        $("#IdEstadoPrestacao").change(function() {
+            loadCidades(0);
+        });
+    });
+
+    // Load demonstrativos combobox
+    // OK
+    $(document).ready(function() {
+        $('#IdCliente').change(function() {
+
+            if ($('#IdFilial').val() === "" || $('#IdCliente').val() === "")
+                $('#IdAtividade').attr('disabled', true);
+            else
+                $('#IdAtividade').attr('disabled', false);
+
+            // Já carrega os demonstrativos do cliente selecionado se o combobox de fatura processável estiver selecionado.
+            if ($('#IsProcessavel').is(':checked')) {
+                if ($('#IdCliente').val() !== 0) {
+                    showProgress("Carregando...");
+                    $.ajax({
+                        url: '@Url.Action("GetDemonstrativosPorCliente")',
+                        type: 'GET',
+                        cache: false,
+                        data: { idCliente: $('#IdCliente').val() }
+                    }).done(function(data) {
+
+                        $('#IdDemonstrativo').empty();
+                        $.each(data,
+                            function(index, row) {
+                                $('#IdDemonstrativo')
+                                    .append("<option value='" + row.Id + "'>" + row.Nome + "</option>");
+                            });
+                        hideProgress();
+                    });
+                }
+            }
+        });
+    });
+
+    // Loads cidade combobox
+    // OK
+    $(document).ready(function() {
+        $('#IdEstadoPrestacao').change(function() {
+            showProgress("Carregando...");
+            $.ajax({
+                url: '@Url.Action("GetCidadesPorEstado")',
+                type: 'GET',
+                cache: false,
+                data: { idEstado: $('#IdEstadoPrestacao').val() }
+            }).done(function(data) {
+                $('#IdCidadePrestacao').empty();
+                $.each(data,
+                    function(index, row) {
+                        $('#IdCidadePrestacao').append("<option value='" + row.Id + "'>" + row.Nome + "</option>");
+                    });
+                hideProgress();
+            });
+        });
+    });
+
+    // Instantly hide demonstrativo for Faturas processaveis
+    $(document).ready(function() {
+        if ($('#IsProcessavel').is(':checked'))
+            $('#demonstrativo').fadeIn(0);
+        else {
+            $("#IdDemonstrativo").empty();
+            $('#demonstrativo').fadeOut(0);
+            $('#IdDemonstrativo').val('');
+        }
+    });
+
+    $(function() {
+        $('#IsProcessavel').change(function() {
+            if ($('#IsProcessavel').is(':checked')) {
+                $('#demonstrativo').fadeIn();
+
+                if ($('#IdCliente').val() !== "") {
+
+                    showProgress("Carregando...");
+                    $.ajax({
+                        url: '@Url.Action("GetDemonstrativosPorCliente")',
+                        type: 'GET',
+                        cache: false,
+                        data: { idCliente: $('#IdCliente').val() }
+                    }).done(function(data) {
+
+                        $('#IdDemonstrativo').empty();
+                        $.each(data,
+                            function(index, row) {
+                                $('#IdDemonstrativo')
+                                    .append("<option value='" + row.Id + "'>" + row.Nome + "</option>");
+                            });
+                        hideProgress();
+                    });
+                }
+            } else {
+                $('#IdDemonstrativo').empty();
+                $('#demonstrativo').fadeOut(0);
+                $('#IdDemonstrativo').val('');
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#HasRetencao').change(function() {
+            retencaoCheck();
+        });
+        retencaoCheck();
+    });
+
+    $(document).ready(function() {
+        $('#IdAtividade').change(function() {
+            atividadeComboBoxChange();
+        });
+        atividadeComboBoxChange();
+    });
+
+    // Competencia datetimer
+    $(document).ready(function() {
+        $(".monthPicker").datepicker({
+            dateFormat: 'mm yy',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+
+            onClose: function(dateText, inst) {
+                var year = inst.selectedYear;
+                var month = inst.selectedMonth;
+                $(this).val($.datepicker.formatDate('mm/yy', new Date(year, month, 1)));
+            }
+        });
+
+        $(".monthPicker").focus(function() {
+            $(".ui-datepicker-calendar").hide();
+            $("#ui-datepicker-div").position({
+                my: "left",
+                at: "right",
+                of: $(this)
+            });
+        });
+    });
+
+    // Adiciona mascara de competencia
+    $(document).ready(function() {
+        $("#Competencia").mask("99/9999");
+    });
+
+    // Adiciona mascara de data
+    $(document).ready(function() {
+        $("#DataVencimento").mask("99/99/9999");
+    });
+
+    // Validade datetimer
+    $(document).ready(function() {
+        $(".vencimentoPicker").datepicker({
+            dateFormat: "dd/mm/yyyy",
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            constrainInput: true,
+            nextText: '>',
+            prevText: '<',
+
+            onClose: function(dateText, inst) {
+                var year = inst.selectedYear;
+                var month = inst.selectedMonth;
+                var day = inst.selectedDay;
+                $(this).val($.datepicker.formatDate('dd/mm/yy', new Date(year, month, day)));
+            }
+        });
+
+        $(".vencimentoPicker").focus(function() {
+            $("#ui-datepicker-div").position({
+                my: "left",
+                at: "right",
+                of: $(this)
+            });
+        });
+    });
+
+    // Send form via ajax
+    $(function() {
+        $('form').submit(function() {
+            if ($(this).valid()) {
+
+                $('#IdFilial').attr('disabled', false);
+                $('#IdCliente').attr('disabled', false);
+                $('#IdAtividade').attr('disabled', false);
+
+                showProgress('Salvando alterações');
+                $('#modalbody').modal('hide');
+
+                $.ajax({
+                    url: '@Url.Action("Edit")',
+                    type: "POST",
+                    data: $(this).serialize(),
+
+                    // In case the model is invalid.
+                    error: function(result) {
+                        $('#modalbody').empty();
+                        $('#modalbody').html(result.responseText);
+
+                        hideProgress();
+                        $('#modal-container').modal('show');
+                    },
+
+                    // In case the model is valid.
+                    success: function(result) {
+                        $('#modal-container').modal('hide');
+
+                        // Limpa a div com os dados da tabela original para forçar o recarregamento com o novo Lote RPS.
+                        $('#partial-container').empty();
+                        $('#partial-container').html(result).fadeIn();
+                        hideProgress();
+                    }
+                });
+            }
+            return false;
+        });
+    });
+
+    function addValueToTextBox(txt) {
+        var fulltxt = $('#Descritivo').val();
+        $('#Descritivo').val(fulltxt + ' ' + txt);
+    }
+
+    function filialComboBoxChange() {
+        if ($('#IdFilial').val() === "" || $('#IdCliente').val() === "")
+                $('#IdAtividade').attr('disabled', true);
+            else
+                $('#IdAtividade').attr('disabled', false);
+    }
+
+    function retencaoCheck() {
+        var val = $('#HasRetencao').is(':checked');
+
+        if (val === true) {
+            $('#tbValores').fadeIn(0);
+
+            $('#AliquotaCOFINS')
+                .val(empresa.AliquotaCOFINS.toLocaleString(locale,
+                    { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#AliquotaCSLL')
+                .val(empresa.AliquotaCSLL.toLocaleString(locale,
+                    { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#AliquotaINNS')
+                .val(empresa.AliquotaINSS.toLocaleString(locale,
+                    { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#AliquotaIR')
+                .val(empresa.AliquotaIR.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            $('#AliquotaPIS')
+                .val(empresa.AliquotaPIS.toLocaleString(locale,
+                    { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        } else {
+            $('#tbValores').fadeOut(0);
+            $('#AliquotaCOFINS').val(0);
+            $('#AliquotaCSLL').val(0);
+            $('#AliquotaINNS').val(0);
+            $('#AliquotaIR').val(0);
+            $('#AliquotaPIS').val(0);
+        }
+    }
+
+    function atividadeComboBoxChange() {
+
+        if ($('#IdAtividade').val() === "") {
+            $('#atDescricao')[0].innerHTML = '';
+            $('#atLocalIncidencia')[0].innerHTML = '';
+            $('#atUtilizacao')[0].innerHTML = '';
+            $('#atTributacao')[0].innerHTML = '';
+            $('#atDeducao')[0].innerHTML = '';
+            $('#atDeducaoValor')[0].innerHTML = '';
+            $('#atServico')[0].innerHTML = '';
+            $('#atGrupo')[0].innerHTML = '';
+            $('#atItenss')[0].innerHTML = '';
+            $('#atImune')[0].innerHTML = '';
+            $('#atIsento')[0].innerHTML = "";
+            $('#dadosAtividade').fadeOut(0);
+            $('#tbImpostos').fadeIn(0);
+            $('#Tipo_de_Recolhimento').val('');
+            $('#IdEstadoPrestacao').val('');
+            $('#IdCidadePrestacao').empty();
+            $('#IdCidadePrestacao').val('');
+            $('#AliquotaISS').val('');
+
+            $('#atDescricao').attr('disabled', true);
+            $('#IdFilial').attr('disabled', false);
+            $('#IdCliente').attr('disabled', false);
+            $('#btnComp').attr('disabled', true);
+            $('#btnVenc').attr('disabled', true);
+            $('#btnSalvar').attr('disabled', true);
+            $('#Descritivo').attr('disabled', true);
+            $('#IdTipoRecolhimento').attr('disabled', true);
+            $('#IdEstadoPrestacao').attr('disabled', true);
+            $('#IdCidadePrestacao').attr('disabled', true);
+            $('#AliquotaISS').attr('disabled', true);
+        } else {
+
+            $('#IdFilial').attr('disabled', true);
+            $('#IdCliente').attr('disabled', true);
+
+            var data = atvs.find(x => x.Id === parseInt($('#IdAtividade').val()));
+
+            $('#atDescricao')[0].innerHTML = data.Servico;
+            $('#atLocalIncidencia')[0].innerHTML = data.Incidencia;
+            $('#atUtilizacao')[0].innerHTML = data.Utilizacao;
+            if (data.Tributacao === 'Tributável') {
+                $('#atTributacao')[0].innerHTML = 'Sim';
+            } else if (data.Tributacao === 'Sem Dedução') {
+                $('#atDeducao')[0].innerHTML = 'Não';
+                $('#atDeducaoValor')[0].innerHTML = '';
+            }
+            if (data.IsServico === true)
+                $('#atServico')[0].innerHTML = 'Sim';
+            else
+                $('#atServico')[0].innerHTML = 'Não';
+            $('#atGrupo')[0].innerHTML = data.Grupo;
+            $('#atItenss')[0].innerHTML = data.ItensServico;
+            if (data.IsImune === true)
+                $('#atImune')[0].innerHTML = 'Sim';
+            else
+                $('#atImune')[0].innerHTML = 'Não';
+            if (data.IsIsento === true)
+                $('#atIsento')[0].innerHTML = 'Sim';
+            else
+                $('#atIsento')[0].innerHTML = 'Não';
+
+            // Popula o combobox para incidencia no municipio
+            if (data.IdIncidencia === 1) {
+                $('#IdTipoRecolhimento').val(2);
+
+                // Load UF e SIAFI - CLIENTE
+                var clList = @Html.Raw(Json.Encode(ViewBag.Clientes));
+                var clienteData = clList.find(c => c.Id === parseInt($("#IdCliente").val()));
+
+                $('#IdEstadoPrestacao').val(clienteData.IdEstado);
+                loadCidades(clienteData.IdCidade);
+
+            } else {
+                $('#IdTipoRecolhimento').val(1);
+
+                //Load UF e SIAFI - FILIAL
+                var filialData = fll.find(c => c.Id === parseInt($('#IdFilial').val()));
+
+                $('#IdEstadoPrestacao').val(filialData.IdEstado);
+                loadCidades(filialData.IdCidade);
+            }
+
+            $('#dadosAtividade').fadeIn(0);
+            $('#tbImpostos').fadeIn(0);
+            debugger;
+            var data = fll.find(x => x.Id === parseInt($('#IdFilial').val()));
+            $('#AliquotaISS').val(data.AliquotaISS.toLocaleString(locale,
+                { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+            $('#Descritivo').attr('disabled', false);
+            $('#IdTipoRecolhimento').attr('disabled', false);
+            $('#IdEstadoPrestacao').attr('disabled', false);
+            $('#IdCidadePrestacao').attr('disabled', false);
+            $('#AliquotaISS').attr('disabled', false);
+            $('#btnComp').attr('disabled', false);
+            $('#btnVenc').attr('disabled', false);
+            $('#btnSalvar').attr('disabled', false);
+            }
+
+    }
+
+</script>

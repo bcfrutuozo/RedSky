@@ -1,0 +1,53 @@
+﻿@using System.Text
+@model IEnumerable<RedSky.Presentation.Web.ViewModels.UsuarioViewModel>
+
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <td></td>
+            <td class="text-center" style="white-space: initial">@Html.DisplayNameFor(model => model.Nome)</td>
+            <td class="text-center" style="white-space: initial">@Html.DisplayNameFor(model => model.Login)</td>
+
+            @if (Convert.ToInt32(Session["IdEmpresa"]) == 0)
+            {
+                <td class="text-center" style="white-space: initial">@Html.DisplayNameFor(model => model.Empresa)</td>
+            }
+            <td class="text-center" style="white-space: initial">@Html.DisplayNameFor(model => model.Parametrizador)</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td class="text-center" style="white-space: initial; max-height: 32px; max-width: 32px; width: 32px; height: 32px">
+                    @if (item.Picture.Length > 0)
+                    {
+                        <img class="circleBase type2-sm" class="img-rounded" src="@string.Format("data:image/bmp;base64,{0}", Convert.ToBase64String(item.Picture))" alt="Image" width="32" height="32" />
+                    }
+                </td>
+                <td class="text-center" style="white-space: initial">@Html.DisplayFor(m => item.Nome)</td>
+                <td class="text-center" style="white-space: initial">@Html.DisplayFor(m => item.Login)</td>
+
+                @if (Convert.ToInt32(Session["IdEmpresa"]) == 0)
+                {
+                    <td class="text-center" style="white-space: initial">@Html.DisplayFor(m => item.Empresa)</td>
+                }
+                <td class="text-center" style="white-space: initial">@Html.DisplayFor(m => item.Parametrizador)</td>
+
+                <td class="text-right" style="white-space: nowrap;">
+                    <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Edit", new {idUsuario = item.Id})">Edit</button>
+
+                    <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Delete", new {idUsuario = item.Id})">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="15">
+                <button type="button" class="btn btn-redSky modal-link" data-targeturl="@Url.Action("Create", new {idEmpresa = ViewBag.IdEmpresa})">New User</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>

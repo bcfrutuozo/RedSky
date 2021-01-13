@@ -1,0 +1,100 @@
+﻿@model IEnumerable<RedSky.Presentation.Web.ViewModels.AtividadeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoAtividade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Servico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Incidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tributacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Operacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsServico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsImune)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsIsento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItensServico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grupo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utilizacao)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoAtividade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Incidencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tributacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Operacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsServico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsImune)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsIsento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItensServico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Utilizacao)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
+
+</table>
